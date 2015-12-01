@@ -1,3 +1,18 @@
+---
 usernm: "soehlert"
-projects_dir: "/home/{{ usernm }}/projects"
-ansible_secrets: "/home/{{ usernm }}/projects/ansible-secrets"
+
+system: osx
+os: osx
+
+executables:
+  brew: /usr/local/bin/brew
+  bash: /usr/local/bin/bash
+
+directories:
+  projects: /home/{{ usernm }}/projects
+  ansible_secrets: "/home/{{ usernm }}/projects/ansible-secrets"
+
+user:
+  name: "{{ usernm }}"
+  group: staff
+  shell: "{{ executables.bash }}"
