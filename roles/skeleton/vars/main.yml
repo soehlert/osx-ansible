@@ -1,0 +1,4 @@
+---
+usernm: {{ usernm }}
+project_dir: /home/{{ usernm }}/projects
+ssh_key_name: '["id_rsa", "bitbucket"]'

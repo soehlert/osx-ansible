@@ -1,0 +1,6 @@
+---
+- name: add vim
+  package : name=vim state=present
+
+- name: add wget
+  package : name=wget state=present

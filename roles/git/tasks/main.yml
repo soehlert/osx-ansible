@@ -1,0 +1,6 @@
+---
+- name: add yums for git
+  package : name={{ item }} state=present
+  with_items:
+    - rsync
+    - git

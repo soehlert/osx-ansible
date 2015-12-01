@@ -1,0 +1,10 @@
+---
+- hosts: osx-work
+  user: "{{ usernm }}"
+  become: true
+  become_user: root
+  roles:
+    - groups
+    - user
+    - packages
+    - git
