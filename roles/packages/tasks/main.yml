@@ -1,6 +1,8 @@
 ---
-- name: add vim
-  package : name=vim state=present
+- name: Install Xcode
 
-- name: add wget
-  package : name=wget state=present
+- name: Install homebrew
+
+- name: Install packages from homebrew
+
+- name: Install packages from homebrew cask

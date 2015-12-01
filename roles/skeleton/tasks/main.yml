@@ -1,0 +1,11 @@
+---
+- name: Create projects dir
+  file:
+    path={{ projects_dir }}
+    state=directory
+    owner={{ usernm }}
+    group={{ usernm }}
+    mode=0755
+
+- name: Create ssh key(s)
+
