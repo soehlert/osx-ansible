@@ -1,6 +1,3 @@
-admin_network: 10.0.0.0
-CIDR: 24
-
 usernm: "soehlert"
 projects_dir: "/home/{{ usernm }}/projects"
 ansible_secrets: "/home/{{ usernm }}/projects/ansible-secrets"
