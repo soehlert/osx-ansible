@@ -1,11 +1,16 @@
 ---
-- name: Create projects dir
+- name: Create directories
   file:
-    path={{ projects_dir }}
+    path={{ item }}
     state=directory
     owner={{ usernm }}
     group={{ usernm }}
     mode=0755
+  with_items:
+    - "{{ directories.projects }}"
+    - "{{ directories.ansible_secrets }}"
 
 - name: Create ssh key(s)
-
+  command: sudo -u {{ usernm }} ssh-keygen -t rsa -N "" -f {{ item }}
+  with_items:
+    "{{ ssh_keys }}"
