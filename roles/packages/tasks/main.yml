@@ -1,7 +1,6 @@
 ---
-- name: Install Xcode
-
 - name: Install homebrew
+
 
 - name: Install packages from homebrew
 

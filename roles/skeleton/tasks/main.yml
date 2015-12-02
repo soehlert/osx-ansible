@@ -9,6 +9,7 @@
   with_items:
     - "{{ directories.projects }}"
     - "{{ directories.ansible_secrets }}"
+    - "{{ directories.dotfiles }}"
 
 - name: Create ssh key(s)
   command: sudo -u {{ usernm }} ssh-keygen -t rsa -N "" -f {{ item }}

@@ -1,17 +1,2 @@
 ---
 usernm: "soehlert"
-home_dir: /Users/{{ usernm }}
-
-system: osx
-os: osx
-
-ssh_keys: '["id_rsa", "bitbucket"]'
-
-executables:
-  brew: /usr/local/bin/brew
-  bash: /usr/local/bin/bash
-
-directories:
-  projects: {{ home_dir }}/projects
-  ansible_secrets: {{ directories.projects }}/ansible-secrets
-  dotfiles: {{ home_dir }}/dotfiles
