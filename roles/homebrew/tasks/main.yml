@@ -3,5 +3,5 @@
 
 - name: Install homebrew (lil hacky to get unattended install)
   command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
-    args:
-      creates='/usr/local/bin/brew'
+  args:
+    creates='/usr/local/bin/brew'
