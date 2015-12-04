@@ -29,4 +29,3 @@
   command: ssh-keygen -t rsa -N "" -f {{ item }}
   with_items:
     - "{{ ssh_key_name }}"
-  when: ssh_dir.stat.exists == True

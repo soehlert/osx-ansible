@@ -9,6 +9,6 @@
 
 - name: Xcode hack step 2 (tells software update to install all updates including dev tools)
   become: true
-  become_user: true
+  become_user: root
   command: softwareupdate -i -a
   when: xcode.changed
