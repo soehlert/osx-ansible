@@ -9,5 +9,5 @@
 
 - name: Install git
   homebrew:
-    name=git
-    state=present
+    name: git
+    state: present

@@ -3,10 +3,10 @@
 
 - name: Set up downloads folders for hazel
   file:
-    path="{{ home_dir }}/downloads/{{ item }}"
-    owner="{{ usernm }}"
-    group="{{ groupnm }}"
-    mode=0755
+    path: "{{ home_dir }}/downloads/{{ item }}"
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: 0755
   with_items:
     - Android
     - Audacity

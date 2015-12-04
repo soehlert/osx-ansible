@@ -11,22 +11,22 @@
 
 - name: Install default packages from homebrew
   homebrew:
-    name="{{ item }}"
-    state=present
+    name: "{{ item }}"
+    state: present
   with_items:
     - "{{ brews }}"
 
 - name: Install packages from homebrew cask
   homebrew_cask:
-    name="{{ item }}"
-    state=present
+    name: "{{ item }}"
+    state: present
   with_items:
     - "{{ common_casks }}"
 
 - name: Install extra casks (useful for home laptop)
   homebrew_cask:
-    name="{{ item }}"
-    state=present
+    name: "{{ item }}"
+    state: present
   when: "'osx-personal' in group_names"
   with_items:
     - "{{ extra_casks }}"
