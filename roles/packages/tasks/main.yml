@@ -1,19 +1,18 @@
 ---
-- name: Install homebrew (lil hacky to get unattended install)
-  command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
-    args:
-      creates='/usr/local/bin/brew'
-  register: brew_installed
+#### Install packages using Homebrew
+# brews list in vars/main
+# casks list in vars/main
+# extra casks for stuff I don't want on work machines
+# add/remove as necessary
+####
 
 - name: Update homebrew
   homebrew: update_homebrew=yes
-  when: brew_installed.stat.exist == True
 
 - name: Install default packages from homebrew
   homebrew:
     name="{{ item }}"
     state=present
-  when: brew_installed.stat.exist == True
   with_items:
     "{{ brews }}"
 

@@ -1,4 +1,9 @@
 ---
+#### Grab your dotfiles
+# Set dotfiles_repo in vars/main
+# dotfiles_dir is set in defaults, LEAVE ALONE
+####
+
 - name: Create dotfiles dir
   file:
     path="{{ dotfiles_dir }}"

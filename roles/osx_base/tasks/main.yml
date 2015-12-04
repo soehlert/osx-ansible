@@ -1,4 +1,12 @@
 ---
+#### Some base setup including ssh keys
+# projects dir is set in vars/main
+#
+# ssh keys are the key pairs you want made
+# by default it only creates id_rsa
+# add an array in vars/main to overwrite
+####
+
 - name: Create directories
   file:
     path="{{ item.path }}"
@@ -7,8 +15,7 @@
     group="{{ usernm }}"
     mode="{{ item.mode }}"
   with_items:
-    - { path: '{{ projects_dir }}', mode: '0775' }
-    - { path: '{{ ansible_secrets }}', mode: '0775' }
+    - { path: '{{ projects_dir }}', mode: '0755' }
     - { path: '{{ home_dir }}/.ssh', mode: '0700' }
 
 - name: Create ssh key(s)

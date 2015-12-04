@@ -1,10 +1,18 @@
 ---
-- hosts: osx
+#### Set up OSX machines
+# One variable to set up is usernm in group_vars/all
+# Comment out any module you don't want, buuuut
+# beware dependencies of modules
+####
+
+- name: Set up osx host
+  hosts: osx
   user: "{{ usernm }}"
   roles:
     - osx_base
     - xcode
-    - packages
+    - homebrew
+    - git
     - dotfiles
     - tweaks
     - hazel

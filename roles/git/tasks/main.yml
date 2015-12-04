@@ -1,0 +1,13 @@
+---
+#### Install git using Homebrew
+# Not in packages in case you want dotfiles
+# but not a bunch of other packages
+####
+
+- name: Update homebrew
+  homebrew: update_homebrew=yes
+
+- name: Install git
+  homebrew:
+    name=git
+    state=present

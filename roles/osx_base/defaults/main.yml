@@ -1,5 +1,3 @@
 ---
-projects: {{ home_dir }}/projects
-ansible_secrets: {{ projects }}/ansible-secrets
-
-sh_keys: '["id_rsa"]'
+sh_keys:
+  - id_rsa
