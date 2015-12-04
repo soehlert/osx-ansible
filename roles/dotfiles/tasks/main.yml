@@ -8,7 +8,7 @@
   file:
     path="{{ dotfiles_dir }}"
     owner="{{ usernm }}"
-    group="{{ usernm }}"
+    group="{{ groupnm }}"
     mode=0755
 
 - name: Clone dotfiles repo

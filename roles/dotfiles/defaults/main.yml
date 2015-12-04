@@ -1,2 +1,2 @@
 ---
-dotfiles: {{ home_dir }}/dotfiles
+dotfiles: "{{ home_dir }}/dotfiles"

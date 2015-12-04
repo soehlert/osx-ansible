@@ -20,5 +20,5 @@
 - name: Create ssh key(s)
   command: ssh-keygen -t rsa -N "" -f {{ item }}
   with_items:
-    "{{ ssh_keys }}"
+    - "{{ ssh_keys }}"
   when: ssh_dir.stat.exists == True

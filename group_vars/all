@@ -1,3 +1,4 @@
 ---
 usernm: "soehlert"
+groupnm: "staff"
 home_dir: /Users/{{ usernm }}
