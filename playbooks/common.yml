@@ -12,6 +12,7 @@
     - osx_base
     - xcode
     - homebrew
+    - packages
     - git
     - dotfiles
     - tweaks
