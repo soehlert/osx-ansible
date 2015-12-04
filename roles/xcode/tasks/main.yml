@@ -3,8 +3,8 @@
 
 - name: XCode hack step 1 (tells softwareupdate to show additional developer-tools)
   command: touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-    args:
-      creates: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+  args:
+    creates: /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
   register: xcode
 
 - name: Xcode hack step 2 (tells software update to install all updates including dev tools)
