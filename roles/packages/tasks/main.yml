@@ -27,6 +27,6 @@
   homebrew_cask:
     name="{{ item }}"
     state=present
-  when: 'osx-personal' in group_names
+  when: "'osx-personal' in group_names"
   with_items:
     "{{ extra_casks }}"
