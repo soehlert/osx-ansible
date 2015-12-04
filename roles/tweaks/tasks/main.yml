@@ -265,3 +265,6 @@
     - rm /Private/var/vm/sleepimage
     - touch /Private/var/vm/sleepimage
     - chflags uchg /Private/var/vm/sleepimage
+
+- name: Always show the Users' Library folder
+  command: chflags nohidden {{ home_dir }}/Library/
