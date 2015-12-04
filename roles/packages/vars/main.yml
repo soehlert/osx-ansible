@@ -1,0 +1,57 @@
+---
+brews:
+  - bash
+  - bash-completion
+  - boot2docker
+  - cask
+  - cmake
+  - gettext
+  - git
+  - gmp
+  - gnutls
+  - libevent
+  - libgcrypt
+  - libgpg-error
+  - libtasn1
+  - nettle
+  - nmap
+  - openssl
+  - python
+  - ssh-copy-id
+  - stow
+  - tmux
+  - unrar
+  - vim
+  - wget
+  - xz
+
+common_casks:
+  - 1password
+  - adium
+  - appcleaner
+  - atom
+  - bartender
+  - crashplan
+  - dropbox
+  - flashlight
+  - flux
+  - google-chrome
+  - gpgtools
+  - iterm2
+  - slack
+  - the-unarchiver
+  - tunnelblick
+  - vagrant
+  - virtualbox
+  - xquartz
+
+extra_casks:
+  - audacity
+  - bittorrent-sync
+  - evernote
+  - hazel
+  - logitech-harmony
+  - monolingual
+  - onyx
+  - vlc
+  - ynab

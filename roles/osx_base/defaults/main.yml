@@ -1,7 +1,5 @@
 ---
-home_dir: /Users/{{ usernm }}
 projects: {{ home_dir }}/projects
 ansible_secrets: {{ projects }}/ansible-secrets
-dotfiles: {{ home_dir }}/dotfiles
 
 sh_keys: '["id_rsa"]'

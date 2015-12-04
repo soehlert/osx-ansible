@@ -1,0 +1,2 @@
+---
+dotfiles: {{ home_dir }}/dotfiles

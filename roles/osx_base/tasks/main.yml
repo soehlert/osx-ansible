@@ -1,27 +1,18 @@
 ---
 - name: Create directories
   file:
-    path="{{ item }}"
+    path="{{ item.path }}"
     state=directory
     owner="{{ usernm }}"
     group="{{ usernm }}"
-    mode=0755
+    mode="{{ item.mode }}"
   with_items:
-    - "{{ projects }}"
-    - "{{ ansible_secrets }}"
-    - "{{ dotfiles }}"
-
-- name: Create ssh directory
-  file:
-    path={{ home_dir }}/.ssh
-    state=directory
-    owner="{{ usernm }}"
-    group="{{ usernm }}"
-    mode=0700
-  register: ssh_dir
+    - { path: '{{ projects_dir }}', mode: '0775' }
+    - { path: '{{ ansible_secrets }}', mode: '0775' }
+    - { path: '{{ home_dir }}/.ssh', mode: '0700' }
 
 - name: Create ssh key(s)
-  command: sudo -u {{ usernm }} ssh-keygen -t rsa -N "" -f {{ item }}
+  command: ssh-keygen -t rsa -N "" -f {{ item }}
   with_items:
     "{{ ssh_keys }}"
   when: ssh_dir.stat.exists == True

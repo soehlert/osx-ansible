@@ -1,7 +1,8 @@
 ---
 - hosts: osx
   user: "{{ usernm }}"
-  become: true
-  become_user: root
   roles:
     - osx_base
+    - xcode
+    - packages
+    - dotfiles
