@@ -33,7 +33,6 @@ common_casks:
   - bartender
   - crashplan
   - dropbox
-  - flashlight
   - flux
   - google-chrome
   - gpgtools

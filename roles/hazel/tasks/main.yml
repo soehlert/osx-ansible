@@ -1,7 +1,5 @@
 ---
 #### Set up downloads dirs for hazel
-#
-####
 
 - name: Set up downloads folders for hazel
   file:
