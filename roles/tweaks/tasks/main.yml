@@ -1,240 +1,230 @@
 ---
 #### Tweak a lot of OSX built ins
-# Set hostname in vars/main
 # Set path for new finder window in vars/main
 # Set path for screenshots in vars/main
 # Set timezone in vars/main
 #
 # Not an exact list anywhere, but to see more defaults write options: http://www.defaults-write.com/
-# set value of any bool to the false to turn it off
+# need to quote the values because this module is a bit buggy
 ####
 
-- name: Set computer name
-  become: true
-  become_user: root
-  command: "scutil --set {{ item }} {{ hostname }}"
-  with_items:
-    - ComputerName
-    - HostName
-    - LocalHostName
-
-- name: Defaults host name
-  osx_defaults:
-    domain: com.apple.smb.server
-    key: NetBIOSName
-    type: string
-    value: "{{ hostname }}"
-
 - name: Finder tweaks
-  osx_defaults:
-    domain: com.apple.finder
-    key: "{{ item.key }}"
+  osx_defaults: 
+    domain: com.apple.finder 
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Popup when emptying trash
-    - { key: WarnOnEmptyTrash, type: bool, value: true }
-    # Empty trash securely by default
-    - { key: EmptyTrashSecurely, type: bool, value: true }
-    # Options clmv=column, list=list, icnv=icon, flwv=flow
-    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
-    # Allow for highlighting in quicklook
-    - { key: QLEnableTextSelection, type: bool, value: true }
+    - { key: EmptyTrashSecurely, type: bool, value: "true" }
+    # Choose Finder window view; Options clmv=column, list=list, icnv=icon, flwv=flow
+    - { key: FXPreferredViewStyle, type: string, value: "clmv" } 
+    - { key: WarnOnEmptyTrash, type: bool, value: "true" }
+    # Allow highlighting in quick look
+    - { key: QLEnableTextSelection, type: bool, value: "true" }
     # Show POSIX path in titlebar of Finder windows
-    - { key: _FXShowPosixPathInTitle, type: bool, value: true }
-    # Show hidden files by default
-    - { key: AppleShowAllFiles, type: bool, value: true }
-    # Show external HD on desktop
-    - { key: ShowHardDrivesOnDesktop, type: bool, value: false }
-    # Show remote servers mounted on desktop
-    - { key: ShowMountedServersOnDesktop, type: bool, value: false }
-    # Show removable media on desktop
-    - { key: ShowRemovableMediaOnDesktop, type: bool, value: false }
-    # Next two are to change default window when opening new Finder window
+    - { key: _FXShowPosixPathInTitle, type: bool, value: "true" }
+    - { key: AppleShowAllFiles, type: bool, value: "false" }
+    - { key: ShowHardDrivesOnDesktop, type: bool, value: "false" }
+    - { key: ShowMountedServersOnDesktop, type: bool, value: "false" }
+    - { key: ShowExternalDisksOnDesktop, type: bool, value: "false" }
+    - { key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
+    # Next two change what new Finder window opens to
     - { key: NewWindowTarget, type: string, value: "PfLo" }
     - { key: NewWindowTargetPath, type: string, value: "{{ finder_new_window_path }}" }
-    # Disable Finder animations
-    - { key: DisableAllAnimations, type: bool, value: true }
-    # Show are you sure when quitting
-    - { key: QuitMenuItem, type: bool, value: false }
+    - { key: DisableAllAnimations, type: bool, value: "true" }
+    # Show the "Are you sure?" when quitting
+    - { key: QuitMenuItem, type: bool, value: "false" }
+  notify: kill Finder
 
 - name: Global tweaks
-  osx_defaults:
+  osx_defaults: 
     domain: NSGlobalDomain
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Show all extensions
-    - { key: AppleShowAllExtensions, type: bool, value: true }
-    # Disable Menu Bar Transparency
-    - { key: AppleEnableMenuBarTransparency, type: bool, value: true }
-    # Enable dark mode
-    - { key: AppleInterfaceStyle, type: string, value: "Dark" }
-    # Enable spring loading for directories
-    - { key: com.apple.springing.enabled, type: bool, value: true }
+    - { key: AppleShowAllExtensions, type: bool, value: "false" }
+    - { key: AppleEnableMenuBarTransparency, type: bool, value: "true" }
+    # Enable Dark Mode
+    - { key: AppleInterfaceStyle, type: string, value: "Dark" } 
+    # Spring loading for directories
+    - { key: com.apple.springing.enabled, type: bool, value: "true" }
     # Remove the spring loading delay for directories
     - { key: com.apple.springing.delay, type: float, value: 0 }
-    # When to show scroll bars; Possible values: `WhenScrolling`, `Automatic` and `Always`
+    # When to show scroll bars; Possible values= `WhenScrolling`, `Automatic` and `Always`
     - { key: AppleShowScrollBars, type: string, value: "WhenScrolling" }
     # Smooth scrolling
-    - { key: NSScrollAnimationEnabled, type: bool, value: true }
-    # Next two default to expand save panel by default
-    - { key: NSNavPanelExpandedStateForSaveMode, type: bool, value: true }
-    - { key: NSNavPanelExpandedStateForSaveMode2, type: bool, value: true }
-    # Next two default to expand print panel by default
-    - { key: PMPrintingExpandedStateForPrint, type: bool, value: true }
-    - { key: PMPrintingExpandedStateForPrint2, type: bool, value: true }
-    # Save to disk (not to iCloud) by default
-    - { key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: false }
-    # Resume applications
-    - { key: NSQuitAlwaysKeepsWindows, type: bool, value: false }
+    - { key: NSScrollAnimationEnabled, type: bool, value: "true" }
+    # Default to expand save panel by default (not sure why there's two names for this)
+    - { key: NSNavPanelExpandedStateForSaveMode, type: bool, value: "true" }
+    - { key: NSNavPanelExpandedStateForSaveMode2, type: bool, value: "true" }
+    # Default to expand print panel by default (not sure why there's two names for this)
+    - { key: PMPrintingExpandedStateForPrint, type: bool, value: "true" }
+    - { key: PMPrintingExpandedStateForPrint2, type: bool, value: "true" }
+    # OSX defaults to saving to icloud
+    - { key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: "false" }
+    # Resume apps
+    - { key: NSQuitAlwaysKeepsWindows, type: bool, value: "false" }
     # Automatic termination of inactive apps
-    - { key: NSDisableAutomaticTermination, type: bool, value: true }
-    # Smart quotes and smart dashes
-    - { key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: false }
-    - { key: NSAutomaticDashSubstitutionEnabled, type: bool, value: false }
-    # Next few set language and text formats; Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with `Inches`, `en_GB` with `en_US`, and `true` with `false`
-    - { key: AppleLanguages, type: array, value: ["en", "nl"] }
+    - { key: NSDisableAutomaticTermination, type: bool, value: "true" }
+    # Stupid smart quotes and dashes
+    - { key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: "false" }
+    - { key: NSAutomaticDashSubstitutionEnabled, type: bool, value: "false" }
+    - { key: AppleLanguages, type: array, value: "['en', 'nl']" }
     - { key: AppleLocale, type: string, value: "en_US@currency=USD" }
     - { key: AppleMeasurementUnits, type: string, value: "Inches" }
-    - { key: AppleMetricUnits, type: bool, value: false }
-    # Auto-correct
-    - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: false }
+    - { key: AppleMetricUnits, type: bool, value: "false" }
+    # Auto correct spelling
+    - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false" }
     # Tap to click trackpad
     - { key: com.apple.mouse.tapBehavior, type: int, value: 1 }
-    # Natural Style Scrolling
-    - { key: com.apple.swipescrolldirection, type: bool, value: false }
+    # Natural style scrolling
+    - { key: com.apple.swipescrolldirection, type: bool, value: "false" }
 
-- name: Launch Services Tweaks
-  osx_defaults:
+- name: Launch Service tweaks
+  osx_defaults: 
     domain: com.apple.LaunchServices
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Disable the “Are you sure you want to open this application?” dialog
-    - { key: LSQuarantine, type: bool, value: false }
+    # Are you sure you want to open this application
+    - { key: LSQuarantine, type: bool, value: "false" }
 
-- name: Desktop Services Tweaks
-  osx_defaults:
+- name: Desktop Services tweaks
+  osx_defaults: 
     domain: com.apple.desktopServices
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Avoid creating .DS_Store files on network volumes
-    - { key: DSDontWriteNetworkStores, type: bool, value: true }
+    # dont write .ds_store files on network vols
+    - { key: DSDontWriteNetworkStores, type: bool, value: "true" }
 
-- name: Help Viewer Tweaks
-  osx_defaults:
+- name: Help Viewer tweaks
+  osx_defaults: 
     domain: com.apple.helpviewer
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Set Help Viewer windows mode; false=floating
-    - { key: DevMode, type: bool, value: true }
+    # Set help viewer window mode; false=floating
+    - { key: DevMode, type: bool, value: "true" }
 
-- name: Bluetooth Audio Tweaks
-  osx_defaults:
+- name: Bluetooth tweaks
+  osx_defaults: 
     domain: com.apple.BluetoothAudioAgent
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Increase sound quality for Bluetooth headphones/headsets
+    # higher quality with bluetooth headphones
     - { key: "Apple Bitpool Min (editable)", type: int, value: 40 }
 
-- name: Universal Access Tweaks
-  osx_defaults:
+- name: Universal Access tweaks
+  osx_defaults: 
     domain: com.apple.universalaccess
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Follow the keyboard focus while zoomed in
-    - { key: closeViewZoomFollowsFocus, type: bool, value: true }
+    # zoom to mouse
+    - { key: closeViewZoomFollowFocus, type: bool, value: "false" }
 
-- name: Screensaver Tweaks
-  osx_defaults:
+- name: Screensaver tweaks
+  osx_defaults: 
     domain: com.apple.screensaver
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Require password (value: 1) after sleep or screen saver begins
+    # Require password (value = 1) after sleep or screen saver begins
     - { key: askForPassword, type: int, value: 1 }
     # How long to wait to require password (0 = immediately)
-    - { key: askForPasswordDelay, type: int, value: 0 }
+    - { key: askForPasswordDelay, type: float, value: 0 }
 
-- name: Screencapture Tweaks
-  osx_defaults:
+- name: Screenshots tweaks
+  osx_defaults: 
     domain: com.apple.screencapture
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Save screenshots to your defined location
+    # choose where to save screenshots
     - { key: location, type: string, value: "{{ screenshots_dir }}" }
-    # Save screenshots format (options: PNG, BMP, GIF, JPG, PDF, TIFF)
-    - { key: type, type: string, valeu: "png" }
+    # Save screenshots to your defined location
+    - { key: type, type: string, value: "png" }
 
-- name: Dashboard Tweaks
-  osx_defaults:
+- name: Dashboard tweaks
+  osx_defaults: 
     domain: com.apple.dashboard
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Dashboard enable/disable
-    - { key: mcx-disabled, type: bool, value: true }
+    # Disable dashboard with true
+    - { key: mcx-disabled, type: bool, value: "true" }
 
-- name: Dock Tweaks
-  osx_defaults:
+- name: Dock tweaks
+  osx_defaults: 
     domain: com.apple.dock
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
-    # Change minimize/maximize window effect
+    # Change minimize/maximize effect
     - { key: mineffect, type: string, value: "scale" }
-    # Minimize windows into their application’s icon
-    - { key: minimize-to-application, type: bool, value: true }
+    # Minimize windows into their application's icon
+    - { key: minimize-to-application, type: bool, value: "true" }
     # Enable spring loading for all Dock items
-    - { key: enable-spring-load-actions-on-all-items, type: bool, value: true }
+    - { key: enable-spring-load-actions-on-all-items, type: bool, value: "true" }
     # Show indicator lights for open applications in the Dock
-    - { key: show-process-indicators, type: bool, value: true }
+    - { key: show-process-indicators, type: bool, value: "true" }
     # Animate opening applications from the Dock or naw
-    - { key: launchanim, type: bool, value: false }
+    - { key: launchanim, type: bool, value: "false" }
     # Don’t show Dashboard as a Space
-    - { key: dashboard-in-overlay, type: bool, value: true }
+    - { key: dashboard-in-overlay, type: bool, value: "false" }
     # Don’t automatically rearrange Spaces based on most recent use
-    - { key: mru-spaces, type: bool, value: false }
+    - { key: mru-spaces, type: bool, value: "false" }
     # Remove the animation when hiding/showing the Dock
     - { key: autohide-time-modifier, type: float, value: 0 }
     # Automatically hide and show the Dock
-    - { key: autohide, type: bool, value: true }
+    - { key: autohide, type: bool, value: "true" }
     # Make Dock icons of hidden applications translucent
-    - { key: showhidden, type: bool, value: true }
+    - { key: showhidden, type: bool, value: "true" }
     # Make Dock more transparent
-    - { key: hide-mirror, type: bool, value: true }
+    - { key: hide-mirror, type: bool, value: "true" }
+  notify: kill dock 
 
-- name: Time Machine Tweaks
-  osx_defaults:
+- name: Time Machine tweaks
+  osx_defaults: 
     domain: com.apple.TimeMachine
-    key: "{{ item.key }}"
+    key: "{{ item.key }}" 
     type: "{{ item.type }}"
     value: "{{ item.value }}"
+    state: present
   with_items:
     # Don't offer up each new external HD as a time machine destination
-    - { key: DoNotOfferNewDisksForBackup, type: bool, value: true }
+    - { key: DoNotOfferNewDisksForBackup, type: bool, value: "true" }
 
 - name: Disable local Time Machine snapshots
   become: true
   become_user: root
   command: tmutil disablelocal
 
+
+### Misc tweaks
 - name: Stop iTunes from responding to the keyboard media keys
   shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
@@ -257,14 +247,20 @@
     # Disable hibernate mode; useful with SSD
     - { name: hibernatemode, value: 0 }
 
+- name: Check size of sleep image
+  stat:
+    path: "{{ sleepimage }}"
+  register: sleep_image
+
 - name: Remove the sleep image file to save disk space
   become: true
   become_user: root
   command: "{{ item }}"
+  when: sleep_image.stat.size != 0
   with_items:
-    - rm /Private/var/vm/sleepimage
-    - touch /Private/var/vm/sleepimage
-    - chflags uchg /Private/var/vm/sleepimage
+    - rm -f "{{ sleepimage }}"
+    - touch "{{ sleepimage }}"
+    - chflags uchg "{{ sleepimage }}"
 
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/

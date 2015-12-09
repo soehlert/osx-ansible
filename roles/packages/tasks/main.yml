@@ -4,24 +4,72 @@
 # casks list in vars/main
 # extra casks for stuff I don't want on work machines
 # add/remove as necessary
+#
+# linking the prereqs is a little dirty
 ####
 
 - name: Update homebrew
   homebrew: update_homebrew=yes
+
+- name: Fix perms on /usr/local
+  file:
+    path: "/usr/local/{{ item }}"
+    owner: "{{ usernm }}"
+    group: admin
+    mode: 0755
+    recurse: yes
+    state: directory
+  become: true
+  become_user: root
+  with_items:
+    - bin
+    - share
+
+- name: Link prereqs
+  homebrew:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    # needed for python
+    - { name: gdbm, state: present }
+    - { name: gdbm, state: linked }
+    # needed for tmux
+    - { name: libevent, state: present }
+    - { name: libevent, state: linked }
+    # needed for lots of stuff
+    - { name: xz, state: present }
+    - { name: xz, state: linked }
 
 - name: Install default packages from homebrew
   homebrew:
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ brews }}"
+    "{{ brews }}"
+
+- name: Check for caskroom directory
+  stat:
+   path: /opt/homebrew-cask/Caskroom
+  register: caskroom
+
+- name: We need to make Caskroom for the first time at /opt/homebrew-cask/Caskroom
+  file:
+    path: /opt/homebrew-cask/Caskroom
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: 0755
+    recurse: true
+    state: directory
+  become: true
+  become_user: root
+  when: (caskroom.stat.exists == false) 
 
 - name: Install packages from homebrew cask
   homebrew_cask:
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ common_casks }}"
+    "{{ common_casks }}"
 
 - name: Install extra casks (useful for home laptop)
   homebrew_cask:
@@ -29,4 +77,4 @@
     state: present
   when: "'osx-personal' in group_names"
   with_items:
-    - "{{ extra_casks }}"
+    "{{ extra_casks }}"

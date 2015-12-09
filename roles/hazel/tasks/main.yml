@@ -3,9 +3,10 @@
 
 - name: Set up downloads folders for hazel
   file:
-    path: "{{ home_dir }}/downloads/{{ item }}"
+    path: "{{ home_dir }}/Downloads/{{ item }}"
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"
+    state: directory
     mode: 0755
   with_items:
     - Android
@@ -18,3 +19,8 @@
     - Pics
     - Video
     - Work
+
+- name: Install hazel from homebrew
+  homebrew_cask: 
+    name: hazel
+    state: present

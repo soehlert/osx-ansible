@@ -1,3 +1,2 @@
 ---
-sh_keys:
-  - id_rsa
+ssh_key_name: "{{ ssh_dir }}/id_rsa"

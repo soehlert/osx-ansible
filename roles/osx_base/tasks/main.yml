@@ -1,31 +1,47 @@
 ---
 #### Some base setup including ssh keys
 # projects dir is set in vars/main
+# hostname is set in vars/main
 #
-# ssh keys are the key pairs you want made
-# by default it only creates id_rsa
-# add an array in vars/main to overwrite
+# ssh_dir is set in defaults
+# ssh_key_name is in defaults
+# 
+# usernm/groupnm set in group_vars/all (YOU MUST SET THESE)
 ####
+
+- name: Set computer name
+  become: true
+  become_user: root
+  command: "scutil --set {{ item }} {{ hostname }}"
+  with_items:
+    - ComputerName
+    - HostName
+    - LocalHostName
+
+- name: Defaults host name
+  osx_defaults:
+    domain: com.apple.smb.server
+    key: NetBIOSName
+    type: string
+    value: "{{ hostname }}"
 
 - name: Create directories
   file:
-    path: "{{ item.path }}"
-    state: directory
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: "{{ item.mode }}"
+    path="{{ item.path }}"
+    state=directory
+    owner="{{ usernm }}"
+    group="{{ groupnm }}"
+    mode="{{ item.mode }}"
   with_items:
-    - { path: '{{ ssh_dir }}', mode: 0700 }
+    - { path: '{{ projects_dir }}', mode: '0755' }
+    - { path: '{{ ssh_dir }}', mode: '0700' }
+    - { path: '{{ ansible_secrets }}', mode: '0700' }
 
-- name: Need known_hosts
-  file:
-    path: "{{ ssh_dir }}/known_hosts"
-    state: file
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: 0644
+- name: Check if key exists
+  stat:
+    path: "{{ ssh_key_name }}"
+  register: ssh_key
 
 - name: Create ssh key(s)
-  command: ssh-keygen -t rsa -N "" -f {{ item }}
-  with_items:
-    - "{{ ssh_key_name }}"
+  command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
+  when: (ssh_key.stat.exists == false)

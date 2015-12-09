@@ -4,10 +4,19 @@
 # but not a bunch of other packages
 ####
 
-- name: Update homebrew
-  homebrew: update_homebrew=yes
-
 - name: Install git
   homebrew:
-    name: git
-    state: present
+    name=git
+    state=present
+
+- name: Configure .gitconfig file
+  template:
+    src=gitconfig.j2
+    dest=~/.gitconfig
+  when: git_config
+
+- name: Add all gitignore files
+  template:
+    src=gitignore.j2
+    dest="{{ git_config.core.excludesfile }}"
+  when: git_ignore and git_config.core is defined and git_config.core.excludesfile is defined

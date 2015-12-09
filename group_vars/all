@@ -1,4 +1,9 @@
 ---
-usernm: "soehlert"
-groupnm: "staff"
-home_dir: /Users/{{ usernm }}
+full_name: "Sam Oehlert"
+usernm: soehlert
+groupnm: staff
+email: soehlert@es.net
+home_dir: "/Users/{{ usernm }}"
+projects_dir: "{{ home_dir }}/projects"
+ssh_dir: "{{ home_dir }}/.ssh"
+ansible_secrets: "{{ projects_dir }}/ansible-secrets"

@@ -4,12 +4,38 @@
 # dotfiles_dir is set in defaults, LEAVE ALONE
 ####
 
+- name: Check if dir exists already
+  stat:
+    path: "{{ dotfiles_dir }}"
+  register: dotfiles_directory
+
 - name: Create dotfiles dir
   file:
     path: "{{ dotfiles_dir }}"
+    state: directory
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"
     mode: 0755
+  when: (dotfiles_directory.stat.exists == false)
+
+- name: Check if key exists alredy
+  stat:
+    path: "{{ ssh_dir }}/dotfiles"
+  register: dotfiles_key
+
+- name: Add deploy key
+  copy:
+    src: "{{ ansible_secrets }}/dotfiles" 
+    dest: "{{ ssh_dir }}/dotfiles"
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: 0600
+  when: (dotfiles_key.stat.exists == false)
+
+- name: Check if we've already cloned the repo
+  stat:
+    path: "{{ dotfiles_dir }}"
+  register: repo_cloned
 
 - name: Clone dotfiles repo
   git:
@@ -17,3 +43,5 @@
     dest: "{{ dotfiles_dir }}"
     update: yes
     accept_hostkey: yes
+    key_file: "{{ ssh_dir }}/dotfiles"
+  when: (repo_cloned.stat.exists == false)
