@@ -37,7 +37,6 @@ common_casks:
   - firefox
   - flux
   - google-chrome
-  - gpgtools
   - iterm2
   - slack
   - the-unarchiver
