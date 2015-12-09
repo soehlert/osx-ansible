@@ -27,11 +27,11 @@
 
 - name: Create directories
   file:
-    path="{{ item.path }}"
-    state=directory
-    owner="{{ usernm }}"
-    group="{{ groupnm }}"
-    mode="{{ item.mode }}"
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: "{{ item.mode }}"
   with_items:
     - { path: '{{ projects_dir }}', mode: '0755' }
     - { path: '{{ ssh_dir }}', mode: '0700' }

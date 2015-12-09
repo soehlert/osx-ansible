@@ -62,7 +62,7 @@
     state: directory
   become: true
   become_user: root
-  when: (caskroom.stat.exists == false) 
+  when: (caskroom.stat.exists == false)
 
 - name: Install packages from homebrew cask
   homebrew_cask:

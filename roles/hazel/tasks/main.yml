@@ -21,6 +21,6 @@
     - Work
 
 - name: Install hazel from homebrew
-  homebrew_cask: 
+  homebrew_cask:
     name: hazel
     state: present

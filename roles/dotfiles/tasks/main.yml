@@ -25,7 +25,7 @@
 
 - name: Add deploy key
   copy:
-    src: "{{ ansible_secrets }}/dotfiles" 
+    src: "{{ ansible_secrets }}/dotfiles"
     dest: "{{ ssh_dir }}/dotfiles"
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"

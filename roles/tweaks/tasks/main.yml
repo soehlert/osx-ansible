@@ -9,16 +9,16 @@
 ####
 
 - name: Finder tweaks
-  osx_defaults: 
-    domain: com.apple.finder 
-    key: "{{ item.key }}" 
+  osx_defaults:
+    domain: com.apple.finder
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
   with_items:
     - { key: EmptyTrashSecurely, type: bool, value: "true" }
     # Choose Finder window view; Options clmv=column, list=list, icnv=icon, flwv=flow
-    - { key: FXPreferredViewStyle, type: string, value: "clmv" } 
+    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
     - { key: WarnOnEmptyTrash, type: bool, value: "true" }
     # Allow highlighting in quick look
     - { key: QLEnableTextSelection, type: bool, value: "true" }
@@ -38,9 +38,9 @@
   notify: kill Finder
 
 - name: Global tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: NSGlobalDomain
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -48,7 +48,7 @@
     - { key: AppleShowAllExtensions, type: bool, value: "false" }
     - { key: AppleEnableMenuBarTransparency, type: bool, value: "true" }
     # Enable Dark Mode
-    - { key: AppleInterfaceStyle, type: string, value: "Dark" } 
+    - { key: AppleInterfaceStyle, type: string, value: "Dark" }
     # Spring loading for directories
     - { key: com.apple.springing.enabled, type: bool, value: "true" }
     # Remove the spring loading delay for directories
@@ -84,9 +84,9 @@
     - { key: com.apple.swipescrolldirection, type: bool, value: "false" }
 
 - name: Launch Service tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.LaunchServices
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -95,9 +95,9 @@
     - { key: LSQuarantine, type: bool, value: "false" }
 
 - name: Desktop Services tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.desktopServices
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -106,9 +106,9 @@
     - { key: DSDontWriteNetworkStores, type: bool, value: "true" }
 
 - name: Help Viewer tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.helpviewer
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -117,9 +117,9 @@
     - { key: DevMode, type: bool, value: "true" }
 
 - name: Bluetooth tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.BluetoothAudioAgent
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -128,9 +128,9 @@
     - { key: "Apple Bitpool Min (editable)", type: int, value: 40 }
 
 - name: Universal Access tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.universalaccess
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -139,9 +139,9 @@
     - { key: closeViewZoomFollowFocus, type: bool, value: "false" }
 
 - name: Screensaver tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.screensaver
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -152,9 +152,9 @@
     - { key: askForPasswordDelay, type: float, value: 0 }
 
 - name: Screenshots tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.screencapture
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -165,9 +165,9 @@
     - { key: type, type: string, value: "png" }
 
 - name: Dashboard tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.dashboard
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -176,9 +176,9 @@
     - { key: mcx-disabled, type: bool, value: "true" }
 
 - name: Dock tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.dock
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
@@ -205,12 +205,12 @@
     - { key: showhidden, type: bool, value: "true" }
     # Make Dock more transparent
     - { key: hide-mirror, type: bool, value: "true" }
-  notify: kill dock 
+  notify: kill dock
 
 - name: Time Machine tweaks
-  osx_defaults: 
+  osx_defaults:
     domain: com.apple.TimeMachine
-    key: "{{ item.key }}" 
+    key: "{{ item.key }}"
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
