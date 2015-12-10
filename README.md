@@ -2,6 +2,7 @@
 Ansible files for OSX local runs
 
 Before running you must:
+
 1. make sure remote login is enabled in System Prefs -> Sharing
 2.  Go here to grab latest version: http://releases.ansible.com/ansible/ (must be at least 2.0 to use osx tweaks)
 3.  xcode-select --install
@@ -12,6 +13,7 @@ Before running you must:
 8.  set variables in roles/*/vars/main.yml
 
 If you want to use dotfiles:
+
 1.  create {{ ansible_secrets }} directory
 2.  create deploy key for your repo
 3.  put deploy key into ansible_secrets repo with file name "dotfiles"
