@@ -33,6 +33,7 @@ common_casks:
   - atom
   - bartender
   - crashplan
+  - dash
   - dropbox
   - firefox
   - flux
