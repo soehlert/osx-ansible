@@ -6,14 +6,17 @@
 
 - name: Create dotfiles dir
   file:
-    path="{{ dotfiles_dir }}"
-    owner="{{ usernm }}"
-    group="{{ usernm }}"
-    mode=0755
+    path: "{{ dotfiles_dir }}"
+    owner: "{{ usernm }}"
+    group: "{{ usernm }}"
+    mode: 0755
+    state: directory
 
 - name: Clone dotfiles repo
   git:
-    repo="{{ dotfiles_repo }}"
-    dest="{{ dotfiles_dir }}"
-    update=yes
-    accept_hostkey=yes
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dir }}"
+    update: yes
+    accept_hostkey: yes
+    clone: yes
+    force: yes
