@@ -5,6 +5,7 @@ brews:
   - boot2docker
   - cask
   - cmake
+  - gdbm
   - gettext
   - git
   - gmp
@@ -33,22 +34,23 @@ common_casks:
   - bartender
   - crashplan
   - dropbox
+  - firefox
   - flux
   - google-chrome
-  - gpgtools
   - iterm2
   - slack
   - the-unarchiver
   - tunnelblick
   - vagrant
-  - virtualbox
+# virtualbox is currently broken, will have to install manually :/
+#  - virtualbox
   - xquartz
+  - zoom
 
 extra_casks:
   - audacity
   - bittorrent-sync
   - evernote
-  - hazel
   - logitech-harmony
   - monolingual
   - onyx

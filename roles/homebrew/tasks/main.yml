@@ -1,7 +1,55 @@
 ---
-#### Install packages using Homebrew
+#### Installs homebrew
 
-- name: Install homebrew (lil hacky to get unattended install)
-  command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
-    args:
-      creates='/usr/local/bin/brew'
+- name: Make directory for homebrew
+  file:
+    path: "{{ homebrew_dir }}"
+    state: directory
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: 0755
+
+- name: Grab tarball
+  get_url:
+    url: https://github.com/Homebrew/homebrew/tarball/master
+    dest: "{{ homebrew_dir }}"
+    mode: 0755
+    force: no
+  register: tarball_name
+
+- name: Check for unarchived tarball and skip if it's already there
+  stat:
+    path: "{{ tarball_name.dest.split('.')[0] }}"
+  register: tarball
+
+- name: Unarchive tarball
+  unarchive:
+    src: "{{ tarball_name.dest }}"
+    dest: "{{ homebrew_dir }}"
+  when: (tarball.stat.exists == false)
+
+- name: Check for brew link and skip if it's already there
+  stat:
+    path: /usr/local/bin/brew
+  register: brew
+
+- name: Symlink brew into PATH
+  file:
+    src: "{{ tarball_name.dest.split('.')[0] }}/bin/brew"
+    dest: /usr/local/bin/brew
+    state: link
+    owner: "{{ usernm }}"
+    group: admin
+  become: true
+  become_user: root
+  when: (brew.stat.exists == false)
+
+- name: Fix ownership of /usr/local/
+  file:
+    path: /usr/local
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: 0755
+    state: directory
+  become: true
+  become_user: root 

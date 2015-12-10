@@ -1,5 +1,2 @@
 ---
-projects: {{ home_dir }}/projects
-ssh_key_name:
-  - "id_rsa"
-  - "bitbucket"
+hostname: macpro
