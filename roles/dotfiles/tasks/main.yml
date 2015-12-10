@@ -43,5 +43,7 @@
     dest: "{{ dotfiles_dir }}"
     update: yes
     accept_hostkey: yes
+    clone: yes
+    force: yes
     key_file: "{{ ssh_dir }}/dotfiles"
   when: (repo_cloned.stat.exists == false)
