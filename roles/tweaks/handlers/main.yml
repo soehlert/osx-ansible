@@ -1,0 +1,8 @@
+---
+- name: kill finder
+  command: killall Finder
+  ignore_errors: true
+
+- name: kill dock
+  command: killall Dock
+  ignore_errors: true

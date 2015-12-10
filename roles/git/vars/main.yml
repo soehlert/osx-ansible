@@ -1,0 +1,10 @@
+---
+git_config:
+  user:
+    name: "{{ full_name }}"
+    email: "{{ email }}"
+  core:
+    editor: vim
+    excludesfile: "~/.gitexcludesfile"
+  push:
+    default: current
