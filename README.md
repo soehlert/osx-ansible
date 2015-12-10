@@ -1,5 +1,7 @@
 # Ansible
 Ansible files for OSX local runs
+osx-ansible/playbooks/common.yml shows what roles will be loaded
+to see what any role does, look at osx-ansible/roles/$role_name/task/main.yml
 
 Before running you must:
 
