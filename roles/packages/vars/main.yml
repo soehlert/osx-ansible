@@ -34,6 +34,7 @@ common_casks:
   - bartender
   - beardedspice
   - crashplan
+  - dash
   - dropbox
   - firefox
   - flux
