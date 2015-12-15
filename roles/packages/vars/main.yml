@@ -10,6 +10,7 @@ brews:
   - git
   - gmp
   - gnutls
+  - iperf
   - libevent
   - libgcrypt
   - libgpg-error
