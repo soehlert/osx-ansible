@@ -1,2 +1,6 @@
 ---
 hostname: macpro
+search_domain_iface: "Ethernet 1"
+search_domains:
+  - es.net
+  - testbed100.es.net
