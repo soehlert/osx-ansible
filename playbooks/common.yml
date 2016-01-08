@@ -9,11 +9,11 @@
   hosts: osx
   user: "{{ usernm }}"
   roles:
-    #    - osx_base
-    #- xcode
-    #- homebrew
-    #- packages
+    - osx_base
+    - xcode
+    - homebrew
+    - packages
     - git
-      #- dotfiles
-      #- tweaks
-      #- hazel
+    - dotfiles
+    - tweaks
+    - hazel
