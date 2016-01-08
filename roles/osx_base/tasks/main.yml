@@ -45,3 +45,8 @@
 - name: Create ssh key(s)
   command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
   when: (ssh_key.stat.exists == false)
+
+- name: Set search domains
+  command: networksetup -setsearchdomains "{{ search_domain_iface }}" "{{ item }}"
+  with_items:
+    - "{{ search_domains }}"
