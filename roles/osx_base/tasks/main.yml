@@ -47,8 +47,7 @@
   when: (ssh_key.stat.exists == false)
 
 - name: Set search domains
-  command: networksetup -setsearchdomains "{{ search_domain_iface }}" "{{ item }}"
+  command: networksetup -setsearchdomains "{{ search_domain_iface }}" es.net testbed100.es.net
   become: true
   become_user: root
-  with_items:
-    - "{{ search_domains }}"
+  when: "'osx-work' in group_names"
