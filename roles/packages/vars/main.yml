@@ -49,7 +49,7 @@ common_casks:
 # virtualbox is currently broken, will have to install manually :/
 #  - virtualbox
   - xquartz
-  - zoom
+  - zoomus
 
 extra_casks:
   - audacity
