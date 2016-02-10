@@ -1,2 +1,3 @@
 ---
 hostname: macpro
+search_domain_iface: "Ethernet 1"
