@@ -1,23 +1,29 @@
 ---
 brews:
+  - ansible
   - bash
   - bash-completion
   - boot2docker
-  - cask
+  - caskroom/cask/brew-cask
+  - cctools
   - cmake
   - gdbm
   - gettext
   - git
   - gmp
   - gnutls
+  - homebrew/fuse/ntfs-3g
   - iperf
   - libevent
   - libgcrypt
   - libgpg-error
   - libtasn1
+  - mackup
+  - netcat
   - nettle
   - nmap
   - openssl
+  - p7zip
   - python
   - ssh-copy-id
   - stow
@@ -46,10 +52,13 @@ common_casks:
   - the-unarchiver
   - tunnelblick
   - vagrant
-# virtualbox is currently broken, will have to install manually :/
-#  - virtualbox
   - xquartz
   - zoomus
+
+extra_brews:
+  - ffmpeg
+  - libav
+  - youtube-dl
 
 extra_casks:
   - audacity
