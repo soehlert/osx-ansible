@@ -47,11 +47,14 @@ common_casks:
   - firefox
   - flux
   - google-chrome
+  - gpg-tools
+  - hazel
   - iterm2
   - slack
   - the-unarchiver
   - tunnelblick
   - vagrant
+  - virtualbox
   - xquartz
   - zoomus
 
@@ -64,9 +67,10 @@ extra_casks:
   - audacity
   - bittorrent-sync
   - evernote
+  - kindle
   - logitech-harmony
   - monolingual
   - onyx
   - owncloud
+  - skype
   - vlc
-  - ynab
