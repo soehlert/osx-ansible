@@ -12,7 +12,6 @@ brews:
   - git
   - gmp
   - gnutls
-  - homebrew/fuse/ntfs-3g
   - iperf
   - libevent
   - libgcrypt
@@ -47,7 +46,7 @@ common_casks:
   - firefox
   - flux
   - google-chrome
-  - gpg-tools
+  - gpgtools
   - hazel
   - iterm2
   - slack
@@ -67,6 +66,7 @@ extra_casks:
   - audacity
   - bittorrent-sync
   - evernote
+  - gopro-studio
   - kindle
   - logitech-harmony
   - monolingual
