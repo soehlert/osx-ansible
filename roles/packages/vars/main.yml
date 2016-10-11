@@ -24,9 +24,11 @@ brews:
   - openssl
   - p7zip
   - python
+  - redis
   - ssh-copy-id
   - stow
   - tmux
+  - tree
   - unrar
   - vim
   - wget
