@@ -52,4 +52,4 @@
     mode: 0755
     state: directory
   become: true
-  become_user: root 
+  become_user: root

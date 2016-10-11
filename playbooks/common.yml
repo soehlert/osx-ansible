@@ -7,13 +7,14 @@
 
 - name: Set up osx host
   hosts: osx
+  connection: local
   user: "{{ usernm }}"
   roles:
-    - osx_base
-    - xcode
-    - homebrew
-    - packages
-    - git
-    - dotfiles
-    - tweaks
-    - hazel
+    - { role: 'osx_base', tags: 'osx_base' }
+    - { role: 'xcode', tags: 'xcode' }
+    - { role: 'homebrew', tags: 'homebrew' }
+    - { role: 'packages', tags: 'packages' }
+    - { role: 'git', tags: 'git' }
+    - { role: 'dotfiles', tags: 'dotfiles' }
+    - { role: 'tweaks', tags: 'tweaks' }
+    - { role: 'hazel', tags: 'hazel' }
