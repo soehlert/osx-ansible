@@ -4,7 +4,6 @@ brews:
   - bash
   - bash-completion
   - boot2docker
-  - caskroom/cask/brew-cask
   - cctools
   - cmake
   - gdbm
@@ -24,6 +23,7 @@ brews:
   - openssl
   - p7zip
   - python
+  - python3
   - redis
   - ssh-copy-id
   - stow
@@ -53,7 +53,6 @@ common_casks:
   - iterm2
   - slack
   - the-unarchiver
-  - tunnelblick
   - vagrant
   - virtualbox
   - xquartz
@@ -66,13 +65,10 @@ extra_brews:
 
 extra_casks:
   - audacity
-  - bittorrent-sync
   - evernote
   - gopro-studio
   - kindle
   - logitech-harmony
   - monolingual
   - onyx
-  - owncloud
-  - skype
   - vlc

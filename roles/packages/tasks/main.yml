@@ -9,7 +9,8 @@
 ####
 
 - name: Update homebrew
-  homebrew: update_homebrew=yes
+  homebrew:
+    update_homebrew: yes
 
 - name: Fix perms on /usr/local
   file:
@@ -62,7 +63,7 @@
 
 - name: We need to make Caskroom for the first time at /opt/homebrew-cask/Caskroom
   file:
-    path: /opt/homebrew-cask/Caskroom
+    path: /usr/local/Caskroom
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"
     mode: 0755
