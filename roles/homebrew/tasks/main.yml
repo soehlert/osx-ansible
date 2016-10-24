@@ -1,5 +1,9 @@
 ---
 #### Installs homebrew
+- name: Check for homebrew directory
+  stat:
+    path: "{{ homebrew_dir }}"
+  register: brewdir
 
 - name: Make directory for homebrew
   file:
@@ -8,25 +12,26 @@
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"
     mode: 0755
+  when: (brewdir.stat.exists == false)
 
-- name: Grab tarball
-  get_url:
-    url: https://github.com/Homebrew/homebrew/tarball/master
-    dest: "{{ homebrew_dir }}"
-    mode: 0755
-    force: no
-  register: tarball_name
+  #- name: Grab tarball
+  #get_url:
+    #  url: https://github.com/Homebrew/homebrew/tarball/master
+    #dest: "{{ homebrew_dir }}"
+    #mode: 0755
+    #force: no
+    #register: tarball_name
 
-- name: Check for unarchived tarball and skip if it's already there
-  stat:
-    path: "{{ tarball_name.dest.split('.')[0] }}"
-  register: tarball
+    #- name: Check for unarchived tarball and skip if it's already there
+    #stat:
+      #path: "{{ tarball_name.dest.split('.')[0] }}"
+      #register: tarball
 
-- name: Unarchive tarball
-  unarchive:
-    src: "{{ tarball_name.dest }}"
-    dest: "{{ homebrew_dir }}"
-  when: (tarball.stat.exists == false)
+      #- name: Unarchive tarball
+      # unarchive:
+        #src: "{{ tarball_name.dest }}"
+        #dest: "{{ homebrew_dir }}"
+        #when: (tarball.stat.exists == false)
 
 - name: Check for brew link and skip if it's already there
   stat:
