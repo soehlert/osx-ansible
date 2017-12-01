@@ -5,7 +5,7 @@
 #
 # ssh_dir is set in defaults
 # ssh_key_name is in defaults
-# 
+#
 # usernm/groupnm set in group_vars/all (YOU MUST SET THESE)
 ####
 
