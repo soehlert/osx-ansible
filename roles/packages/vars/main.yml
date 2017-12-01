@@ -1,9 +1,7 @@
 ---
 brews:
-  - ansible
   - bash
   - bash-completion
-  - boot2docker
   - cctools
   - cmake
   - gdbm
@@ -38,12 +36,9 @@ common_casks:
   - 1password
   - adium
   - appcleaner
-  - atom
   - bartender
   - beardedspice
   - clamxav
-  - crashplan
-  - dash
   - dropbox
   - firefox
   - flux
@@ -65,10 +60,7 @@ extra_brews:
 
 extra_casks:
   - audacity
-  - evernote
-  - gopro-studio
-  - kindle
-  - logitech-harmony
   - monolingual
+  - mp3tag
   - onyx
   - vlc
