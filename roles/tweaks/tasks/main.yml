@@ -256,7 +256,7 @@
   become: true
   become_user: root
   command: "{{ item }}"
-  when: sleep_image.stat.size != 0
+  when: ("{{ sleep_image }}") and ("{{ sleep_image }}.stat.size != 0")
   with_items:
     - rm -f "{{ sleepimage }}"
     - touch "{{ sleepimage }}"
