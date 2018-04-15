@@ -1,7 +1,4 @@
 ---
-full_name: "Sam Oehlert"
-groupnm: staff
-email: soehlert@es.net
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 ssh_dir: "{{ home_dir }}/.ssh"
