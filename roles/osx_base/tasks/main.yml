@@ -1,12 +1,8 @@
 ---
 #### Some base setup including ssh keys
-# projects dir is set in vars/main
-# hostname is set in vars/main
 #
-# ssh_dir is set in defaults
 # ssh_key_name is in defaults
 #
-# usernm/groupnm set in group_vars/all (YOU MUST SET THESE)
 ####
 
 - name: Set computer name
@@ -18,12 +14,12 @@
     - HostName
     - LocalHostName
 
-#- name: Defaults host name
-#  osx_defaults:
-#    domain: com.apple.smb.server
-#    key: NetBIOSName
-#    type: string
-#    value: "{{ hostname }}"
+- name: Defaults host name
+  osx_defaults:
+    domain: com.apple.smb.server
+    key: NetBIOSName
+    type: string
+    value: "{{ hostname }}"
 
 - name: Create directories
   file:
@@ -50,4 +46,3 @@
   command: networksetup -setsearchdomains "{{ search_domain_iface }}" es.net testbed100.es.net
   become: true
   become_user: root
-  when: "'osx-work' in group_names"
