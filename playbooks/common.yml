@@ -4,16 +4,23 @@
 # Comment out any module you don't want, buuuut
 # beware dependencies of modules
 ####
-
 - name: Set up osx host
   hosts: osx
   connection: local
+  vars_prompt:
+    - name: "usernm"
+      prompt: "What is your username ?"
+	- name: "mas_email"
+      prompt: "What is your Mac App Store email?"
+    - name: "mas_passwd"
+      prompt: "What is your Mac App Store Password?"
   user: "{{ usernm }}"
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
     - { role: 'xcode', tags: 'xcode' }
-  # - { role: 'homebrew', tags: 'homebrew' }
+    - { role: 'homebrew', tags: 'homebrew' }
     - { role: 'packages', tags: 'packages' }
+	- { role: 'mas', tags: 'mas' }
     - { role: 'git', tags: 'git' }
     - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'tweaks', tags: 'tweaks' }
