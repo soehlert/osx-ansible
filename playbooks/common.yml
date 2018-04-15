@@ -8,8 +8,16 @@
   hosts: osx
   connection: local
   vars_prompt:
+    - name: "full_name"
+      prompt: "What is your full name?"
+    - name: "groupnm"
+      prompt: "What is your group name?"
+    - name: "email"
+      prompt: "What is your email?"
+    - name: "hostname"
+      prompt: "What do you want your hostname to be?"
     - name: "usernm"
-      prompt: "What is your username ?"
+      prompt: "What is your username?"
 	- name: "mas_email"
       prompt: "What is your Mac App Store email?"
     - name: "mas_passwd"
