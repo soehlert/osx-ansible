@@ -56,34 +56,9 @@
   with_items:
     "{{ extra_brews }}"
 
-    #- name: Check for caskroom directory
-    #stat:
-      #path: /opt/homebrew-cask/Caskroom
-      #register: caskroom
-
-#- name: We need to make Caskroom for the first time at /opt/homebrew-cask/Caskroom
-#file:
-  #path: /opt/homebrew-cask/Caskroom
-  #owner: "{{ usernm }}"
-  #group: "{{ groupnm }}"
-  #mode: 0755
-  #recurse: true
-  #state: directory
-  #become: true
-  #become_user: root
-  #when: (caskroom.stat.exists == false)
-
 - name: Install packages from homebrew cask
   homebrew_cask:
     name: "{{ item }}"
     state: present
   with_items:
     "{{ common_casks }}"
-
-- name: Install extra casks (useful for home laptop)
-  homebrew_cask:
-    name: "{{ item }}"
-    state: present
-  when: "'osx-personal' in group_names"
-  with_items:
-    "{{ extra_casks }}"
