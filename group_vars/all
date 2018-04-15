@@ -1,6 +1,5 @@
 ---
 full_name: "Sam Oehlert"
-usernm: soehlert
 groupnm: staff
 email: soehlert@es.net
 home_dir: "/Users/{{ usernm }}"
