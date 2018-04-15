@@ -1,0 +1,4 @@
+---
+# defaults file for roles/mas
+mas_signin_dialog: no
+mas_upgrade_all: yes
