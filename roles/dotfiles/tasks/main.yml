@@ -4,10 +4,13 @@
 # dotfiles_dir is set in defaults, LEAVE ALONE
 ####
 
-- name: Install gnu stow for dotfiles
+- name: Install gnu stow and git for dotfiles
   homebrew:
-    package: stow
+    package: "{{ item }}"
     status: present
+  with_items:
+    - stow
+    - git
 
 - name: Clone dotfiles repo
   git:
