@@ -1,60 +1,84 @@
 ---
-#### Installs homebrew
-- name: Check for homebrew directory
-  stat:
-    path: "{{ homebrew_dir }}"
-  register: brewdir
-
-- name: Make directory for homebrew
-  file:
-    path: "{{ homebrew_dir }}"
-    state: directory
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: 0755
-  when: (brewdir.stat.exists == false)
-
-  #- name: Grab tarball
-  #get_url:
-    #  url: https://github.com/Homebrew/homebrew/tarball/master
-    #dest: "{{ homebrew_dir }}"
-    #mode: 0755
-    #force: no
-    #register: tarball_name
-
-    #- name: Check for unarchived tarball and skip if it's already there
-    #stat:
-      #path: "{{ tarball_name.dest.split('.')[0] }}"
-      #register: tarball
-
-      #- name: Unarchive tarball
-      # unarchive:
-        #src: "{{ tarball_name.dest }}"
-        #dest: "{{ homebrew_dir }}"
-        #when: (tarball.stat.exists == false)
-
-- name: Check for brew link and skip if it's already there
+# tasks file for roles/homebrew
+- name: Check if Homebrew is already installed
   stat:
     path: /usr/local/bin/brew
-  register: brew
+  register: homebrew
 
-- name: Symlink brew into PATH
-  file:
-    src: "{{ tarball_name.dest.split('.')[0] }}/bin/brew"
-    dest: /usr/local/bin/brew
-    state: link
-    owner: "{{ usernm }}"
-    group: admin
-  become: true
-  become_user: root
-  when: (brew.stat.exists == false)
+- name: Set fact for homebrew existing
+  set_fact:
+    homebrew_exists: true
+  when: homebrew.stat.exists
 
-- name: Fix ownership of /usr/local/
+- name: Ensure proper permissions (High Sierra)
   file:
-    path: /usr/local
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: 0755
+    path: "{{ homebrew_prefix }}"
+    owner: root
     state: directory
   become: true
-  become_user: root
+  when: "ansible_distribution_version.startswith('10.13')"
+
+- name: Ensure proper permissions (Non High Sierra)
+  file:
+    path: "{{ homebrew_prefix }}"
+    owner: root
+    group: admin
+    state: directory
+    mode: 0775
+  become: true
+  when: "not ansible_distribution_version.startswith('10.13')"
+
+- name: Ensure proper permissions on brew bin path
+  file:
+    path: "{{ homebrew_brew_bin_path }}"
+    owner: "{{ ansible_user_id }}"
+    group: admin
+    state: directory
+    mode: 0775
+  become: yes
+
+- name: Ensure proper permissions on homebrew_install_path subdirs
+  file:
+    path: "{{ homebrew_install_path }}"
+    owner: "{{ ansible_user_id }}"
+    group: admin
+    state: directory
+    recurse: true
+  become: yes
+
+- name: Install brew taps
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items: "{{ homebrew_taps }}"
+
+- name: Install Homebrew packages
+  homebrew:
+    name: "{{ item.name | default(item) }}"
+    install_options: "{{ item.install_options | default(omit) }}"
+    state: present
+  with_items: "{{ homebrew_installed_packages }}"
+
+- name: Remove any blacklisted packages
+  homebrew:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ homebrew_blacklisted_packages }}"
+
+- name: Install cask applications
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    install_options: "appdir={{ homebrew_cask_appdir }}"
+  with_items: "{{ homebrew_cask_apps }}"
+
+- name: Check for brewfile
+  stat:
+    path: "{{ homebrew_brewfile_dir }}/Brewfile"
+  register: homebrew_brewfile
+
+- name: Install from Brewfile
+  command: "brew bundle"
+  args:
+    chdir: "{{ homebrew_brewfile_dir }}"
+  when: homebrew_brewfile.stat.exists and homebrew_use_brewfile
