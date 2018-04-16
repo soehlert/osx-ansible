@@ -18,7 +18,7 @@
       prompt: "What do you want your hostname to be?"
     - name: "usernm"
       prompt: "What is your username?"
-	- name: "mas_email"
+    - name: "mas_email"
       prompt: "What is your Mac App Store email?"
     - name: "mas_passwd"
       prompt: "What is your Mac App Store Password?"
@@ -27,8 +27,7 @@
     - { role: 'osx_base', tags: 'osx_base' }
     - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'homebrew', tags: 'homebrew' }
-    - { role: 'packages', tags: 'packages' }
-	- { role: 'mas', tags: 'mas' }
+    - { role: 'mas', tags: 'mas' }
     - { role: 'git', tags: 'git' }
     - { role: 'mackup', tags: 'mackup'}
     - { role: 'hazel', tags: 'hazel' }
