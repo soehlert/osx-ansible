@@ -1,12 +1,12 @@
 - [x] bootstrap.sh
 - [x] convert homebrew to script based install instead of tarball
-- [] update readme
+- [ ] update readme
 - [x] dotfiles
 - [x] Fix search domains to not be hardcoded
 - [x] Fix brew bundle
 - [x] Pull git repos
-- [] mackup role
+- [ ] mackup role
 - [x] fonts (using mackup to do this)
-- [] fix makefile
-- [] make sure to have defaults for every variable; put the rest in group vars that need changing
-- [] clean up tweaks
+- [ ] fix makefile
+- [ ] make sure to have defaults for every variable; put the rest in group vars that need changing
+- [ ] clean up tweaks
