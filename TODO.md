@@ -6,3 +6,4 @@
 - [x] Fix brew bundle
 - [] Pull git repos
 - [] mackup role
+- [] fonts
