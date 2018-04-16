@@ -5,7 +5,7 @@
 - [x] Fix search domains to not be hardcoded
 - [x] Fix brew bundle
 - [x] Pull git repos
-- [ ] mackup role
+- [x] mackup role (nevermind, mackup backups wouldnt be available anyways)
 - [x] fonts (using mackup to do this)
 - [ ] fix makefile
 - [ ] make sure to have defaults for every variable; put the rest in group vars that need changing
