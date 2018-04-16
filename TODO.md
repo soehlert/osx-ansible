@@ -3,6 +3,6 @@
 - [] update readme
 - [] dotfiles
 - [x] Fix search domains to not be hardcoded
-- [] Fix brew bundle
+- [x] Fix brew bundle
 - [] Pull git repos
 - [] mackup role
