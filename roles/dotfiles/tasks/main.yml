@@ -16,12 +16,11 @@
   git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_dir }}"
-    update: yes
-    accept_hostkey: yes
-    clone: yes
-    force: yes
-    key_file: "{{ ssh_dir }}/dotfiles"
-  become: no
+    update: true
+    accept_hostkey: true
+    clone: true
+    force: true
+  become: false
 
 - name: Stow common files
   command: stow common
