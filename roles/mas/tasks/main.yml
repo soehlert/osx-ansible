@@ -29,7 +29,7 @@
 
 - name: Ensure configured MAS apps are installed.
   command: mas install "{{ item.id|default(item) }}"
-  with_items: "{{ mas_installed_apps + mas_installed_app_ids }}"
+  with_items: "{{ mas_installed_apps }}"
   when: "'{{ item.id|default(item) }}' not in mas_list.stdout"
 
 - name: Upgrade all apps (if configured).
