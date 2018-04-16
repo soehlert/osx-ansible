@@ -4,3 +4,4 @@ projects_dir: "{{ home_dir }}/projects"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/ansible-secrets"
 dotfiles_env: home
+dotfiles_repo: https://github.com/soehlert/dotfiles.git
