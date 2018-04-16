@@ -7,3 +7,4 @@
 - [] Pull git repos
 - [] mackup role
 - [] fonts
+- [] fix makefile
