@@ -2,3 +2,5 @@
 # defaults file for roles/mas
 mas_signin_dialog: no
 mas_upgrade_all: yes
+mas_installed_aps:
+    - {id: 715768417, name: "Microsoft Remote Desktop"}
