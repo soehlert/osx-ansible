@@ -1,0 +1,113 @@
+---
+# tasks file for roles/update
+- block:
+
+  - name: Check for homebrew
+    stat:
+      path: /usr/local/bin/brew
+    register: homebrew
+    changed_when: False
+    tags:
+      - brew
+
+  - name: Check for ruby gems
+    stat:
+      path: /usr/local/bin/gem
+    register: rubygems
+    changed_when: False
+    tags:
+      - ruby
+
+  - name: Check for pip
+    stat:
+      path: /usr/local/bin/pip
+    register: pip
+    changed_when: False
+    tags:
+      - python
+
+  - name: Check for pip3
+    stat:
+      path: /usr/local/bin/pip3
+    register: pip3
+    changed_when: False
+    tags:
+      - python
+
+  - name: Check for pip-review
+    stat:
+      path: /usr/local/bin/pip-review
+    register: pip_review
+    changed_when: False
+    when: pip.stat.exists or pip3.stat.exists
+    tags:
+      - python
+
+  - name: Check for npm
+    stat:
+      path: /usr/local/bin/npm
+    register: npm
+    changed_when: False
+    tags:
+      - node
+
+  - name: Check for mas
+    stat:
+      path: /usr/local/bin/mas
+    register: mas
+    changed_when: False
+    tags:
+      - appstore
+
+  - name: Check for software updates and figure out if reboot is needed
+    command: softwareupdate -l
+    register: available_updates
+    changed_when: false
+    tags:
+      - os
+
+  ignore_errors: True
+
+- name: Update homebrew packages
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+  when: homebrew.stat.exists
+  tags:
+    - brew
+
+- name: Update rubygem packages
+  command: gem update
+  when: rubygems.stat.exists
+  tags:
+    - ruby
+
+- name: Update pip packages
+  command: pip-review --auto
+  when: pip_review.stat.exists
+  tags:
+    - python
+
+- name: Update npm packages
+  command: npm update
+  when: npm.stat.exists
+  tags:
+    - node
+
+- name: Update mas packages
+  command: mas upgrade
+  when: mas.stat.exists
+  tags:
+    - appstore
+
+- name: Update OS when there's a reboot necessary AND we're ok with rebooting
+  command: softwareupdate -i -a
+  when: ( available_updates.stdout | join('') | search("reboot") ) and reboot
+  tags:
+    - os
+
+- name: Update OS when no reboot is necessary
+  command: softwareupdate -i -a
+  when: ( not available_updates.stdout | join('') | search("reboot") )
+  tags:
+    - os
