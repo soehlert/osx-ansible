@@ -1,22 +1,9 @@
 ---
-#### Install git using Homebrew
-# Not in packages in case you want dotfiles
-# but not a bunch of other packages
+#### Install all public repos from any git user
+# Dont forget to set github_user
 ####
 
-- name: Install git
-  homebrew:
-    name: git
-    state: present
-
-- name: Configure .gitconfig file
-  template:
-    src: gitconfig.j2
-    dest: ~/.gitconfig
-  when: git_config
-
-- name: Add all gitignore files
-  template:
-    src: gitignore.j2
-    dest: "{{ git_config.core.excludesfile }}"
-  when: git_ignore and git_config.core is defined and git_config.core.excludesfile is defined
+- name: Download all my project repos
+  shell: curl -s https://api.github.com/users/{{ github_user }}/repos\?per_page\=100 | grep clone_url | awk -F '"' '{print $4}' | xargs -n 1 -P 4 git clone'"'
+  args:
+    chdir: "{{ projects_dir }}"
