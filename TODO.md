@@ -9,3 +9,4 @@
 - [x] fonts (using mackup to do this)
 - [] fix makefile
 - [] make sure to have defaults for every variable; put the rest in group vars that need changing
+- [] clean up tweaks
