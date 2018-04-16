@@ -2,7 +2,7 @@
 
 # shell script to bootstrap the system to the point that it has ansible
 if [ ! -d /Library/Developer ]; then
-    echo Insalling Xcode first, then rerun this script
+    echo "Insalling Xcode first, then rerun this script"
     sleep 1
     xcode-select --install
 else
