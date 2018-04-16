@@ -25,11 +25,11 @@
   user: "{{ usernm }}"
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
+    - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'homebrew', tags: 'homebrew' }
     - { role: 'packages', tags: 'packages' }
 	- { role: 'mas', tags: 'mas' }
     - { role: 'git', tags: 'git' }
-    - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'mackup', tags: 'mackup'}
     - { role: 'hazel', tags: 'hazel' }
     - { role: 'tweaks', tags: 'tweaks' }
