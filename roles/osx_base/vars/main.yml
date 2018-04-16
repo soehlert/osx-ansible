@@ -1,3 +1,4 @@
 ---
-hostname: macbookpro
-search_domain_iface: "Ethernet 1"
+hostname: sam-macbookpro
+search_domain_iface: "en0"
+search_domains: "internal.sjo samoehlert.com soehlert.com"

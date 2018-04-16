@@ -2,6 +2,6 @@
 - [x] convert homebrew to script based install instead of tarball
 - [] update readme
 - [] dotfiles
-- [] Fix search domains to not be hardcoded
+- [x] Fix search domains to not be hardcoded
 - [] Fix brew bundle
 - [] Pull git repos

@@ -6,13 +6,13 @@
 ####
 
 - name: Set computer name
-  become: true
-  become_user: root
   command: "scutil --set {{ item }} {{ hostname }}"
   with_items:
     - ComputerName
     - HostName
     - LocalHostName
+  become: true
+  become_user: root
 
 - name: Defaults host name
   osx_defaults:
@@ -20,6 +20,8 @@
     key: NetBIOSName
     type: string
     value: "{{ hostname }}"
+  become: true
+  become_user: root
 
 - name: Create directories
   file:
@@ -43,6 +45,6 @@
   when: (ssh_key.stat.exists == false)
 
 - name: Set search domains
-  command: networksetup -setsearchdomains "{{ search_domain_iface }}" es.net testbed100.es.net
+  command: networksetup -setsearchdomains "{{ search_domain_iface }}" "{{ search_domains }}"
   become: true
   become_user: root
