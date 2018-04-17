@@ -3,4 +3,5 @@
 mas_signin_dialog: no
 mas_upgrade_all: yes
 mas_installed_aps:
-    - {id: 715768417, name: "Microsoft Remote Desktop"}
+    - { id: 715768417, name: "Microsoft Remote Desktop"}
+    - { id: 497799835, name: "Xcode" }

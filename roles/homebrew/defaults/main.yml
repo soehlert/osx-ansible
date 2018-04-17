@@ -1,5 +1,4 @@
 ---
-
 homebrew_dir: "{{ projects_dir }}/homebrew"
 homebrew_taps:
     - "buo/cask-upgrade"
@@ -12,6 +11,7 @@ homebrew_taps:
     - "caskroom/fonts"
     - "caskroom/cask"
 homebrew_installed_packages:
+    - ansible
     - bash
     - bash-completion
     - dnstwist
@@ -23,6 +23,7 @@ homebrew_installed_packages:
     - git
     - git-extras
     - iperf3
+    - keybase
     - libav
     - libevent
     - libgcrypt
@@ -67,6 +68,7 @@ homebrew_cask_apps:
     - slack
     - the-unarchiver
     - vagrant
+    - vagrant-manager
     - virtualbox
     - viscosity
     - wireshark
