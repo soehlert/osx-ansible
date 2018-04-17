@@ -10,5 +10,6 @@
 - [x] fix makefile
 - [ ] make sure to have defaults for every variable; put the rest in group vars that need changing
 - [x] clean up tweaks
-- [ ] work brewfile
+- [x] work brewfile
 - [ ] any way to do vpn stuff?
+- [ ] any way to upload github key via API?
