@@ -18,7 +18,7 @@
   with_items:
     - { key: EmptyTrashSecurely, type: bool, value: "true" }
     # Choose Finder window view; Options clmv=column, list=list, icnv=icon, flwv=flow
-#    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
+    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
     - { key: WarnOnEmptyTrash, type: bool, value: "true" }
     # Allow highlighting in quick look
     - { key: QLEnableTextSelection, type: bool, value: "true" }
@@ -30,10 +30,10 @@
     - { key: ShowExternalDisksOnDesktop, type: bool, value: "false" }
     - { key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
     # Next two change what new Finder window opens to
-#    - { key: NewWindowTarget, type: string, value: "PfLo" }
-#    - { key: NewWindowTargetPath, type: string, value: "{{ finder_new_window_path }}" }
+    - { key: NewWindowTarget, type: string, value: "PfLo" }
+    - { key: NewWindowTargetPath, type: string, value: "{{ finder_new_window_path }}" }
     - { key: DisableAllAnimations, type: bool, value: "true" }
-    # Show the "Are you sure?" when quitting
+    # Hide the "Are you sure?" when quitting
     - { key: QuitMenuItem, type: bool, value: "false" }
   notify: kill Finder
 
@@ -48,13 +48,13 @@
     - { key: AppleShowAllExtensions, type: bool, value: "false" }
     - { key: AppleEnableMenuBarTransparency, type: bool, value: "true" }
     # Enable Dark Mode
-#    - { key: AppleInterfaceStyle, type: string, value: "Dark" }
+    - { key: AppleInterfaceStyle, type: string, value: "Dark" }
     # Spring loading for directories
     - { key: com.apple.springing.enabled, type: bool, value: "true" }
     # Remove the spring loading delay for directories
     - { key: com.apple.springing.delay, type: float, value: 0 }
     # When to show scroll bars; Possible values= `WhenScrolling`, `Automatic` and `Always`
-#    - { key: AppleShowScrollBars, type: string, value: "WhenScrolling" }
+    - { key: AppleShowScrollBars, type: string, value: "WhenScrolling" }
     # Smooth scrolling
     - { key: NSScrollAnimationEnabled, type: bool, value: "true" }
     # Default to expand save panel by default (not sure why there's two names for this)
@@ -67,14 +67,9 @@
     - { key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: "false" }
     # Resume apps
     - { key: NSQuitAlwaysKeepsWindows, type: bool, value: "false" }
-    # Automatic termination of inactive apps
-    - { key: NSDisableAutomaticTermination, type: bool, value: "true" }
     # Stupid smart quotes and dashes
     - { key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: "false" }
     - { key: NSAutomaticDashSubstitutionEnabled, type: bool, value: "false" }
-#   - { key: AppleLanguages, type: array, value: "['en', 'nl']" }
-#    - { key: AppleLocale, type: string, value: "en_US@currency=USD" }
-#    - { key: AppleMeasurementUnits, type: string, value: "Inches" }
     - { key: AppleMetricUnits, type: bool, value: "false" }
     # Auto correct spelling
     - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false" }
@@ -151,18 +146,18 @@
     # How long to wait to require password (0 = immediately)
     - { key: askForPasswordDelay, type: float, value: 0 }
 
-#- name: Screenshots tweaks
-#  osx_defaults:
-#    domain: com.apple.screencapture
-#    key: "{{ item.key }}"
-#    type: "{{ item.type }}"
-#    value: "{{ item.value }}"
-#    state: present
-#  with_items:
-#    # choose where to save screenshots
-#    - { key: location, type: string, value: "{{ screenshots_dir }}" }
-#    # Save screenshots to your defined location
-#    - { key: type, type: string, value: "png" }
+- name: Screenshots tweaks
+  osx_defaults:
+    domain: com.apple.screencapture
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    # choose where to save screenshots
+    - { key: location, type: string, value: "{{ screenshots_dir }}" }
+    # Save screenshots to your defined location
+    - { key: type, type: string, value: "png" }
 
 - name: Dashboard tweaks
   osx_defaults:
@@ -184,14 +179,14 @@
     state: present
   with_items:
     # Change minimize/maximize effect
-#    - { key: mineffect, type: string, value: "scale" }
+    - { key: mineffect, type: string, value: "scale" }
     # Minimize windows into their application's icon
     - { key: minimize-to-application, type: bool, value: "true" }
     # Enable spring loading for all Dock items
     - { key: enable-spring-load-actions-on-all-items, type: bool, value: "true" }
     # Show indicator lights for open applications in the Dock
     - { key: show-process-indicators, type: bool, value: "true" }
-    # Animate opening applications from the Dock or naw
+    # Animate opening applications from the Dock
     - { key: launchanim, type: bool, value: "false" }
     # Don’t show Dashboard as a Space
     - { key: dashboard-in-overlay, type: bool, value: "false" }
@@ -231,7 +226,7 @@
 - name: Restart automatically if the computer freezes
   command: systemsetup -setrestartfreeze on
 
-- name: Never go into computer sleep mode
+- name: Never go into computer sleep mode and set timezone
   shell: "systemsetup {{ item.name }} {{ item.value }} > {{ item.redirect }}"
   with_items:
     - { name: -setcomputersleep, value: Off, redirect: /dev/null }
