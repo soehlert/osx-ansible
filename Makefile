@@ -2,17 +2,23 @@
 
 base: osx_base
 install:
-	ansible-galaxy install -r requirements.yml
+	./bootstrap.sh
 dump_vars:
 	ansible all -m setup --tree /tmp/facts --connection=local -i ansible_hosts
-dotfiles:
-	ansible-playbook main.yml -i ansible_hosts --tags dotfiles
 osx_base:
-	ansible-playbook main.yml -i ansible_hosts --tags osx_base
-packages:
-	ansible-playbook main.yml -i ansible_hosts --tags packages
-app_store:
-	ansible-playbook main.yml -i ansible_hosts --tags app_store
+	ansible-playbook playbooks/common.yml -t osx_base
+dotfiles:
+	ansible-playbook playbooks/common.yml -t dotfiles
+homebrew:
+	ansible-playbook playbooks/common.yml -t homebrew
+mas:
+	ansible-playbook playbooks/common.yml -t mas
+git:
+	ansible-playbook playbooks/common.yml -t git
+mackup:
+	ansible-playbook playbooks/common.yml -t mackup
+hazel:
+	ansible-playbook playbooks/common.yml -t hazel
 tweaks:
-	ansible-playbook main.yml -i ansible_hosts --tags tweaks
-all: osx_base packages dotfiles tweaks
+	ansible-playbook playbooks/common.yml -t tweaks
+all: osx_base dotfiles homebrew mas git mackup hazel tweaks
