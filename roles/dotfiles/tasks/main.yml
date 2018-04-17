@@ -32,4 +32,4 @@
   command: stow "{{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
-    creates: ~/.bash_aliases
+    creates: ~/Brewfile
