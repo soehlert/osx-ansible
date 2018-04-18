@@ -31,6 +31,5 @@
     - { role: 'homebrew', tags: 'homebrew' }
     - { role: 'mas', tags: 'mas' }
     - { role: 'git', tags: 'git' }
-    - { role: 'mackup', tags: 'mackup'}
     - { role: 'hazel', tags: 'hazel' }
     - { role: 'tweaks', tags: 'tweaks' }
