@@ -2,6 +2,8 @@
 #### Install all public repos from any git user
 # Dont forget to set github_user
 ####
+- name: Upload my ssh key to Github
+  shell: curl -u "{{ github_user }}:{{ github_passwd }}" --data '{"title":\""{{ hostname }}"\", "key":"'"$(cat ~/.ssh/id_rsa.pub )"'"}' https://api.github.com/user/keys
 
 - name: Download all my project repos
   shell: curl -s https://api.github.com/users/{{ github_user }}/repos\?per_page\=100 | grep clone_url | awk -F '"' '{print $4}' | xargs -n 1 -P 4 git clone'"'
