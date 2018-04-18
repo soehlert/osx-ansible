@@ -53,6 +53,7 @@ homebrew_cask_apps:
     - bartender
     - clamxav
     - firefox
+    - font-source-code-pro-for-powerline
     - google-backup-and-sync
     - google-chrome
     - hazel
