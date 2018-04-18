@@ -6,10 +6,10 @@
 - [x] Fix brew bundle
 - [x] Pull git repos
 - [x] mackup role (nevermind, mackup backups wouldnt be available anyways)
-- [x] fonts (using mackup to do this)
+- [ ] fonts (using mackup to do this; fonts not seen by iterm?)
 - [x] fix makefile
 - [ ] make sure to have defaults for every variable; put the rest in group vars that need changing
 - [x] clean up tweaks
 - [x] work brewfile
 - [ ] any way to do vpn stuff?
-- [ ] any way to upload github key via API?
+- [x] any way to upload github key via API?
