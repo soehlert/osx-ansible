@@ -2,16 +2,17 @@
 homebrew_dir: "{{ projects_dir }}/homebrew"
 homebrew_taps:
     - "buo/cask-upgrade"
+    - "caskroom/drivers"
+    - "caskroom/fonts"
+    - "caskroom/cask"
     - "homebrew/fuse"
     - "homebrew/completions"
     - "homebrew/core"
     - "homebrew/bundle"
     - "homebrew/services"
-    - "caskroom/drivers"
-    - "caskroom/fonts"
-    - "caskroom/cask"
 homebrew_installed_packages:
     - ansible
+    - ansible-lint
     - bash
     - bash-completion
     - dnstwist
@@ -76,4 +77,3 @@ homebrew_cask_apps:
     - xquartz
 
 homebrew_blacklisted_packages: []
-
