@@ -1,0 +1,138 @@
+---
+# Main
+##########
+full_name: "Sam Oehlert"
+usernm: "soehlert"
+groupnm: "admin"
+email: "sam.oehlert@gmail.com"
+hostname: "mac"
+home_dir: "/Users/{{ usernm }}"
+projects_dir: "{{ home_dir }}/projects"
+ssh_dir: "{{ home_dir }}/.ssh"
+ansible_secrets: "{{ projects_dir }}/secrets"
+
+
+# OSX_Base
+##########
+ssh_key_name: "{{ ssh_dir }}/id_rsa"
+search_domain_iface: "en0"
+search_domains: "soehlert.com"
+
+# Git
+##########
+github_user: "soehlert"
+
+# Dotfiles
+##########
+# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
+dotfiles_env: "home"
+dotfiles_dir: "{{ home_dir }}/dotfiles"
+dotfiles_repo: "https://github.com/{{ github_user }}/dotfiles.git"
+
+# Hazel
+##########
+hazel_dirs:
+    - Compressed
+    - IMG
+    - Important
+    - Music
+    - PDF
+    - Pics
+    - Video
+
+# MAS
+##########
+mas_email: "sam.oehlert@gmail.com"
+mas_signin_dialog: no
+mas_upgrade_all: yes
+mas_installed_apps: []
+
+# Tweaks
+##########
+finder_new_window_path: "file://{{ home_dir }}"
+screenshots_dir: "{{ home_dir }}/Downloads/Pics"
+timezone: "America/Chicago"
+sleepimage: "/Private/var/vm/sleepimage"
+
+# Update
+##########
+reboot: false
+
+# Homebrew
+##########
+homebrew_taps:
+    - "buo/cask-upgrade"
+    - "caskroom/drivers"
+    - "caskroom/fonts"
+    - "caskroom/cask"
+    - "homebrew/fuse"
+    - "homebrew/completions"
+    - "homebrew/core"
+    - "homebrew/bundle"
+    - "homebrew/services"
+homebrew_installed_packages:
+    - ansible
+    - ansible-lint
+    - bash
+    - bash-completion
+    - dnstwist
+    - docker
+    - docker-machine
+    - e2fsprogs
+    - ext4fuse
+    - flake8
+    - git
+    - git-extras
+    - iperf3
+    - keybase
+    - libav
+    - libevent
+    - libgcrypt
+    - libyaml
+    - mackup
+    - mas
+    - mtr
+    - netcat
+    - nmap
+    - p7zip
+    - perl
+    - pip-completion
+    - python
+    - python@2
+    - shellcheck
+    - ssh-copy-id
+    - stow
+    - tmux
+    - tree
+    - unrar
+    - vim
+    - wget
+homebrew_cask_apps:
+    - 1password
+    - appcleaner
+    - atom
+    - bartender
+    - clamxav
+    - firefox
+    - font-source-code-pro-for-powerline
+    - google-backup-and-sync
+    - google-chrome
+    - hazel
+    - iterm2
+    - keybase
+    - monolingual
+    - qlcolorcode
+    - qlmarkdown
+    - qlstephen
+    - qlvideo
+    - quicklook-csv
+    - quicklook-json
+    - slack
+    - the-unarchiver
+    - vagrant
+    - vagrant-manager
+    - virtualbox
+    - viscosity
+    - wireshark
+    - xquartz
+homebrew_blacklisted_packages: []
