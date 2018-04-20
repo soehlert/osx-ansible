@@ -15,10 +15,8 @@ mas:
 	ansible-playbook playbooks/common.yml -t mas -K
 git:
 	ansible-playbook playbooks/common.yml -t git
-mackup:
-	ansible-playbook playbooks/common.yml -t mackup
 hazel:
 	ansible-playbook playbooks/common.yml -t hazel
 tweaks:
 	ansible-playbook playbooks/common.yml -t tweaks
-all: osx_base dotfiles homebrew mas git mackup hazel tweaks
+all: osx_base dotfiles homebrew mas git hazel tweaks
