@@ -1,5 +1,1 @@
 ---
-finder_new_window_path: "file://{{ home_dir }}"
-screenshots_dir: "{{ home_dir }}/desktop"
-timezone: America/Chicago
-sleepimage: /Private/var/vm/sleepimage

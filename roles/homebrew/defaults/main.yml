@@ -1,5 +1,4 @@
 ---
-homebrew_dir: "{{ projects_dir }}/homebrew"
 homebrew_taps:
     - "buo/cask-upgrade"
     - "caskroom/drivers"

@@ -10,20 +10,6 @@
   vars_files:
     - [ local.yaml, defaults.yaml ]
   vars_prompt:
-    - name: "full_name"
-      prompt: "What is your full name?"
-    - name: "groupnm"
-      prompt: "What is your group name?"
-    - name: "email"
-      prompt: "What is your email?"
-    - name: "hostname"
-      prompt: "What do you want your hostname to be?"
-    - name: "usernm"
-      prompt: "What is your username?"
-    - name: "dotfiles_env"
-      prompt: "What is your dotfiles environment?"
-    - name: "mas_email"
-      prompt: "What is your Mac App Store email?"
     - name: "mas_passwd"
       prompt: "What is your Mac App Store Password?"
   user: "{{ usernm }}"
