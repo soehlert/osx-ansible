@@ -3,7 +3,7 @@
 ##########
 full_name: "Sam Oehlert"
 usernm: "soehlert"
-groupnm: "admin"
+groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "mac"
 home_dir: "/Users/{{ usernm }}"
