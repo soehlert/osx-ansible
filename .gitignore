@@ -3,3 +3,4 @@ node_modules
 .hubot_history
 *.retry
 *.swp
+local.yaml
