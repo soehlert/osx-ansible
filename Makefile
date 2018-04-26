@@ -22,3 +22,5 @@ tweaks:
 all: osx_base dotfiles homebrew mas git hazel tweaks
 complete: 
 	ansible-playbook playbooks/common.yml -K
+update:
+	ansible-playbook playbooks/update.yml -K
