@@ -1,12 +1,17 @@
 ---
 #### Tweak a lot of OSX built ins
-# Set path for new finder window in vars/main
-# Set path for screenshots in vars/main
-# Set timezone in vars/main
-#
 # Not an exact list anywhere, but to see more defaults write options: http://www.defaults-write.com/
-# need to quote the values because this module is a bit buggy
 ####
+- name: See if we've set login items already
+  command: osascript -e 'tell application "System Events" to get the name of every login item'
+  register: startup_apps
+  changed_when: false
+
+- name: Set up login items
+  command: osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ item.path }}", hidden:"{{ item.hidden }}" }'
+  with_items: "{{ login_items }}"
+  when: '"Bartender" not in startup_apps.stdout'
+
 - name: Finder tweaks
   osx_defaults:
     domain: com.apple.finder
@@ -34,7 +39,7 @@
     - { key: DisableAllAnimations, type: bool, value: "true" }
     # Hide the "Are you sure?" when quitting
     - { key: QuitMenuItem, type: bool, value: "false" }
-  notify: kill Finder
+  notify: kill_finder
 
 - name: Global tweaks
   osx_defaults:
@@ -98,6 +103,15 @@
   with_items:
     # dont write .ds_store files on network vols
     - { key: DSDontWriteNetworkStores, type: bool, value: "true" }
+
+- name: Battery tweaks
+  osx_defaults:
+      domain: com.apple.menuextra.battery
+      key: ShowPercent
+      type: string
+      value: "YES"
+      state: present
+  notify: kill_systemUIserver
 
 - name: Help Viewer tweaks
   osx_defaults:
@@ -199,7 +213,42 @@
     - { key: showhidden, type: bool, value: "true" }
     # Make Dock more transparent
     - { key: hide-mirror, type: bool, value: "true" }
-  notify: kill dock
+  notify: kill_dock
+
+- name: Make sure dockutil is installed
+  homebrew:
+      name: dockutil
+      state: present
+
+- name: Dockutil | Check to see if we've already added apps
+  shell: 'dockutil --find iterm /Users/{{ usernm }}'
+  register: dockutil_apps
+  changed_when: false
+  failed_when: false
+
+- name: Dockutil | Clear apps from the dock
+  command: dockutil --remove all --no-restart
+  when: '"not found" in dockutil_apps.stdout'
+  changed_when: false
+  notify: kill_dock
+
+- name: Dockutil | Clear spacers from the dock
+  command: dockutil --remove spacer-tiles
+  when: '"not found" in dockutil_apps.stdout'
+  changed_when: false
+  notify: kill_dock
+
+- name: Dockutil | Add apps
+  command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
+  with_items: "{{ dockutil_desired }}"
+  when: '"not found" in dockutil_apps.stdout'
+  notify: kill_dock
+
+- name: Dockutil | Add items
+  command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}' --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
+  with_items: "{{ dockutil_desired_right }}"
+  when: '"not found" in dockutil_apps.stdout'
+  notify: kill_dock
 
 - name: Time Machine tweaks
   osx_defaults:
@@ -213,38 +262,67 @@
     - { key: DoNotOfferNewDisksForBackup, type: bool, value: "true" }
 
 - name: Disable local Time Machine snapshots
+  command: tmutil disable
   become: true
   become_user: root
-  command: tmutil disablelocal
-
+  changed_when: false
 
 ### Misc tweaks
-- name: Stop iTunes from responding to the keyboard media keys
-  shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+- block:
+    - name: Check if we turned off keyboard media keys to itunes
+      shell: launchctl list | grep -i com.apple.rcd
+      register: itunes_media_keys
+      changed_when: false
+      failed_when: false
 
-- name: Set power settings
-  command: pmset "{{ flag }}" "{{ item.name }}" "{{ item.value }}"
+    - name: Stop iTunes from responding to the keyboard media keys
+      shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+      when: itunes_media_keys.rc == 0
+
+    - name: Check if set to automatically reboot on freezes
+      command: systemsetup -getrestartfreeze
+      register: restart_freeze
+      changed_when: false
+
+    - name: Restart automatically if the computer freezes
+      command: systemsetup -setrestartfreeze on
+      when: '"On" not in restart_freeze.stdout'
+
+    - name: Check if sleep mode is set to off
+      command: systemsetup -getcomputersleep
+      register: sleep_mode
+      changed_when: false
+
+    - name: Never go into computer sleep mode
+      command: systemsetup -setcomputersleep Never
+      when: '"Never" not in sleep_mode.stdout'
+
+    - name: Check if timezone is set properly
+      command: systemsetup -gettimezone
+      register: current_timezone
+      changed_when: false
+
+    - name: Set timezone
+      command: systemsetup -settimezone "{{ timezone }}"
+      when: not current_timezone.stdout is search( timezone )
+
+    - name: SSD Tweaks
+      command: "pmset -a {{ item.name }} {{ item.value }}"
+      with_items:
+        # Disable sudden motion sensor if you have an SSD
+        - { name: sms, value: 0 }
+        # Disable hibernate mode; useful with SSD
+        - { name: hibernatemode, value: 0 }
+      changed_when: false
+
   become: true
   become_user: root
-  with_items:
-      # Disable sudden motion sensor if you have an SSD
-      - { flag: '-a', name: sms, value: 0 }
-      # Disable hibernate mode; useful with SSD
-      - { flag: '-a', name: hibernatemode, value: 0 }
-      - { flag: '-b', name: sleep, value: 15 }
-      - { flag: '-b', name: displaysleep, value: 15 }
-      - { flag: '-b', name: disksleep, value: 15 }
-      - { flag: '-b', name: lessbright, value: 1 }
-      - { flag: '-c', name: sleep, value: 0 }
-      - { flag: '-c', name: displaysleep, value: 0 }
-      - { flag: '-c', name: disksleep, value: 0 }
-      - { flag: '-c', name: lessbright, value: 0 }
 
-- name: Never go into computer sleep mode and set timezone
-  shell: "systemsetup {{ item.name }} {{ item.value }} > {{ item.redirect }}"
-  with_items:
-    - { name: -setcomputersleep, value: Off, redirect: /dev/null }
-    - { name: -settimezone, value: "{{ timezone }}", redirect: /dev/null }
+- name: Check to see if Users' Library folder is hidden
+  shell: "ls -Old {{ home_dir }}/Library | awk '{ print $5 }'"
+  register: library_hidden
+  changed_when: false
 
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/
+  when: '"hidden" in library_hidden.stdout'
