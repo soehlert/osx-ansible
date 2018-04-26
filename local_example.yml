@@ -141,7 +141,6 @@ homebrew_installed_packages:
     - git
     - git-extras
     - iperf3
-    - keybase
     - libav
     - libevent
     - libgcrypt
