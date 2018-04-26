@@ -137,7 +137,6 @@ homebrew_installed_packages:
     - docker
     - docker-machine
     - e2fsprogs
-    - ext4fuse
     - flake8
     - git
     - git-extras
