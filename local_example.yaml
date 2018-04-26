@@ -125,8 +125,6 @@ homebrew_taps:
     - "caskroom/drivers"
     - "caskroom/fonts"
     - "caskroom/cask"
-    - "homebrew/fuse"
-    - "homebrew/completions"
     - "homebrew/core"
     - "homebrew/bundle"
     - "homebrew/services"
