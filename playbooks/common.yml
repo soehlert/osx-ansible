@@ -1,15 +1,24 @@
 ---
 #### Set up OSX machines
-# One variable to set up is usernm in group_vars/all
-# Comment out any module you don't want, buuuut
+# Comment out any module you don't want, but
 # beware dependencies of modules
 ####
 - name: Set up osx host
   hosts: osx
   connection: local
-  vars_files:
-    - [ local.yml, defaults.yml ]
-  user: "{{ usernm }}"
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+          - "{{ inventory_dir }}/local.yml"
+          - "{{ inventory_dir }}/defaults.yml"
+      tags:
+          - osx_base
+          - dotfiles
+          - homebrew
+          - mas
+          - git
+          - hazel
+          - tweaks
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
     - { role: 'dotfiles', tags: 'dotfiles' }
