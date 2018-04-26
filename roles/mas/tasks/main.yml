@@ -3,23 +3,35 @@
 - name: Make sure mas is installed
   homebrew:
     name: mas
-    status: present
+    state: present
 
 - name: Get mas account status
   shell: 'mas account'
   register: mas_account_result
-  failed_when: mas_account_result > 1
+  failed_when: mas_account_result.rc > 1
   changed_when: false
 
-- name: Sign into mas when email/pass provided
-  shell: 'mas signin {{ mas_email }} {{ mas_passwd }}'
-  register: mas_signin_result
-  when: mas_account_result.rc == 1 and mas_email != '' and mas_passwd != '' and not mas_signin_dialog
+# Mas signin is currently broken on High Sierra
+# See https://github.com/mas-cli/mas/issues/107
+#
+#- name: Sign in to MAS when email is provided.
+#  shell: 'mas signin --dialog "{{ mas_email }}"'
+#  register: mas_signin_result
+#  when: mas_signin_dialog and mas_account_result.rc == 1 and mas_email != ''
+- block:
 
-- name: Sign in to MAS when email is provided, and complete password and 2FA using dialog.
-  shell: 'mas signin "{{ mas_email }}" "{{ mas_password }}" --dialog'
-  register: mas_signin_result
-  when: mas_signin_dialog and mas_account_result.rc == 1 and mas_email != ''
+    - name: Signin to the App Store
+      command: open -a /Applications/App\ Store.app
+
+    - name: Convert commerce plist to xml
+      command: plutil -convert xml1 ~/Library/Preferences/com.apple.appstore.commerce.plist
+
+    - name: Wait for Primary Account string to know I've signed in
+      wait_for:
+          path: ~/Library/Preferences/com.apple.appstore.commerce.plist
+          search_regex: PrimaryAccount
+
+  when: not mas_account_result.stdout is search( mas_email )
 
 - name: List installed MAS apps.
   command: mas list
@@ -35,3 +47,4 @@
 - name: Upgrade all apps (if configured).
   command: mas upgrade
   when: mas_upgrade_all_apps
+  changed_when: false
