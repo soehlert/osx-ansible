@@ -8,10 +8,7 @@
   hosts: osx
   connection: local
   vars_files:
-    - [ local.yaml, defaults.yaml ]
-  vars_prompt:
-    - name: "mas_passwd"
-      prompt: "What is your Mac App Store Password?"
+    - [ local.yml, defaults.yml ]
   user: "{{ usernm }}"
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
