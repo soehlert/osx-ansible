@@ -7,7 +7,6 @@
 # Not an exact list anywhere, but to see more defaults write options: http://www.defaults-write.com/
 # need to quote the values because this module is a bit buggy
 ####
-
 - name: Finder tweaks
   osx_defaults:
     domain: com.apple.finder
@@ -223,39 +222,29 @@
 - name: Stop iTunes from responding to the keyboard media keys
   shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
-- name: Restart automatically if the computer freezes
-  command: systemsetup -setrestartfreeze on
+- name: Set power settings
+  command: pmset "{{ flag }}" "{{ item.name }}" "{{ item.value }}"
+  become: true
+  become_user: root
+  with_items:
+      # Disable sudden motion sensor if you have an SSD
+      - { flag: '-a', name: sms, value: 0 }
+      # Disable hibernate mode; useful with SSD
+      - { flag: '-a', name: hibernatemode, value: 0 }
+      - { flag: '-b', name: sleep, value: 15 }
+      - { flag: '-b', name: displaysleep, value: 15 }
+      - { flag: '-b', name: disksleep, value: 15 }
+      - { flag: '-b', name: lessbright, value: 1 }
+      - { flag: '-c', name: sleep, value: 0 }
+      - { flag: '-c', name: displaysleep, value: 0 }
+      - { flag: '-c', name: disksleep, value: 0 }
+      - { flag: '-c', name: lessbright, value: 0 }
 
 - name: Never go into computer sleep mode and set timezone
   shell: "systemsetup {{ item.name }} {{ item.value }} > {{ item.redirect }}"
   with_items:
     - { name: -setcomputersleep, value: Off, redirect: /dev/null }
     - { name: -settimezone, value: "{{ timezone }}", redirect: /dev/null }
-
-- name: SSD Tweaks
-  become: true
-  become_user: root
-  command: "pmset -a {{ item.name }} {{ item.value }}"
-  with_items:
-    # Disable sudden motion sensor if you have an SSD
-    - { name: sms, value: 0 }
-    # Disable hibernate mode; useful with SSD
-    - { name: hibernatemode, value: 0 }
-
-- name: Check size of sleep image
-  stat:
-    path: "{{ sleepimage }}"
-  register: sleep_image
-
-- name: Remove the sleep image file to save disk space
-  become: true
-  become_user: root
-  command: "{{ item }}"
-  when: ("{{ sleep_image }}") and ("{{ sleep_image }}.stat.size != 0")
-  with_items:
-    - rm -f "{{ sleepimage }}"
-    - touch "{{ sleepimage }}"
-    - chflags uchg "{{ sleepimage }}"
 
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/
