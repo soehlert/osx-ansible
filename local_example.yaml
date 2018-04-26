@@ -3,24 +3,28 @@
 ##########
 full_name: "Sam Oehlert"
 usernm: "soehlert"
-groupnm: "admin"
+groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/secrets"
-
+login_shell: "/usr/local/bin/bash"
 
 # OSX_Base
 ##########
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
-search_domain_iface: "en0"
+search_domain_service: "Wi-Fi"
 search_domains: "soehlert.com"
 
 # Git
 ##########
 github_user: "soehlert"
+# If you use 2FA, create a personal access token allowing admin:public_key
+# https://github.com/settings/tokens -> Personal access tokens
+github_password: ''
+github_2fa: true
 
 # Dotfiles
 ##########
@@ -52,7 +56,60 @@ mas_installed_apps: []
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
-sleepimage: "/Private/var/vm/sleepimage"
+dockitems_remove_all: true
+dockutil_desired:
+    - name: 1password
+      path: "/Applications/1password 6.app"
+      pos: 2
+    - name: iTerm
+      path: "/Applications/iterm.app"
+      pos: 3
+    - name: Google Chrome
+      path: "/Applications/Google Chrome.app"
+      pos: 4
+    - name: Slack
+      path: "/Applications/Slack.app"
+      pos: 5
+    - name: System Preferences
+      path: "/Applications/System Preferences.app"
+dockutil_desired_right:
+    - name: Applications
+      path: '/Applications'
+      pos: 7
+      view: auto
+      display: stack
+      sort: name
+      section: others
+    - name: Utilities
+      path: '/Applications/Utilities'
+      pos: 9
+      view: auto
+      display: stack
+      sort: name
+      section: others
+    - name: Home
+      path: '/Users/{{ usernm }}'
+      pos: 10
+      view: auto
+      display: folder
+      sort: name
+      section: others
+    - name: Downloads
+      path: '/Users/{{ usernm }}/Downloads'
+      pos: 11
+      view: grid
+      display: folder
+      sort: name
+      sections: other
+login_items:
+    - path: /Applications/Viscosity.app
+      hidden: false
+    - path: /Applications/Bartender 3.app
+      hidden: false
+    - path: '/Users/{{ usernm }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
+      hidden: false
+    - path: /Applications/1password 6.app
+      hidden: true
 
 # Update
 ##########
@@ -60,6 +117,9 @@ reboot: false
 
 # Homebrew
 ##########
+homebrew_brew_bin_path: "/usr/local/Cellar"
+homebrew_use_brewfile: true
+homebrew_brewfile_dir: "~"
 homebrew_taps:
     - "buo/cask-upgrade"
     - "caskroom/drivers"

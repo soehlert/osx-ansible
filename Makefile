@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := complete
 
 base: osx_base
 install:
@@ -8,15 +8,17 @@ dump_vars:
 osx_base:
 	ansible-playbook playbooks/common.yml -t osx_base -K
 dotfiles:
-	ansible-playbook playbooks/common.yml -t dotfiles -K
+	ansible-playbook playbooks/common.yml -t dotfiles
 homebrew:
-	ansible-playbook playbooks/common.yml -t homebrew -K
+	ansible-playbook playbooks/common.yml -t homebrew
 mas:
-	ansible-playbook playbooks/common.yml -t mas -K
+	ansible-playbook playbooks/common.yml -t mas
 git:
 	ansible-playbook playbooks/common.yml -t git
 hazel:
 	ansible-playbook playbooks/common.yml -t hazel
 tweaks:
-	ansible-playbook playbooks/common.yml -t tweaks
+	ansible-playbook playbooks/common.yml -t tweaks -K
 all: osx_base dotfiles homebrew mas git hazel tweaks
+complete: 
+	ansible-playbook playbooks/common.yml -K

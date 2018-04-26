@@ -4,6 +4,10 @@
 # ssh_key_name is in defaults
 #
 ####
+- name: Check hostname
+  command: hostname
+  register: current_hostname
+  changed_when: false
 
 - name: Set computer name
   command: "scutil --set {{ item }} {{ hostname }}"
@@ -13,6 +17,7 @@
     - LocalHostName
   become: true
   become_user: root
+  when: current_hostname.stdout != hostname
 
 - name: Defaults host name
   osx_defaults:
@@ -22,6 +27,23 @@
     value: "{{ hostname }}"
   become: true
   become_user: root
+
+- name: Check for login shell
+  shell: "grep {{ login_shell }} /etc/shells"
+  register: etc_shells
+  changed_when: false
+  failed_when: false
+
+- name: Make sure login shell is available
+  lineinfile:
+    path: /etc/shells
+    insertafter: EOF
+    line: "{{ login_shell }}"
+  when: etc_shells.rc == 1
+
+- name: Set my login shell
+  command: "chpass -s {{ login_shell }}"
+  when: etc_shells.rc == 1
 
 - name: Create directories
   file:
@@ -44,7 +66,13 @@
   command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
   when: (ssh_key.stat.exists == false)
 
+- name: Check if we've set the search domains yet
+  command: networksetup -getsearchdomains "{{ search_domain_service }}"
+  register: search_domains_set
+  changed_when: false
+
 - name: Set search domains
-  command: networksetup -setsearchdomains "{{ search_domain_iface }}" "{{ search_domains }}"
+  command: networksetup -setsearchdomains "{{ search_domain_service }}" "{{ search_domains }}"
   become: true
   become_user: root
+  when: not '"search_domains" in search_domains_set'
