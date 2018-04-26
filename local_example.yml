@@ -47,8 +47,8 @@ hazel_dirs:
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
-mas_signin_dialog: no
-mas_upgrade_all: yes
+mas_signin_dialog: yes
+mas_upgrade_all_apps: yes
 mas_installed_apps: []
 
 # Tweaks
