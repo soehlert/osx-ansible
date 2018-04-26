@@ -10,17 +10,21 @@ home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/secrets"
-
+login_shell: "/usr/local/bin/bash"
 
 # OSX_Base
 ##########
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
-search_domain_iface: "en0"
+search_domain_service: "Wi-Fi"
 search_domains: "soehlert.com"
 
 # Git
 ##########
 github_user: "soehlert"
+# If you use 2FA, create a personal access token allowing admin:public_key
+# https://github.com/settings/tokens -> Personal access tokens
+github_2fa: true
+github_password: ''
 
 # Dotfiles
 ##########
@@ -43,7 +47,7 @@ hazel_dirs:
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
-mas_signin_dialog: no
+mas_signin_dialog: yes
 mas_upgrade_all: yes
 mas_installed_apps: []
 
@@ -52,7 +56,34 @@ mas_installed_apps: []
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
-sleepimage: /Private/var/vm/sleepimage
+dockitems_remove_all: true
+dockutil_desired:
+    - name: 1password
+      path: "/Applications/1password 6.app"
+      pos: 2
+    - name: iTerm
+      path: "/Applications/iterm.app"
+      pos: 3
+dockutil_desired_right:
+    - name: Applications
+      path: '/Applications'
+      pos: 4
+      view: auto
+      display: stack
+      sort: name
+      section: others
+    - name: Downloads
+      path: 'Users/{{ usernm }}/Downloads'
+      pos: 5
+      view: grid
+      display: folder
+      sort: name
+      sections: other
+login_items:
+    - path: /Applications/Bartender 3.app
+      hidden: false
+    - path: /Applications/1password 6.app
+      hidden: true
 
 # Update
 ##########
@@ -60,6 +91,9 @@ reboot: false
 
 # Homebrew
 ##########
+homebrew_brew_bin_path: "/usr/local/Cellar"
+homebrew_use_brewfile: true
+homebrew_brewfile_dir: "~"
 homebrew_taps: []
 homebrew_installed_packages: []
 homebrew_cask_apps: []
