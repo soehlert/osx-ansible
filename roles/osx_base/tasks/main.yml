@@ -39,6 +39,8 @@
     path: /etc/shells
     insertafter: EOF
     line: "{{ login_shell }}"
+  become: true
+  become_user: root
   when: etc_shells.rc == 1
 
 - name: Set my login shell
