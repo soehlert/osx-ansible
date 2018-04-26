@@ -6,8 +6,8 @@
 
 - name: Install gnu stow and git for dotfiles
   homebrew:
-    package: "{{ item }}"
-    status: present
+    name: "{{ item }}"
+    state: present
   with_items:
     - stow
     - git
@@ -28,7 +28,7 @@
     chdir: "{{ dotfiles_dir }}"
     creates: ~/.mackup.cfg
 
-- name: Stow other files depending on host type
+- name: Stow {{ dotfiles_env }} files
   command: stow "{{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
