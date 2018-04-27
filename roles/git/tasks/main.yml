@@ -29,7 +29,7 @@
   when: github_2fa
 
 - name: Get list of my repos
-  shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep clone_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
+  shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
   args:
       warn: false
   register: github_repos
@@ -38,5 +38,5 @@
 - name: Git clone all my projects
   git:
       repo: "{{ item }}"
-      dest: "{{ projects_dir }}/{{ item.split('/')[4] | regex_replace('.git$', '') }}"
+      dest: "{{ projects_dir }}/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
   with_items: "{{ github_repos.stdout_lines }}"
