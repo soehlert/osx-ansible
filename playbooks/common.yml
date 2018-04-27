@@ -16,7 +16,7 @@
           - dotfiles
           - homebrew
           - mas
-          - git
+          - github
           - hazel
           - tweaks
   roles:
@@ -24,6 +24,6 @@
     - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'homebrew', tags: 'homebrew' }
     - { role: 'mas', tags: 'mas' }
-    - { role: 'git', tags: 'git' }
+    - { role: 'github', tags: 'github' }
     - { role: 'hazel', tags: 'hazel' }
     - { role: 'tweaks', tags: 'tweaks' }

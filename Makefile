@@ -13,14 +13,14 @@ homebrew:
 	ansible-playbook playbooks/common.yml -t homebrew
 mas:
 	ansible-playbook playbooks/common.yml -t mas
-git:
-	ansible-playbook playbooks/common.yml -t git
+github:
+	ansible-playbook playbooks/common.yml -t github
 hazel:
 	ansible-playbook playbooks/common.yml -t hazel
 tweaks:
 	ansible-playbook playbooks/common.yml -t tweaks -K
-all: osx_base dotfiles homebrew mas git hazel tweaks
-complete: 
-	ansible-playbook playbooks/common.yml -K
 update:
 	ansible-playbook playbooks/update.yml -K
+all: osx_base dotfiles homebrew mas github hazel tweaks
+complete: 
+	ansible-playbook playbooks/common.yml -K
