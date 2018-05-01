@@ -96,13 +96,10 @@
 - name: Desktop Services tweaks
   osx_defaults:
     domain: com.apple.desktopServices
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
+    key: DSDontWriteNetworkStores
+    type: string
+    value: true
     state: present
-  with_items:
-    # dont write .ds_store files on network vols
-    - { key: DSDontWriteNetworkStores, type: bool, value: "true" }
 
 - name: Battery tweaks
   osx_defaults:
@@ -326,3 +323,7 @@
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/
   when: '"hidden" in library_hidden.stdout'
+
+- name: Run vim plug installer
+  command: vim :PlugInstall :qall
+  run_once: yes

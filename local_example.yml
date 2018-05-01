@@ -50,12 +50,15 @@ mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: yes
 mas_upgrade_all_apps: yes
 mas_installed_apps: []
+    - { id: 634148309, name: "Logic Pro X" }
+    - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
 
 # Tweaks
 ##########
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
+vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 dockitems_remove_all: true
 dockutil_desired:
     - name: 1password
@@ -72,6 +75,7 @@ dockutil_desired:
       pos: 5
     - name: System Preferences
       path: "/Applications/System Preferences.app"
+      pos: 6
 dockutil_desired_right:
     - name: Applications
       path: '/Applications'
