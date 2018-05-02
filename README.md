@@ -1,12 +1,13 @@
 # Ansible
-Ansible files for OSX local runs.
+Ansible configurations, playbooks and roles for setting up an OSX host.
 
-osx-ansible/playbooks/common.yml shows what roles will be loaded. To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
+osx-ansible/playbooks/common.yml shows what roles will be loaded.\
+To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 
-## Before running you must:
+## Before Running You Should:
 1. Copy local_example.yml to local.yml or just create one with any variables you'd like to override over defaults.yml (you'll want to do this unless you want my name all over your system)
 
-### Make targets
+#### Make targets
 1. base: installs osx_base role
 2. install: runs the bootstrap script
 3. dump_facts: dumps all local facts ansible can find
