@@ -18,10 +18,19 @@
   register: plugged_dir
   changed_when: false
 
-- name: Install Vim plugs
-  command: vim +PlugInstall +qall
-  run_once: yes
+- name: See if plugs are installed
+  command: vim +PlugStatus +qall
+  register: plug_status
+  changed_when: false
   when: ( vimrc_link.stat.exists and vimrc_link.stat.islnk ) and plugged_dir.stat.exists
 
-- name: Clean vim plug
+- name: Install Vim plugs
+  command: vim +PlugInstall +qall
+  register: plug_installed
+  changed_when: "'remote' in plug_installed.stdout"
+  when: "'Not found' in plug_status.stdout"
+
+- name: Clean Vim plug
   command: vim '+PlugClean!' +qall
+  register: plug_clean
+  changed_when: "not 'Already clean.' in plug_clean.stdout"
