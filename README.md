@@ -5,7 +5,11 @@ osx-ansible/playbooks/common.yml shows what roles will be loaded.\
 To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 
 ## Before Running You Should:
-1. Copy local_example.yml to local.yml or just create one with any variables you'd like to override over defaults.yml (you'll want to do this unless you want my name all over your system)
+	cd osx-ansible
+    cp local_example.yml local.yml
+
+or you can just create your own local.yml file with just the variables you'd like to override over varaibles from defaults.yml\
+you'll want to do this, as some defaults variables have my info in them
 
 ## Make targets
 1. base: installs osx_base role
@@ -23,16 +27,13 @@ To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 13. complete: runs all of these (minus install) only asking for one sudo password
 14. all: runs all of these, but will ask for sudo password for each role that requires it
 
-## To run:
-cd to osx-ansible directory
+##### Makefile:
+    make install
+    make
 
 ##### Raw commands:
     ./bootstrap.sh
     ansible-playbook playbooks/common.yml -K
-
-##### Makefile:
-    make install
-    make
 
 ## TODO
 - [x] bootstrap.sh
