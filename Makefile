@@ -10,7 +10,7 @@ osx_base:
 dotfiles:
 	ansible-playbook playbooks/common.yml -t dotfiles
 homebrew:
-	ansible-playbook playbooks/common.yml -t homebrew -K
+	ansible-playbook playbooks/common.yml -t homebrew
 mas:
 	ansible-playbook playbooks/common.yml -t mas
 github:
