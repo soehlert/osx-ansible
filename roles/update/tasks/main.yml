@@ -113,7 +113,7 @@
   when: "'pending updates' in plug_update.stdout"
 
 - name: Update pip packages
-  command: pip-review --auto
+  command: python -m pip_review --auto
   when: pip_review_updates.stdout != ''
 
 - name: Update npm packages
