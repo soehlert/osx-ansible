@@ -195,7 +195,7 @@ homebrew_cask_apps:
     - vagrant
     - vagrant-manager
     # This requires accepting the installer in system preferences which is annoying turned off for now until i can fix it
-    #- virtualbox
+    - virtualbox
     - viscosity
     - wireshark
     - xquartz
