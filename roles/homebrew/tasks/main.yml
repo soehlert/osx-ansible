@@ -3,19 +3,6 @@
 # Gatekeeper breaks us installing a couple of things.
 # We turn it off, install them, code sign them,
 # then turn gatekeeper back on
-- name: Check gatekeeper status
-  command: spctl --status
-  register: spctl_status
-  changed_when: false
-  failed_when: false
-
-- name: Turn off gatekeeper
-  command: spctl --master-disable
-  become: true
-  become_user: root
-  when: spctl_status.stdout == 'assessments enabled'
-  changed_when: false
-
 - name: Install brew taps
   homebrew_tap:
     tap: "{{ item }}"
@@ -51,20 +38,4 @@
   args:
     chdir: "{{ homebrew_brewfile_dir }}"
   when: homebrew_brewfile.stat.exists and homebrew_use_brewfile
-  changed_when: false
-
-- name: Code sign the tricky apps
-  command: spctl --add "/Applications/{{ item }}"
-  become: true
-  become_user: root
-  changed_when: false
-  with_items:
-      - Virtualbox.app
-      - Viscosity.app
-
-- name: Turn on gatekeeper
-  command: spctl --master-enable
-  become: true
-  become_user: root
-  when: spctl_status.stdout == 'assessments disabled'
   changed_when: false
