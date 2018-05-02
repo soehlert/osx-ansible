@@ -1,0 +1,18 @@
+- [x] bootstrap.sh
+- [x] convert homebrew to script based install instead of tarball
+- [x] update readme
+- [x] dotfiles
+- [x] Fix search domains to not be hardcoded
+- [x] Fix brew bundle
+- [x] Pull git repos
+- [x] mackup role (nevermind, mackup backups wouldnt be available anyways)
+- [x] fonts (using mackup to do this; fonts not seen by iterm?)
+- [x] fix makefile
+- [x] make sure to have defaults for every variable; put the rest in group vars that need changing
+- [x] clean up tweaks
+- [x] work brewfile
+- [ ] any way to do vpn stuff?
+- [x] any way to upload github key via API?
+- [ ] add PlugUpdate to update role
+- [x] idempotent check for plugclean
+- [ ] disable gatekeeper before installing brews, install brews, spctl --add with_items, enable gatekeeper
