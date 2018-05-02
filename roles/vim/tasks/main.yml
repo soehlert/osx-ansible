@@ -12,7 +12,7 @@
   register: vimrc_link
   changed_when: false
 
-- name: Check for plugged directory
+- name: Check for {{ vim_plug_dir}} directory
   stat:
       path: "{{ vim_plug_dir }}"
   register: plug_dir
@@ -27,12 +27,15 @@
 - name: Install Vim plugs
   command: vim +PlugInstall +qall
   register: plug_installed
-  changed_when: "'remote' in plug_installed.stdout"
   when: "'Not found' in plug_status.stdout"
 
 - name: Check if there are any empty directories in {{ vim_plug_dir }}
+  command: find "{{ vim_plug_dir }}" -maxdepth 1 -type d -empty
+  register: plug_empty
+  changed_when: false
 
 - name: Clean Vim plug
-  command: vim '+PlugClean!' +qall
+  command: vim +PlugClean! +qall
   register: plug_clean
   changed_when: "not 'Already clean.' in plug_clean.stdout"
+  when: plug_empty.stdout != ''
