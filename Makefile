@@ -23,6 +23,6 @@ vim-plug:
 	ansible-playbook playbooks/common.yml -t vim-plug
 update:
 	ansible-playbook playbooks/update.yml -K
-all: osx_base dotfiles homebrew mas github hazel tweaks vim-plug
 complete: 
 	ansible-playbook playbooks/common.yml -K
+all: osx_base dotfiles homebrew mas github hazel tweaks vim-plug
