@@ -146,6 +146,7 @@ homebrew_installed_packages:
     - git
     - git-extras
     - git-user
+    - glances
     - iperf3
     - libav
     - libevent

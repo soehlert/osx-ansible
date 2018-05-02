@@ -15,9 +15,13 @@
 - name: Check for plugged directory
   stat:
       path: "{{ home_dir }}/.vim/plugged"
-  register: plugged_link
+  register: plugged_dir
   changed_when: false
 
 - name: Install Vim plugs
   command: vim +PlugInstall +qall
-  when: ( vimrc_link.stat.islink is defined and vimrc_link.stat.islink ) and ( plugged_link.stat.islink is defined and plugged_link.stat.islink )
+  run_once: yes
+  when: ( vimrc_link.stat.exists and vimrc_link.stat.islnk ) and plugged_dir.stat.exists
+
+- name: Clean vim plug
+  command: vim '+PlugClean!' +qall
