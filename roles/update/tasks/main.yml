@@ -8,6 +8,12 @@
     register: mas
     changed_when: False
 
+  - name: Check for mas updates
+    command: mas outdated
+    register: mas_updates
+    when: mas.stat.exists
+    changed_when: False
+
   - name: Check for software updates and figure out if reboot is needed
     command: softwareupdate -l
     register: available_updates
@@ -17,6 +23,17 @@
     stat:
       path: /usr/local/bin/brew
     register: homebrew
+    changed_when: False
+
+  - name: Check for brew updates
+    command: brew outdated
+    register: brew_updates
+    when: homebrew.stat.exists
+    changed_when: False
+
+  - name: Check for cask updates
+    command: brew cask outdated
+    register: cask_updates
     changed_when: False
 
   - name: Check for vim-plug plugin updates
@@ -43,10 +60,22 @@
     when: pip.stat.exists or pip3.stat.exists
     changed_when: False
 
+  - name: Check for pip updates
+    command: pip-review
+    register: pip_review_updates
+    when: pip_review.stat.exists
+    changed_when: False
+
   - name: Check for npm
     stat:
       path: /usr/local/bin/npm
     register: npm
+    changed_when: False
+
+  - name: Check for npm updates
+    command: npm outdated
+    register: npm_updates
+    when: npm.stat.exists
     changed_when: False
 
   - name: Check for ruby gems
@@ -55,13 +84,24 @@
     register: rubygems
     changed_when: False
 
+  - name: Check for gem updates
+    command: gem outdated
+    register: gem_updates
+    when: rubygems.stat.exists
+    changed_when: False
+
   ignore_errors: True
 
 - name: Update homebrew packages
   homebrew:
     update_homebrew: yes
     upgrade_all: yes
-  when: homebrew.stat.exists
+  when: brew_updates.stdout != ''
+
+- name: Update brew casks
+  homebrew_cask:
+      upgrade_all: yes
+  when: cask_updates.stdout != ''
 
 - name: Update vim-plug
   command: vim +PlugUpgrade +qall
@@ -74,24 +114,24 @@
 
 - name: Update pip packages
   command: pip-review --auto
-  when: pip_review.stat.exists
+  when: pip_review_updates.stdout != ''
 
 - name: Update npm packages
   command: npm update
-  when: npm.stat.exists
+  when: npm_updates.stdout != ''
 
 - name: Update rubygem packages
   command: gem update
-  when: rubygems.stat.exists
+  when: gem_updates.stdout != ''
 
 - name: Update mas packages
   command: mas upgrade
-  when: mas.stat.exists
+  when: mas_updates.stdout != ''
 
 - name: Update OS when there's a reboot necessary AND we're ok with rebooting
   command: softwareupdate -i -a
-  when: ( available_updates.stdout | join('') | search("reboot") ) and reboot
+  when: ( available_updates.stdout | join('') is search("reboot") ) and reboot
 
 - name: Update OS when no reboot is necessary
   command: softwareupdate -i -a
-  when: ( not available_updates.stdout | join('') | search("reboot") )
+  when: ( not available_updates.stdout | join('') is search("reboot") )
