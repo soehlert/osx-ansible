@@ -324,6 +324,11 @@
   command: chflags nohidden {{ home_dir }}/Library/
   when: '"hidden" in library_hidden.stdout'
 
-- name: Run vim plug installer
-  command: vim :PlugInstall :qall
-  run_once: yes
+- name: Check for vim plugs
+  command: ls "{{ home_dir }}/.vim/plugged"
+  changed_when: false
+  register: plugged
+
+- name: Install vim plugs
+  command: vim +PlugInstall +qall
+  when: plugged.stdout_lines == ''
