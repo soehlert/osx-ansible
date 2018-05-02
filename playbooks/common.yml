@@ -19,7 +19,7 @@
           - github
           - hazel
           - tweaks
-          - vim
+          - vim-plug
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
     - { role: 'dotfiles', tags: 'dotfiles' }
@@ -28,4 +28,4 @@
     - { role: 'github', tags: 'github' }
     - { role: 'hazel', tags: 'hazel' }
     - { role: 'tweaks', tags: 'tweaks' }
-    - { role: 'vim', tags: 'vim' }
+    - { role: 'vim-plug', tags: 'vim-plug' }
