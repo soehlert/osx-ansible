@@ -27,12 +27,12 @@ To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 cd to osx-ansible directory
 
 ##### Raw commands:
-1. `./bootstrap.sh`
-2. `ansible-playbook playbooks/common.yml -K`
+1. ```./bootstrap.sh```
+2. ```ansible-playbook playbooks/common.yml -K```
 
 ##### Makefile:
-1. `make install`
-2. `make`
+1. ```make install``
+2. ```make``
 
 ## TODO
 - [x] bootstrap.sh
