@@ -13,11 +13,11 @@ You'll want to do this, as some defaults variables have my info in them.
 
 ## Installation
 
-##### Makefile:
+#### Makefile:
     make install
     make
 
-##### Raw commands:
+#### Raw commands:
     ./bootstrap.sh
     ansible-playbook playbooks/common.yml -K
 
@@ -55,5 +55,5 @@ You'll want to do this, as some defaults variables have my info in them.
 - [x] any way to upload github key via API?
 - [x] add PlugUpdate to update role
 - [x] idempotent check for plugclean
-- [ ] disable gatekeeper before installing brews, install brews, spctl --add with_items, enable gatekeeper
+- [x] disable gatekeeper before installing brews, install brews, spctl --add with_items, enable gatekeeper
 - [ ] add asciinema demos
