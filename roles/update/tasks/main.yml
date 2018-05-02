@@ -53,17 +53,14 @@
     register: pip3
     changed_when: False
 
-  - name: Check for pip-review
-    stat:
-      path: /usr/local/bin/pip-review
-    register: pip_review
+  - name: Install pip-review
+    pip:
+        name: pip-review
     when: pip.stat.exists or pip3.stat.exists
-    changed_when: False
 
   - name: Check for pip updates
     command: pip-review
     register: pip_review_updates
-    when: pip_review.stat.exists
     changed_when: False
 
   - name: Check for npm
@@ -114,14 +111,14 @@
 
 - name: Update pip packages
   command: python -m pip_review --auto
-  when: pip_review_updates.stdout != ''
+  when: not pip_review_updates.stdout | join('') is search("Everything up-to-date")
 
 - name: Update npm packages
   command: npm update
   when: npm_updates.stdout != ''
 
 - name: Update rubygem packages
-  command: gem update
+  command: gem update -f
   when: gem_updates.stdout != ''
 
 - name: Update mas packages
@@ -130,8 +127,13 @@
 
 - name: Update OS when there's a reboot necessary AND we're ok with rebooting
   command: softwareupdate -i -a
-  when: ( available_updates.stdout | join('') is search("reboot") ) and reboot
+  when: ( available_updates.stdout | join('') is search("restart") ) and reboot
 
 - name: Update OS when no reboot is necessary
   command: softwareupdate -i -a
-  when: ( not available_updates.stdout | join('') is search("reboot") )
+  when: ( not available_updates.stdout | join('') is search("restart") )
+
+- name: Alert us that a reboot is necessary to get all updates
+  debug:
+      msg: "Note: There is an update available that requires a reboot"
+  when: ( available_updates.stdout | join('') is search("restart") ) and not reboot
