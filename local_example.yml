@@ -58,7 +58,6 @@ mas_installed_apps: []
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
-vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 dockitems_remove_all: true
 dockutil_desired:
     - name: 1password
@@ -118,6 +117,10 @@ login_items:
 # Update
 ##########
 reboot: false
+
+# Vim
+##########
+vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 
 # Homebrew
 ##########
