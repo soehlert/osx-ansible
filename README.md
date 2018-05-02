@@ -11,7 +11,17 @@ To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 Or you can just create your own local.yml file with just the variables you'd like to override over varaibles from defaults.yml.\
 You'll want to do this, as some defaults variables have my info in them.
 
-## Make targets
+## Installation
+
+##### Makefile:
+    make install
+    make
+
+##### Raw commands:
+    ./bootstrap.sh
+    ansible-playbook playbooks/common.yml -K
+
+#### Make targets
 1. base: installs osx_base role
 2. install: runs the bootstrap script
 3. dump_facts: dumps all local facts ansible can find
@@ -26,14 +36,6 @@ You'll want to do this, as some defaults variables have my info in them.
 12. update: runs update playbook; updates mas, homebrew, hombrew cask, npm, pip packages and ruby gems
 13. complete: runs all of these (minus install) only asking for one sudo password
 14. all: runs all of these, but will ask for sudo password for each role that requires it
-
-##### Makefile:
-    make install
-    make
-
-##### Raw commands:
-    ./bootstrap.sh
-    ansible-playbook playbooks/common.yml -K
 
 ## TODO
 - [x] bootstrap.sh
