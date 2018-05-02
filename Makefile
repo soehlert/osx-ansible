@@ -19,8 +19,10 @@ hazel:
 	ansible-playbook playbooks/common.yml -t hazel
 tweaks:
 	ansible-playbook playbooks/common.yml -t tweaks -K
+vim:
+	ansible-playbook playbooks/common.yml -t vim
 update:
 	ansible-playbook playbooks/update.yml -K
-all: osx_base dotfiles homebrew mas github hazel tweaks
+all: osx_base dotfiles homebrew mas github hazel tweaks vim
 complete: 
 	ansible-playbook playbooks/common.yml -K

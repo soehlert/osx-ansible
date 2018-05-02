@@ -1,0 +1,23 @@
+---
+# tasks file for roles/vim
+- name: Install vim
+  homebrew:
+      name: vim
+      state: present
+
+# This makes sure that my vimrc is stowed from my dotfiles repo
+- name: Check for vimrc being a link
+  stat:
+      path: "{{ home_dir }}/.vimrc"
+  register: vimrc_link
+  changed_when: false
+
+- name: Check for plugged directory
+  stat:
+      path: "{{ home_dir }}/.vim/plugged"
+  register: plugged_link
+  changed_when: false
+
+- name: Install Vim plugs
+  command: vim +PlugInstall +qall
+  when: ( vimrc_link.stat.islink is defined and vimrc_link.stat.islink ) and ( plugged_link.stat.islink is defined and plugged_link.stat.islink )
