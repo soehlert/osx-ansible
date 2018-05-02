@@ -51,7 +51,7 @@ You'll want to do this, as some defaults variables have my info in them.
 - [x] work brewfile
 - [ ] any way to do vpn stuff?
 - [x] any way to upload github key via API?
-- [ ] add PlugUpdate to update role
+- [x] add PlugUpdate to update role
 - [x] idempotent check for plugclean
 - [ ] disable gatekeeper before installing brews, install brews, spctl --add with_items, enable gatekeeper
 - [ ] add asciinema demos
