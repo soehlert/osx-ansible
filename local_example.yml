@@ -42,6 +42,7 @@ hazel_dirs:
     - Music
     - PDF
     - Pics
+    - Text
     - Video
 
 # MAS
@@ -49,7 +50,7 @@ hazel_dirs:
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: yes
 mas_upgrade_all_apps: yes
-mas_installed_apps: []
+mas_installed_apps:
     - { id: 634148309, name: "Logic Pro X" }
     - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
 
