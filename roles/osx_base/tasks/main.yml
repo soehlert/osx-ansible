@@ -69,12 +69,17 @@
   when: (ssh_key.stat.exists == false)
 
 - name: Check if we've set the search domains yet
-  command: networksetup -getsearchdomains "{{ search_domain_service }}"
+  command: networksetup -getsearchdomains "{{ item }}"
   register: search_domains_set
   changed_when: false
+  with_items:
+      - "{{ search_domain_service }}"
 
 - name: Set search domains
-  command: networksetup -setsearchdomains "{{ search_domain_service }}" "{{ search_domains }}"
+  command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
   become: true
   become_user: root
-  when: '"any Search Domains set" in search_domains_set.stdout'
+  when: item.1.stdout != search_domains
+  with_together:
+      - "{{ search_domain_service }}"
+      - "{{ search_domains_set.results }}"
