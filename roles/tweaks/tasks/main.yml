@@ -97,7 +97,7 @@
   osx_defaults:
     domain: com.apple.desktopServices
     key: DSDontWriteNetworkStores
-    type: string
+    type: bool
     value: true
     state: present
 
