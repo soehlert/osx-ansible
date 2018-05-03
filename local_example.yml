@@ -60,6 +60,7 @@ finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
 dockitems_remove_all: true
+
 dockutil_desired:
     - name: 1password
       path: "/Applications/1password 6.app"
@@ -76,6 +77,7 @@ dockutil_desired:
     - name: System Preferences
       path: "/Applications/System Preferences.app"
       pos: 6
+
 dockutil_desired_right:
     - name: Applications
       path: '/Applications'
@@ -105,6 +107,7 @@ dockutil_desired_right:
       display: folder
       sort: name
       sections: other
+
 login_items:
     - path: /Applications/Viscosity.app
       hidden: false
@@ -128,6 +131,7 @@ vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~"
+
 homebrew_taps:
     - "buo/cask-upgrade"
     - "caskroom/drivers"
@@ -137,9 +141,11 @@ homebrew_taps:
     - "homebrew/bundle"
     - "homebrew/services"
     - "gesquive/git-user"
+
 homebrew_installed_packages:
     - ansible
     - ansible-lint
+    - asciinema
     - bash
     - bash-completion
     - dnstwist
@@ -203,4 +209,5 @@ homebrew_cask_apps:
     - viscosity
     - wireshark
     - xquartz
+
 homebrew_blacklisted_packages: []
