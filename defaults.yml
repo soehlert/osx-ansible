@@ -42,6 +42,7 @@ hazel_dirs:
     - Music
     - PDF
     - Pics
+    - Text
     - Video
 
 # MAS
