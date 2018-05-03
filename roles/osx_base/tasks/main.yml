@@ -68,33 +68,6 @@
   command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
   when: (ssh_key.stat.exists == false)
 
-- name: Check for guest user filevault
-  command: fdesetup list
-  become: true
-  become_user: root
-  register: guest_user_fv
-  changed_when: false
-
-- name: Remove guest user filevault
-  command: fdesetup remove -user Guest
-  when: '"Guest" in guest_user_fv.stdout'
-
-- name: Check if the guest user is around
-  command: defaults read com.apple.loginwindow SHOWOTHERUSERS_MANAGED
-  register: guest_user_defaults
-  changed_when: false
-
-- name: Remove guest user defaults
-  osx_defaults:
-    domain: com.apple.loginwindow
-    key: SHOWOTHERUSERS_MANAGED
-    type: bool
-    value: false
-    state: present
-  become: true
-  become_user: root
-  when: guest_user_defaults == 1
-
 - name: Check if we've set the search domains yet
   command: networksetup -getsearchdomains "{{ search_domain_service }}"
   register: search_domains_set
