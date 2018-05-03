@@ -39,4 +39,5 @@
   git:
       repo: "{{ item }}"
       dest: "{{ projects_dir }}/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
+      accept_hostkey: yes
   with_items: "{{ github_repos.stdout_lines }}"
