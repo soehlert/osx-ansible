@@ -5,7 +5,7 @@ osx-ansible/playbooks/common.yml shows what roles will be loaded.\
 To see what any role does, look at osx-ansible/roles/${role}/task/main.yml
 
 ## Before Running You Should:
-	cd osx-ansible
+    cd osx-ansible
     cp local_example.yml local.yml
 
 Or you can just create your own local.yml file with just the variables you'd like to override over varaibles from defaults.yml.\
