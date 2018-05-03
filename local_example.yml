@@ -31,7 +31,7 @@ github_2fa: true
 # I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
-dotfiles_repo: "https://github.com/{{ github_user }}/dotfiles.git"
+dotfiles_repo: "git@github.com/{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
