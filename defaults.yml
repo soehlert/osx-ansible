@@ -83,9 +83,11 @@ dockutil_desired_right:
       sort: name
       sections: other
 login_items:
-    - path: /Applications/Bartender 3.app
+    - name: Bartender 3
+      path: /Applications/Bartender 3.app
       hidden: false
-    - path: /Applications/1password 6.app
+    - name: 1password 6
+      path: /Applications/1password 6.app
       hidden: true
 
 # Update
