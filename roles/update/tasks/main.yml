@@ -53,10 +53,15 @@
     register: pip3
     changed_when: False
 
+  - name: Check for pip-review
+    stat:
+        path: /usr/local/bin/pip-review
+    register: pip_review
+
   - name: Install pip-review
     pip:
         name: pip-review
-    when: pip.stat.exists or pip3.stat.exists
+    when: (pip.stat.exists or pip3.stat.exists) and (not pip_review.stat.exists)
 
   - name: Check for pip updates
     command: pip-review
@@ -128,6 +133,7 @@
 - name: Update OS when there's a reboot necessary AND we're ok with rebooting
   command: softwareupdate -i -a
   when: ( available_updates.stdout | join('') is search("restart") ) and reboot
+  notify: Reboot
 
 - name: Update OS when no reboot is necessary
   command: softwareupdate -i -a
