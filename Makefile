@@ -31,4 +31,4 @@ update-reboot:
 updates-reboot: update-reboot
 complete: 
 	ansible-playbook playbooks/common.yml -K
-all: osx_base dotfiles homebrew mas github hazel tweaks vim-plug
+all: osx_base dotfiles homebrew mas macos_install github hazel tweaks vim-plug
