@@ -56,6 +56,7 @@ mas_installed_apps:
 
 # Tweaks
 ##########
+wallpaper: "{{ dotfiles }}/common/wallpaper.jpg"
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"

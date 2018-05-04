@@ -12,6 +12,14 @@
   with_items: "{{ login_items }}"
   when: '"Bartender" not in startup_apps.stdout'
 
+- name: Get current wallpaper
+  command: osascript -e 'tell app "finder" to get posix path of (get desktop picture as alias)'
+  register: wallpaper
+
+- name: Set Wallpaper
+  command: osascript -e 'tell application "System Events" to tell every desktop to set picture to "{{ wallpaper }}"'
+  when: wallpaper.stdout_lines[0] != wallpaper
+
 - name: Finder tweaks
   osx_defaults:
     domain: com.apple.finder
@@ -323,3 +331,4 @@
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/
   when: '"hidden" in library_hidden.stdout'
+
