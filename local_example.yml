@@ -110,14 +110,27 @@ dockutil_desired_right:
       sections: other
 
 login_items:
-    - path: /Applications/Viscosity.app
-      hidden: false
-    - path: /Applications/Bartender 3.app
-      hidden: false
-    - path: '/Users/{{ usernm }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
-      hidden: false
-    - path: /Applications/1password 6.app
+    - name: 1password 6
+      path: /Applications/1password 6.app
       hidden: true
+    - name: Backup and Sync from Google
+      path: /Applications/Backup and Sync.app
+      hidden: false
+    - name: Bartender 3
+      path: /Applications/Bartender 3.app
+      hidden: false
+    - name: Google Chrome
+      path: /Applications/Google Chrome.app
+      hidden: false
+    - name: HazelHelper
+      path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
+      hidden: false
+    - name: Stay
+      path: /Applications/Stay.app
+      hidden: false
+    - name: Viscosity
+      path: /Applications/Viscosity.app
+      hidden: false
 
 # Update
 ##########
