@@ -14,11 +14,14 @@
 
 - name: Get current wallpaper
   command: osascript -e 'tell app "finder" to get posix path of (get desktop picture as alias)'
-  register: wallpaper
+  register: current_wallpaper
+  changed_when: false
+  failed_when: false
 
 - name: Set Wallpaper
-  command: osascript -e 'tell application "System Events" to tell every desktop to set picture to "{{ wallpaper }}"'
-  when: wallpaper.stdout_lines[0] != wallpaper
+  command: sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value ='{{ wallpaper }}'"
+  when: current_wallpaper.stdout_lines != wallpaper
+  notify: kill_dock
 
 - name: Finder tweaks
   osx_defaults:
@@ -105,7 +108,7 @@
   osx_defaults:
     domain: com.apple.desktopServices
     key: DSDontWriteNetworkStores
-    type: bool
+    type: string
     value: true
     state: present
 
