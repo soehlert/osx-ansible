@@ -9,8 +9,8 @@
 
 - name: Set up login items
   command: osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ item.path }}", hidden:"{{ item.hidden }}" }'
+  when: startup_apps.stdout is search("item.name")
   with_items: "{{ login_items }}"
-  when: '"Bartender" not in startup_apps.stdout'
 
 - name: Get current wallpaper
   command: osascript -e 'tell app "finder" to get posix path of (get desktop picture as alias)'
@@ -20,7 +20,7 @@
 
 - name: Set Wallpaper
   command: sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value ='{{ wallpaper }}'"
-  when: current_wallpaper.stdout_lines != wallpaper
+  when: current_wallpaper.stdout != wallpaper
   notify: kill_dock
 
 - name: Finder tweaks
