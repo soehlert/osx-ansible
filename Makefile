@@ -13,6 +13,8 @@ homebrew:
 	ansible-playbook playbooks/common.yml -t homebrew
 mas:
 	ansible-playbook playbooks/common.yml -t mas
+macos_install:
+	ansible-playbook playbooks/common.yml -t macos_install
 github:
 	ansible-playbook playbooks/common.yml -t github
 hazel:
@@ -24,6 +26,9 @@ vim-plug:
 update:
 	ansible-playbook playbooks/update.yml -K
 updates: update
+update-reboot:
+	ansible-playbook playbooks/update.yml -K -e "reboot=true"
+updates-reboot: update-reboot
 complete: 
 	ansible-playbook playbooks/common.yml -K
 all: osx_base dotfiles homebrew mas github hazel tweaks vim-plug

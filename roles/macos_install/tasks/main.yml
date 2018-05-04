@@ -1,0 +1,16 @@
+---
+# tasks file for roles/macos_install
+- name: Install Copy .app drag dmgs
+  macos_install:
+      app_name: "{{ item.name }}"
+      dmg_path: "{{ dmg_path }}/{{ item.name }}.dmg"
+      force: "{{ item.force }}"
+      installed_name: "{{ item.installed_name }}"
+      state: present
+  with_items: "{{ dmgs }}"
+
+- name: Cleanup
+  file:
+      path: "{{ dmg_path }}/{{ item.name }}.dmg"
+      state: absent
+  with_items: "{{ dmgs }}"

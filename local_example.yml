@@ -54,6 +54,13 @@ mas_installed_apps:
     - { id: 634148309, name: "Logic Pro X" }
     - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
 
+# Macos_install
+###############
+# This installs from DMGs that only require you to copy a .app to /Applications
+dmg_path: "/tmp"
+dmgs:
+    - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+
 # Tweaks
 ##########
 wallpaper: "{{ dotfiles }}/common/wallpaper.jpg"

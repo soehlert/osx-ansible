@@ -16,6 +16,7 @@
           - dotfiles
           - homebrew
           - mas
+          - macos_install
           - github
           - hazel
           - tweaks
@@ -25,6 +26,7 @@
     - { role: 'dotfiles', tags: 'dotfiles' }
     - { role: 'homebrew', tags: 'homebrew' }
     - { role: 'mas', tags: 'mas' }
+    - { role: 'macos_install', tags: 'macos_install' }
     - { role: 'github', tags: 'github' }
     - { role: 'hazel', tags: 'hazel' }
     - { role: 'tweaks', tags: 'tweaks' }
