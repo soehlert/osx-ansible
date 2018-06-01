@@ -230,6 +230,7 @@ homebrew_cask_apps:
     - virtualbox
     - viscosity
     - wireshark
+    - witch
     - xquartz
 
 homebrew_blacklisted_packages: []
