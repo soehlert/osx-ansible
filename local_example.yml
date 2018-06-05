@@ -186,6 +186,7 @@ homebrew_installed_packages:
     - mackup
     - mas
     - mtr
+    - neofetch
     - netcat
     - nmap
     - p7zip

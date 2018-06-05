@@ -68,7 +68,7 @@ def install_pkg_from_app(appfile, mount_path, new_path, force):
         os.chdir(wd)
         subprocess.call(['hdiutil', 'detach', mount_path])
         subprocess.call(['rm', new_path])
-        changed=False
+        changed = False
         meta = dict(
             state='absent'
         )
@@ -117,12 +117,11 @@ def install(data):
         changed, meta = install_app(matching[0], mount_path, new_path, force)
         return changed, meta
 
-
     elif len(matching) > 1:
         for f in matching:
             if f == "Install.app":
                 changed, meta = install_pkg_from_app(f, mount_path, new_path,
-                                                    force)
+                                                     force)
                 return changed, meta
 
         changed = False
@@ -181,6 +180,7 @@ def main():
 
     has_changed, result = choice_map.get(amodule.params['state'])(amodule.params)
     amodule.exit_json(changed=has_changed, meta=result)
+
 
 if __name__ == '__main__':
     main()
