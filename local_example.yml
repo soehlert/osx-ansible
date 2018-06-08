@@ -216,6 +216,7 @@ homebrew_cask_apps:
     - iterm2
     - keybase
     - monolingual
+    - plexamp
     - qlcolorcode
     - qlmarkdown
     - qlstephen
