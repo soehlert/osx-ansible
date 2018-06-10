@@ -117,8 +117,8 @@ dockutil_desired_right:
       sections: other
 
 login_items:
-    - name: 1password 6
-      path: /Applications/1password 6.app
+    - name: 1password 7
+      path: /Applications/1password 7.app
       hidden: true
     - name: Backup and Sync from Google
       path: /Applications/Backup and Sync.app
@@ -194,6 +194,7 @@ homebrew_installed_packages:
     - pip-completion
     - python
     - python@2
+    - ripgrep
     - shellcheck
     - ssh-copy-id
     - stow
