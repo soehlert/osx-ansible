@@ -117,8 +117,8 @@ dockutil_desired_right:
       sections: other
 
 login_items:
-    - name: 1password 6
-      path: /Applications/1password 6.app
+    - name: 1password 7
+      path: /Applications/1password 7.app
       hidden: true
     - name: Backup and Sync from Google
       path: /Applications/Backup and Sync.app
@@ -173,6 +173,7 @@ homebrew_installed_packages:
     - docker
     - docker-machine
     - e2fsprogs
+    - fd
     - flake8
     - git
     - git-extras
@@ -194,6 +195,7 @@ homebrew_installed_packages:
     - pip-completion
     - python
     - python@2
+    - ripgrep
     - shellcheck
     - ssh-copy-id
     - stow
@@ -216,6 +218,7 @@ homebrew_cask_apps:
     - iterm2
     - keybase
     - monolingual
+    - plexamp
     - qlcolorcode
     - qlmarkdown
     - qlstephen
