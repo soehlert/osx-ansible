@@ -59,6 +59,17 @@
     - { path: '{{ ssh_dir }}', mode: '0700' }
     - { path: '{{ ansible_secrets }}', mode: '0700' }
 
+- name: Create projects dir subdirectories
+  file:
+    path: "{{ projects_dir }}/{{ item }}"
+    state: directory
+    owner: "{{ usernm }}"
+    group: "{{ groupnm }}"
+    mode: '0755'
+  with_items:
+    - personal
+    - work
+
 - name: Check if key exists
   stat:
     path: "{{ ssh_key_name }}"
