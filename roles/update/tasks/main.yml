@@ -103,6 +103,7 @@
 - name: Update sudo cache so brew cask upgrade doesnt ask for password
   command: "echo none"
   become: yes
+  changed_when: False
 
 - name: Update brew casks
   homebrew_cask:

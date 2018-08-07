@@ -25,6 +25,7 @@
 - name: Refresh sudo cache so homebrew cask doesnt ask for a password
   command: "echo none"
   become: yes
+  changed_when: False
 
 - name: Install cask applications
   homebrew_cask:
