@@ -100,9 +100,15 @@
     upgrade_all: yes
   when: brew_updates.stdout != ''
 
+- name: Update sudo cache so brew cask upgrade doesnt ask for password
+  command: "echo none"
+  become: yes
+  changed_when: False
+
 - name: Update brew casks
   homebrew_cask:
       upgrade_all: yes
+  ignore_errors: True
   when: cask_updates.stdout != ''
 
 - name: Update vim-plug
