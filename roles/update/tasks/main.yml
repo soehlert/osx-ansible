@@ -105,6 +105,9 @@
       upgrade_all: yes
   when: cask_updates.stdout != ''
 
+- name: Cleanup old brew files
+  command: brew cleanup
+
 - name: Update vim-plug
   command: vim +PlugUpgrade +qall
   register: plug_upgrade
