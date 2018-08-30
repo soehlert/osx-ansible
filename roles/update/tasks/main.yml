@@ -124,6 +124,7 @@
 
 - name: Cleanup old brew files
   command: brew cleanup
+  changed_when: False
 
 - name: Update vim-plug
   command: vim +PlugUpgrade +qall
@@ -165,21 +166,26 @@
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_dir }}"
     update: true
-    force: true
     accept_hostkey: true
 
 - name: Stow common files
   command: stow common
   args:
     chdir: "{{ dotfiles_dir }}"
+  changed_when: False
 
 - name: Stow {{ dotfiles_env }} files
   command: "stow {{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
+  changed_when: False
 
 - name: Update tpm plugins
-  command: .tmux/plugins/tpm/bin/update_plugins all
+  command: ~/.tmux/plugins/tpm/bin/update_plugins all
+  register: tpm_update
+  changed_when: not tpm_update.stdout|length > 1
+  tags:
+      - tpm
 
 - name: Update mas packages
   command: mas upgrade
