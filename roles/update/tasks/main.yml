@@ -137,12 +137,12 @@
 - name: Update pip
   command: python -m pip install --upgrade pip
   register: pip_upgrade
-  changed_when: "not pip_upgrade.stdout|search('Requirement already up-to-date')"
+  changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
 
 - name: Update pip3
-  command: python -m pip3 install --upgrade pip
+  command: python3 -m pip install --upgrade pip
   register: pip_upgrade
-  changed_when: "not pip_upgrade.stdout|search('Requirement already up-to-date')"
+  changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
 
 - name: Update pip packages
   command: python -m pip_review --auto
