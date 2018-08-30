@@ -184,8 +184,6 @@
   command: ~/.tmux/plugins/tpm/bin/update_plugins all
   register: tpm_update
   changed_when: not tpm_update.stdout|length > 1
-  tags:
-      - tpm
 
 - name: Update mas packages
   command: mas upgrade
