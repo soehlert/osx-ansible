@@ -68,6 +68,11 @@
     register: pip_review_updates
     changed_when: False
 
+  - name: Check for python3 pip updates
+    command: python3 -m pip_review
+    register: pip3_review_updates
+    changed_when: False
+
   - name: Check for npm
     stat:
       path: /usr/local/bin/npm
@@ -90,6 +95,12 @@
     command: gem outdated
     register: gem_updates
     when: rubygems.stat.exists
+    changed_when: False
+
+  - name: Check for tpm
+    stat:
+      path: ~/.tmux/plugins/tpm/bin/update_plugins
+    register: tpm
     changed_when: False
 
   ignore_errors: True
@@ -123,9 +134,23 @@
   command: vim +PlugUpdate +qall
   when: "'pending updates' in plug_update.stdout"
 
+- name: Update pip
+  command: python -m pip install --upgrade pip
+  register: pip_upgrade
+  changed_when: "not pip_upgrade.stdout|search('Requirement already up-to-date')"
+
+- name: Update pip3
+  command: python -m pip3 install --upgrade pip
+  register: pip_upgrade
+  changed_when: "not pip_upgrade.stdout|search('Requirement already up-to-date')"
+
 - name: Update pip packages
   command: python -m pip_review --auto
   when: not pip_review_updates.stdout | join('') is search("Everything up-to-date")
+
+- name: Update python3 pip packages
+  command: python3 -m pip_review --auto
+  when: not pip3_review_updates.stdout | join('') is search("Everything up-to-date")
 
 - name: Update npm packages
   command: npm update
@@ -134,6 +159,27 @@
 - name: Update rubygem packages
   command: gem update -f
   when: gem_updates.stdout != ''
+
+- name: Pull dotfiles
+  git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dir }}"
+    update: true
+    force: true
+    accept_hostkey: true
+
+- name: Stow common files
+  command: stow common
+  args:
+    chdir: "{{ dotfiles_dir }}"
+
+- name: Stow {{ dotfiles_env }} files
+  command: "stow {{ dotfiles_env }}"
+  args:
+    chdir: "{{ dotfiles_dir }}"
+
+- name: Update tpm plugins
+  command: .tmux/plugins/tpm/bin/update_plugins all
 
 - name: Update mas packages
   command: mas upgrade
