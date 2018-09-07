@@ -68,6 +68,11 @@
     register: pip_review_updates
     changed_when: False
 
+  - name: Check for python3 pip updates
+    command: python3 -m pip_review
+    register: pip3_review_updates
+    changed_when: False
+
   - name: Check for npm
     stat:
       path: /usr/local/bin/npm
@@ -92,6 +97,12 @@
     when: rubygems.stat.exists
     changed_when: False
 
+  - name: Check for tpm
+    stat:
+      path: ~/.tmux/plugins/tpm/bin/update_plugins
+    register: tpm
+    changed_when: False
+
   ignore_errors: True
 
 - name: Update homebrew packages
@@ -111,6 +122,10 @@
   ignore_errors: True
   when: cask_updates.stdout != ''
 
+- name: Cleanup old brew files
+  command: brew cleanup
+  changed_when: False
+
 - name: Update vim-plug
   command: vim +PlugUpgrade +qall
   register: plug_upgrade
@@ -120,9 +135,23 @@
   command: vim +PlugUpdate +qall
   when: "'pending updates' in plug_update.stdout"
 
+- name: Update pip
+  command: python -m pip install --upgrade pip
+  register: pip_upgrade
+  changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
+
+- name: Update pip3
+  command: python3 -m pip install --upgrade pip
+  register: pip_upgrade
+  changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
+
 - name: Update pip packages
   command: python -m pip_review --auto
   when: not pip_review_updates.stdout | join('') is search("Everything up-to-date")
+
+- name: Update python3 pip packages
+  command: python3 -m pip_review --auto
+  when: not pip3_review_updates.stdout | join('') is search("Everything up-to-date")
 
 - name: Update npm packages
   command: npm update
@@ -131,6 +160,30 @@
 - name: Update rubygem packages
   command: gem update -f
   when: gem_updates.stdout != ''
+
+- name: Pull dotfiles
+  git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dir }}"
+    update: true
+    accept_hostkey: true
+
+- name: Stow common files
+  command: stow common
+  args:
+    chdir: "{{ dotfiles_dir }}"
+  changed_when: False
+
+- name: Stow {{ dotfiles_env }} files
+  command: "stow {{ dotfiles_env }}"
+  args:
+    chdir: "{{ dotfiles_dir }}"
+  changed_when: False
+
+- name: Update tpm plugins
+  command: ~/.tmux/plugins/tpm/bin/update_plugins all
+  register: tpm_update
+  changed_when: not tpm_update.stdout|length > 1
 
 - name: Update mas packages
   command: mas upgrade
