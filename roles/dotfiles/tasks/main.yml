@@ -26,7 +26,7 @@
   command: stow common
   args:
     chdir: "{{ dotfiles_dir }}"
-    creates: ~/.mackup.cfg
+    creates: ~/.vimrc
 
 - name: Stow {{ dotfiles_env }} files
   command: stow "{{ dotfiles_env }}"
