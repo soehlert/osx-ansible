@@ -29,7 +29,8 @@ github_2fa: true
 
 # Dotfiles
 ##########
-# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
+# I have my dotfiles broken up by home/work/server this allows me to use
+# different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
@@ -50,18 +51,20 @@ hazel_dirs:
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
-mas_signin_dialog: yes
-mas_upgrade_all_apps: yes
+mas_signin_dialog: true
+mas_upgrade_all_apps: true
 mas_installed_apps:
-    - { id: 634148309, name: "Logic Pro X" }
-    - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
+    - {id: 634148309, name: "Logic Pro X"}
+    - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
 
 # Macos_install
 ###############
 # This installs from DMGs that only require you to copy a .app to /Applications
 dmg_path: "/tmp"
+# This will stay as an example. but plexamp now available via homebrew
 dmgs:
-    - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+    # yamllint disable-line rule:line-length
+    - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: false, installed_name: "Plexamp"}
 
 # Tweaks
 ##########
@@ -132,6 +135,7 @@ login_items:
       path: /Applications/Google Chrome.app
       hidden: false
     - name: HazelHelper
+      # yamllint disable-line rule:line-length
       path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
       hidden: false
     - name: Stay
@@ -163,7 +167,6 @@ homebrew_taps:
     - "homebrew/core"
     - "homebrew/bundle"
     - "homebrew/services"
-    - "gesquive/git-user"
 
 homebrew_installed_packages:
     - ansible
@@ -179,7 +182,6 @@ homebrew_installed_packages:
     - flake8
     - git
     - git-extras
-    - git-user
     - glances
     - iperf3
     - libav
@@ -206,11 +208,13 @@ homebrew_installed_packages:
     - unrar
     - vim
     - wget
+
 homebrew_cask_apps:
     - 1password
     - appcleaner
     - atom
     - bartender
+    - brave
     - clamxav
     - firefox
     - font-source-code-pro-for-powerline
@@ -233,7 +237,8 @@ homebrew_cask_apps:
     - tinymediamanager
     - vagrant
     - vagrant-manager
-    # This requires accepting the installer in system preferences which is annoying turned off for now until i can fix it
+    # This requires accepting the installer in system preferences
+    # which is annoying turned off for now until i can fix it
     - virtualbox
     - virtualbox-extension-pack
     - viscosity
