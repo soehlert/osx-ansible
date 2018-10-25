@@ -8,7 +8,7 @@ email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
-python_env_dir: "{{ home_dir }}/envs"
+python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
@@ -199,6 +199,9 @@ homebrew_installed_packages:
   - perl
   - pip-completion
   - pip-gitlint
+  - pyenv
+  - pyenv-virtualenv
+  - pyenv-virtualenvwrapper
   - python
   - python@2
   - ripgrep
