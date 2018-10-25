@@ -274,3 +274,7 @@ pip3_packages:
 go_packages:
   - pepper
   - udict
+
+npm_packages: []
+
+ruby_packages: []
