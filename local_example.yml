@@ -174,16 +174,23 @@ homebrew_installed_packages:
     - asciinema
     - bash
     - bash-completion
+    - curl
     - dnstwist
     - docker
     - docker-machine
+    - dockutil
     - e2fsprogs
     - fd
     - flake8
+    - fzf
     - git
     - git-extras
+    - git-secrets
     - glances
+    - go
     - iperf3
+    - jpeg
+    - jq
     - libav
     - libevent
     - libgcrypt
@@ -197,10 +204,13 @@ homebrew_installed_packages:
     - p7zip
     - perl
     - pip-completion
+    - pip-gitlint
     - python
     - python@2
     - ripgrep
+    - screenresolution
     - shellcheck
+    - socat
     - ssh-copy-id
     - stow
     - tmux
@@ -208,22 +218,31 @@ homebrew_installed_packages:
     - unrar
     - vim
     - wget
+    - wireguard-go
+    - wireguard-tools
+    - yamllint
+    - youtube-dl
 
 homebrew_cask_apps:
     - 1password
+    - 1password-cli
     - appcleaner
     - atom
     - bartender
     - brave-browser
     - clamxav
     - firefox
+    - font-hack-nerd-font
     - font-source-code-pro-for-powerline
     - google-backup-and-sync
     - google-chrome
+    - handbrake
     - hazel
     - iterm2
     - keybase
+    - logitech-myharmony
     - monolingual
+    - musicbrainz-picard
     - plexamp
     - qlcolorcode
     - qlmarkdown
@@ -233,15 +252,10 @@ homebrew_cask_apps:
     - quicklook-json
     - slack
     - stay
+    - synthesia
     - the-unarchiver
-    - tinymediamanager
-    - vagrant
-    - vagrant-manager
-    # This requires accepting the installer in system preferences
-    # which is annoying turned off for now until i can fix it
-    - virtualbox
-    - virtualbox-extension-pack
     - viscosity
+    - vlc
     - wireshark
     - witch
     - xquartz
