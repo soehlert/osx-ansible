@@ -214,7 +214,7 @@ homebrew_cask_apps:
     - appcleaner
     - atom
     - bartender
-    - brave
+    - brave-browser
     - clamxav
     - firefox
     - font-source-code-pro-for-powerline
