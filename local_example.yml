@@ -38,15 +38,15 @@ dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 # Hazel
 ##########
 hazel_dirs:
-    - Compressed
-    - IMG
-    - Important
-    - Music
-    - PDF
-    - Pics
-    - Text
-    - Video
-    - Work
+  - Compressed
+  - IMG
+  - Important
+  - Music
+  - PDF
+  - Pics
+  - Text
+  - Video
+  - Work
 
 # MAS
 ##########
@@ -54,17 +54,8 @@ mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-    - {id: 634148309, name: "Logic Pro X"}
-    - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
-
-# Macos_install
-###############
-# This installs from DMGs that only require you to copy a .app to /Applications
-dmg_path: "/tmp"
-# This will stay as an example. but plexamp now available via homebrew
-dmgs:
-    # yamllint disable-line rule:line-length
-    - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: false, installed_name: "Plexamp"}
+  - {id: 634148309, name: "Logic Pro X"}
+  - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
 
 # Tweaks
 ##########
@@ -75,75 +66,78 @@ timezone: "America/Chicago"
 dockitems_remove_all: true
 
 dockutil_desired:
-    - name: 1password
-      path: "/Applications/1password 6.app"
-      pos: 2
-    - name: iTerm
-      path: "/Applications/iterm.app"
-      pos: 3
-    - name: Google Chrome
-      path: "/Applications/Google Chrome.app"
-      pos: 4
-    - name: Slack
-      path: "/Applications/Slack.app"
-      pos: 5
-    - name: System Preferences
-      path: "/Applications/System Preferences.app"
-      pos: 6
+  - name: 1password
+    path: "/Applications/1password 7.app"
+    pos: 2
+  - name: iTerm
+    path: "/Applications/iterm.app"
+    pos: 3
+  - name: Google Chrome
+    path: "/Applications/Brave Browser.app"
+    pos: 4
+  - name: Slack
+    path: "/Applications/Slack.app"
+    pos: 5
+  - name: System Preferences
+    path: "/Applications/System Preferences.app"
+    pos: 6
 
 dockutil_desired_right:
-    - name: Applications
-      path: '/Applications'
-      pos: 7
-      view: auto
-      display: stack
-      sort: name
-      section: others
-    - name: Utilities
-      path: '/Applications/Utilities'
-      pos: 9
-      view: auto
-      display: stack
-      sort: name
-      section: others
-    - name: Home
-      path: '/Users/{{ usernm }}'
-      pos: 10
-      view: auto
-      display: folder
-      sort: name
-      section: others
-    - name: Downloads
-      path: '/Users/{{ usernm }}/Downloads'
-      pos: 11
-      view: grid
-      display: folder
-      sort: name
-      sections: other
+  - name: Applications
+    path: '/Applications'
+    pos: 7
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Utilities
+    path: '/Applications/Utilities'
+    pos: 9
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Home
+    path: '/Users/{{ usernm }}'
+    pos: 10
+    view: auto
+    display: folder
+    sort: name
+    section: others
+  - name: Downloads
+    path: '/Users/{{ usernm }}/Downloads'
+    pos: 11
+    view: grid
+    display: folder
+    sort: name
+    sections: other
 
 login_items:
-    - name: 1password 7
-      path: /Applications/1password 7.app
-      hidden: true
-    - name: Backup and Sync from Google
-      path: /Applications/Backup and Sync.app
-      hidden: false
-    - name: Bartender 3
-      path: /Applications/Bartender 3.app
-      hidden: false
-    - name: Google Chrome
-      path: /Applications/Google Chrome.app
-      hidden: false
-    - name: HazelHelper
-      # yamllint disable-line rule:line-length
-      path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
-      hidden: false
-    - name: Stay
-      path: /Applications/Stay.app
-      hidden: false
-    - name: Viscosity
-      path: /Applications/Viscosity.app
-      hidden: false
+  - name: 1password 7
+    path: /Applications/1password 7.app
+    hidden: true
+  - name: Backup and Sync from Google
+    path: /Applications/Backup and Sync.app
+    hidden: false
+  - name: Bartender 3
+    path: /Applications/Bartender 3.app
+    hidden: false
+  - name: Brave Browser
+    path: /Applications/Brave Browser.app
+    hidden: false
+  - name: HazelHelper
+    # yamllint disable-line rule:line-length
+    path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
+    hidden: false
+  - name: Plexamp
+    path: /Applications/Plexamp.app
+    hidden: false
+  - name: Stay
+    path: /Applications/Stay.app
+    hidden: false
+  - name: Viscosity
+    path: /Applications/Viscosity.app
+    hidden: false
 
 # Update
 ##########
@@ -160,104 +154,123 @@ homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~"
 
 homebrew_taps:
-    - "buo/cask-upgrade"
-    - "caskroom/drivers"
-    - "caskroom/fonts"
-    - "caskroom/cask"
-    - "homebrew/core"
-    - "homebrew/bundle"
-    - "homebrew/services"
+  - "buo/cask-upgrade"
+  - "caskroom/drivers"
+  - "caskroom/fonts"
+  - "caskroom/cask"
+  - "homebrew/core"
+  - "homebrew/bundle"
+  - "homebrew/services"
 
 homebrew_installed_packages:
-    - ansible
-    - ansible-lint
-    - asciinema
-    - bash
-    - bash-completion
-    - curl
-    - dnstwist
-    - docker
-    - docker-machine
-    - dockutil
-    - e2fsprogs
-    - fd
-    - flake8
-    - fzf
-    - git
-    - git-extras
-    - git-secrets
-    - glances
-    - go
-    - iperf3
-    - jpeg
-    - jq
-    - libav
-    - libevent
-    - libgcrypt
-    - libyaml
-    - mackup
-    - mas
-    - mtr
-    - neofetch
-    - netcat
-    - nmap
-    - p7zip
-    - perl
-    - pip-completion
-    - pip-gitlint
-    - python
-    - python@2
-    - ripgrep
-    - screenresolution
-    - shellcheck
-    - socat
-    - ssh-copy-id
-    - stow
-    - tmux
-    - tree
-    - unrar
-    - vim
-    - wget
-    - wireguard-go
-    - wireguard-tools
-    - yamllint
-    - youtube-dl
+  - ansible
+  - ansible-lint
+  - asciinema
+  - bash
+  - bash-completion
+  - curl
+  - dnstwist
+  - docker
+  - docker-machine
+  - dockutil
+  - e2fsprogs
+  - fd
+  - flake8
+  - fzf
+  - git
+  - git-extras
+  - git-secrets
+  - glances
+  - go
+  - iperf3
+  - jpeg
+  - jq
+  - libav
+  - libevent
+  - libgcrypt
+  - libyaml
+  - mackup
+  - mas
+  - mtr
+  - neofetch
+  - netcat
+  - nmap
+  - p7zip
+  - perl
+  - pip-completion
+  - pip-gitlint
+  - python
+  - python@2
+  - ripgrep
+  - screenresolution
+  - shellcheck
+  - socat
+  - ssh-copy-id
+  - stow
+  - tmux
+  - tree
+  - unrar
+  - vim
+  - wget
+  - wireguard-go
+  - wireguard-tools
+  - yamllint
+  - youtube-dl
 
 homebrew_cask_apps:
-    - 1password
-    - 1password-cli
-    - appcleaner
-    - atom
-    - bartender
-    - brave-browser
-    - clamxav
-    - firefox
-    - font-hack-nerd-font
-    - font-source-code-pro-for-powerline
-    - google-backup-and-sync
-    - google-chrome
-    - handbrake
-    - hazel
-    - iterm2
-    - keybase
-    - logitech-myharmony
-    - monolingual
-    - musicbrainz-picard
-    - plexamp
-    - qlcolorcode
-    - qlmarkdown
-    - qlstephen
-    - qlvideo
-    - quicklook-csv
-    - quicklook-json
-    - slack
-    - stay
-    - synthesia
-    - the-unarchiver
-    - viscosity
-    - vlc
-    - wireshark
-    - witch
-    - xquartz
+  - 1password
+  - 1password-cli
+  - appcleaner
+  - atom
+  - bartender
+  - brave-browser
+  - clamxav
+  - firefox
+  - font-hack-nerd-font
+  - font-source-code-pro-for-powerline
+  - google-backup-and-sync
+  - google-chrome
+  - handbrake
+  - hazel
+  - iterm2
+  - keybase
+  - logitech-myharmony
+  - monolingual
+  - musicbrainz-picard
+  - plexamp
+  - qlcolorcode
+  - qlmarkdown
+  - qlstephen
+  - qlvideo
+  - quicklook-csv
+  - quicklook-json
+  - slack
+  - stay
+  - synthesia
+  - the-unarchiver
+  - viscosity
+  - vlc
+  - wireshark
+  - witch
+  - xquartz
 
 homebrew_blacklisted_packages: []
+
+pip_packages:
+  - black
+  - commitizen
+  - pip
+  - pip-review
+  - setuptools
+  - wheel
+
+pip3_packages:
+  - black
+  - pip
+  - pip-review
+  - setuptools
+  - wheel
+
+go_packages:
+  - pepper
+  - udict
