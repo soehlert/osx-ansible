@@ -170,7 +170,7 @@
 
 - name: Stow common files
   command: stow common
-  ags:
+  args:
     chdir: "{{ dotfiles_dir }}"
   changed_when: false
 
