@@ -6,125 +6,125 @@
     stat:
       path: /usr/local/bin/mas
     register: mas
-    changed_when: False
+    changed_when: false
 
   - name: Check for mas updates
     command: mas outdated
     register: mas_updates
     when: mas.stat.exists
-    changed_when: False
+    changed_when: false
 
   - name: Check for software updates and figure out if reboot is needed
     command: softwareupdate -l
     register: available_updates
-    changed_when: False
+    changed_when: false
 
   - name: Check for homebrew
     stat:
       path: /usr/local/bin/brew
     register: homebrew
-    changed_when: False
+    changed_when: false
 
   - name: Check for brew updates
     command: brew outdated
     register: brew_updates
     when: homebrew.stat.exists
-    changed_when: False
+    changed_when: false
 
   - name: Check for cask updates
     command: brew cask outdated
     register: cask_updates
-    changed_when: False
+    changed_when: false
 
   - name: Check for vim-plug plugin updates
     command: vim +PlugDiff +qall
     register: plug_update
-    changed_when: False
+    changed_when: false
 
   - name: Check for pip
     stat:
       path: /usr/local/bin/pip
     register: pip
-    changed_when: False
+    changed_when: false
 
   - name: Check for pip3
     stat:
       path: /usr/local/bin/pip3
     register: pip3
-    changed_when: False
+    changed_when: false
 
   - name: Check for pip-review
     stat:
-        path: /usr/local/bin/pip-review
+      path: /usr/local/bin/pip-review
     register: pip_review
 
   - name: Install pip-review
     pip:
-        name: pip-review
+      name: pip-review
     when: (pip.stat.exists or pip3.stat.exists) and (not pip_review.stat.exists)
 
   - name: Check for pip updates
     command: pip-review
     register: pip_review_updates
-    changed_when: False
+    changed_when: false
 
   - name: Check for python3 pip updates
     command: python3 -m pip_review
     register: pip3_review_updates
-    changed_when: False
+    changed_when: false
 
   - name: Check for npm
     stat:
       path: /usr/local/bin/npm
     register: npm
-    changed_when: False
+    changed_when: false
 
   - name: Check for npm updates
     command: npm outdated
     register: npm_updates
     when: npm.stat.exists
-    changed_when: False
+    changed_when: false
 
   - name: Check for ruby gems
     stat:
       path: /usr/local/bin/gem
     register: rubygems
-    changed_when: False
+    changed_when: false
 
   - name: Check for gem updates
     command: gem outdated
     register: gem_updates
     when: rubygems.stat.exists
-    changed_when: False
+    changed_when: false
 
   - name: Check for tpm
     stat:
       path: ~/.tmux/plugins/tpm/bin/update_plugins
     register: tpm
-    changed_when: False
+    changed_when: false
 
-  ignore_errors: True
+  ignore_errors: true
 
 - name: Update homebrew packages
   homebrew:
-    update_homebrew: yes
-    upgrade_all: yes
+    update_homebrew: true
+    upgrade_all: true
   when: brew_updates.stdout != ''
 
 - name: Update sudo cache so brew cask upgrade doesnt ask for password
   command: "echo none"
-  become: yes
-  changed_when: False
+  become: true
+  changed_when: false
 
 - name: Update brew casks
   homebrew_cask:
-      upgrade_all: yes
-  ignore_errors: True
+    upgrade_all: true
+  ignore_errors: true
   when: cask_updates.stdout != ''
 
 - name: Cleanup old brew files
   command: brew cleanup
-  changed_when: False
+  changed_when: false
 
 - name: Update vim-plug
   command: vim +PlugUpgrade +qall
@@ -170,15 +170,15 @@
 
 - name: Stow common files
   command: stow common
-  args:
+  ags:
     chdir: "{{ dotfiles_dir }}"
-  changed_when: False
+  changed_when: false
 
 - name: Stow {{ dotfiles_env }} files
   command: "stow {{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
-  changed_when: False
+  changed_when: false
 
 - name: Update tpm plugins
   command: ~/.tmux/plugins/tpm/bin/update_plugins all
@@ -200,5 +200,5 @@
 
 - name: Alert us that a reboot is necessary to get all updates
   debug:
-      msg: "Note: There is an update available that requires a reboot"
+    msg: "Note: There is an update available that requires a reboot"
   when: ( available_updates.stdout | join('') is search("restart") ) and not reboot
