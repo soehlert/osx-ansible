@@ -24,11 +24,11 @@
           - vim-plug
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
-    - { role: 'dotfiles', tags: 'dotfiles' }
-    - { role: 'homebrew', tags: 'homebrew' }
-    - { role: 'mas', tags: 'mas' }
-    - { role: 'macos_install', tags: 'macos_install' }
-    - { role: 'github', tags: 'github' }
-    - { role: 'hazel', tags: 'hazel' }
-    - { role: 'defaults', tags: 'defaults' }
-    - { role: 'vim-plug', tags: 'vim-plug' }
+    - { role: 'dotfiles', tags: 'dotfiles', when: 'dotfiles' }
+    - { role: 'homebrew', tags: 'homebrew' when: 'homebrew' }
+    - { role: 'mas', tags: 'mas', when: 'mas' }
+    - { role: 'macos_install', tags: 'macos_install', when: 'macos_install' }
+    - { role: 'github', tags: 'github', when: 'github' }
+    - { role: 'hazel', tags: 'hazel', when: 'hazel' }
+    - { role: 'defaults', tags: 'defaults', when: 'defaults' }
+    - { role: 'vim-plug', tags: 'vim-plug', when: 'vim-plug' }
