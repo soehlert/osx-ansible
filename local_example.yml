@@ -247,13 +247,16 @@ homebrew_cask_apps:
   - bartender
   - brave-browser
   - clamxav
+  - dash
   - firefox
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
   - google-chrome
+  - handbrake
   - hazel
   - iterm2
   - keybase
+  - knockknock
   - monolingual
   - plexamp
   - qlcolorcode
@@ -264,14 +267,14 @@ homebrew_cask_apps:
   - quicklook-json
   - slack
   - stay
+  - steam
   - the-unarchiver
   - tinymediamanager
   - vagrant
   - vagrant-manager
-  # This requires accepting the installer in system preferences which is annoying turned off for now until i can fix it
-  - virtualbox
   - viscosity
   - wireshark
   - xquartz
+  - zoomus
 
 homebrew_blacklisted_packages: []
