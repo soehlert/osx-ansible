@@ -1,7 +1,7 @@
-.DEFAULT_GOAL := complete
+.DEFAULT_GOAL := install
 
 base: osx_base
-install:
+bootstrap:
 	./bootstrap.sh
 dump_facts:
 	ansible all -m setup --tree /tmp/facts --connection=local -i ansible_hosts
@@ -19,8 +19,8 @@ github:
 	ansible-playbook playbooks/common.yml -t github
 hazel:
 	ansible-playbook playbooks/common.yml -t hazel
-tweaks:
-	ansible-playbook playbooks/common.yml -t tweaks -K
+defaults:
+	ansible-playbook playbooks/common.yml -t defaults -K
 vim-plug:
 	ansible-playbook playbooks/common.yml -t vim-plug
 update:
@@ -29,6 +29,6 @@ updates: update
 update-reboot:
 	ansible-playbook playbooks/update.yml -K -e "reboot=true"
 updates-reboot: update-reboot
-complete: 
+install: 
 	ansible-playbook playbooks/common.yml -K
-all: osx_base dotfiles homebrew mas macos_install github hazel tweaks vim-plug
+all: osx_base dotfiles homebrew mas macos_install github hazel defaults vim-plug

@@ -14,8 +14,8 @@ You'll want to do this, as some defaults variables have my info in them.
 ## Installation
 
 #### Makefile:
+    make bootstrap
     make install
-    make
 
 #### Raw commands:
     ./bootstrap.sh
@@ -31,7 +31,7 @@ You'll want to do this, as some defaults variables have my info in them.
 7. mas: connects to the Mac App Store and installs applications from there
 8. github: uploads ssh key to github, clones all my repos from github
 9. hazel: [hazel](https://www.noodlesoft.com/) is a powerful auto organizing tool. this target sets up the directories I use hazel on
-10. tweaks: lots of little osx tweaks (think `defaults write`)
+10. defaults: MacOS defaults write commands
 11. vim-plug: sets up [vim-plug](https://github.com/junegunn/vim-plug)
 12. update: runs update playbook; updates mas, homebrew, hombrew cask, npm, pip packages and ruby gems
 13. complete: runs all of these (minus install) only asking for one sudo password
@@ -49,7 +49,7 @@ You'll want to do this, as some defaults variables have my info in them.
 - [x] fonts (using mackup to do this; fonts not seen by iterm?)
 - [x] fix makefile
 - [x] make sure to have defaults for every variable; put the rest in group vars that need changing
-- [x] clean up tweaks
+- [x] clean up defaults
 - [x] work brewfile
 - [ ] any way to do vpn stuff?
 - [x] any way to upload github key via API?
