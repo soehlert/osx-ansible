@@ -20,6 +20,7 @@ search_domains: "soehlert.com samoehlert.com internal.sjo"
 
 # Git
 ##########
+git: true
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
@@ -28,6 +29,7 @@ github_2fa: true
 
 # Dotfiles
 ##########
+dotfiles: true
 # I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
@@ -35,34 +37,38 @@ dotfiles_repo: "git@github.com/{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
+hazel: true
 hazel_dirs:
-    - Compressed
-    - IMG
-    - Important
-    - Music
-    - PDF
-    - Pics
-    - Text
-    - Video
+  - Compressed
+  - IMG
+  - Important
+  - Music
+  - PDF
+  - Pics
+  - Text
+  - Video
 
 # MAS
 ##########
+mas: true
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: yes
 mas_upgrade_all_apps: yes
 mas_installed_apps:
-    - { id: 634148309, name: "Logic Pro X" }
-    - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
+  - { id: 634148309, name: "Logic Pro X" }
+  - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
 
 # Macos_install
 ###############
+macos_install: false
 # This installs from DMGs that only require you to copy a .app to /Applications
 dmg_path: "/tmp"
 dmgs:
-    - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
 
-# Tweaks
+# Defaults
 ##########
+defaults: true
 wallpaper: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
@@ -70,74 +76,74 @@ timezone: "America/Chicago"
 dockitems_remove_all: true
 
 dockutil_desired:
-    - name: 1password
-      path: "/Applications/1password 6.app"
-      pos: 2
-    - name: iTerm
-      path: "/Applications/iterm.app"
-      pos: 3
-    - name: Google Chrome
-      path: "/Applications/Google Chrome.app"
-      pos: 4
-    - name: Slack
-      path: "/Applications/Slack.app"
-      pos: 5
-    - name: System Preferences
-      path: "/Applications/System Preferences.app"
-      pos: 6
+  - name: 1password
+    path: "/Applications/1password 7.app"
+    pos: 2
+  - name: iTerm
+    path: "/Applications/iterm.app"
+    pos: 3
+  - name: Google Chrome
+    path: "/Applications/Brave Browser.app"
+    pos: 4
+  - name: Slack
+    path: "/Applications/Slack.app"
+    pos: 5
+  - name: System Preferences
+    path: "/Applications/System Preferences.app"
+    pos: 6
 
 dockutil_desired_right:
-    - name: Applications
-      path: '/Applications'
-      pos: 7
-      view: auto
-      display: stack
-      sort: name
-      section: others
-    - name: Utilities
-      path: '/Applications/Utilities'
-      pos: 9
-      view: auto
-      display: stack
-      sort: name
-      section: others
-    - name: Home
-      path: '/Users/{{ usernm }}'
-      pos: 10
-      view: auto
-      display: folder
-      sort: name
-      section: others
-    - name: Downloads
-      path: '/Users/{{ usernm }}/Downloads'
-      pos: 11
-      view: grid
-      display: folder
-      sort: name
-      sections: other
+  - name: Applications
+    path: '/Applications'
+    pos: 7
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Utilities
+    path: '/Applications/Utilities'
+    pos: 9
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Home
+    path: '/Users/{{ usernm }}'
+    pos: 10
+    view: auto
+    display: folder
+    sort: name
+    section: others
+  - name: Downloads
+    path: '/Users/{{ usernm }}/Downloads'
+    pos: 11
+    view: grid
+    display: folder
+    sort: name
+    sections: other
 
 login_items:
-    - name: 1password 7
-      path: /Applications/1password 7.app
-      hidden: true
-    - name: Backup and Sync from Google
-      path: /Applications/Backup and Sync.app
-      hidden: false
-    - name: Bartender 3
-      path: /Applications/Bartender 3.app
-      hidden: false
-    - name: Google Chrome
-      path: /Applications/Google Chrome.app
-      hidden: false
-    - name: HazelHelper
-      path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
-      hidden: false
-    - name: Stay
-      path: /Applications/Stay.app
-      hidden: false
-    - name: Viscosity
-      path: /Applications/Viscosity.app
-      hidden: false
+  - name: 1password 7
+    path: /Applications/1password 7.app
+    hidden: true
+  - name: Backup and Sync from Google
+    path: /Applications/Backup and Sync.app
+    hidden: false
+  - name: Bartender 3
+    path: /Applications/Bartender 3.app
+    hidden: false
+  - name: Brave Browser
+    path: /Applications/Brave Browser.app
+    hidden: false
+  - name: HazelHelper
+    path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
+    hidden: false
+  - name: Stay
+    path: /Applications/Stay.app
+    hidden: false
+  - name: Viscosity
+    path: /Applications/Viscosity.app
+    hidden: false
 
 # Update
 ##########
@@ -145,97 +151,127 @@ reboot: false
 
 # Vim
 ##########
+vim: true
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 
 # Homebrew
 ##########
+homebrew: true
 homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
-homebrew_brewfile_dir: "~"
+homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
-    - "buo/cask-upgrade"
-    - "caskroom/drivers"
-    - "caskroom/fonts"
-    - "caskroom/cask"
-    - "homebrew/core"
-    - "homebrew/bundle"
-    - "homebrew/services"
-    - "gesquive/git-user"
+  - "buo/cask-upgrade"
+  - "caskroom/drivers"
+  - "caskroom/fonts"
+  - "caskroom/cask"
+  - "homebrew/core"
+  - "homebrew/bundle"
+  - "homebrew/services"
 
 homebrew_installed_packages:
-    - ansible
-    - ansible-lint
-    - asciinema
-    - bash
-    - bash-completion
-    - dnstwist
-    - docker
-    - docker-machine
-    - e2fsprogs
-    - fd
-    - flake8
-    - git
-    - git-extras
-    - git-user
-    - glances
-    - iperf3
-    - libav
-    - libevent
-    - libgcrypt
-    - libyaml
-    - mackup
-    - mas
-    - mtr
-    - neofetch
-    - netcat
-    - nmap
-    - p7zip
-    - perl
-    - pip-completion
-    - python
-    - python@2
-    - ripgrep
-    - shellcheck
-    - ssh-copy-id
-    - stow
-    - tmux
-    - tree
-    - unrar
-    - vim
-    - wget
+  - ansible
+  - ansible-lint
+  - asciinema
+  - autoconf
+  - bash
+  - bash-completion
+  - dnstwist
+  - docker
+  - docker-machine
+  - dockutil
+  - e2fsprogs
+  - fd
+  - flake8
+  - freetype
+  - fzf
+  - gawk
+  - geoip
+  - gifsicle
+  - git
+  - git-extras
+  - glances
+  - gnu-tar
+  - hashcat
+  - hping
+  - htop
+  - imagemagick
+  - iperf3
+  - jpeg
+  - lame
+  - lua
+  - mackup
+  - mas
+  - minicom
+  - mtr
+  - ncurses
+  - neofetch
+  - netcat
+  - nmap
+  - node
+  - openjpeg
+  - openssl
+  - openssl@1.1
+  - p7zip
+  - pcre2
+  - perl
+  - pgcli
+  - pip-completion
+  - pkg-config
+  - pyenv
+  - pyenv-virtualenv
+  - pyenv-virtualenvwrapper
+  - python
+  - python@2
+  - readline
+  - ripgrep
+  - ruby
+  - screenresolution
+  - shellcheck
+  - sqlite
+  - ssh-copy-id
+  - stow
+  - telnet
+  - tmate
+  - tmux
+  - tree
+  - unrar
+  - vim
+  - wget
+
 homebrew_cask_apps:
-    - 1password
-    - appcleaner
-    - atom
-    - bartender
-    - clamxav
-    - firefox
-    - font-source-code-pro-for-powerline
-    - google-backup-and-sync
-    - google-chrome
-    - hazel
-    - iterm2
-    - keybase
-    - monolingual
-    - plexamp
-    - qlcolorcode
-    - qlmarkdown
-    - qlstephen
-    - qlvideo
-    - quicklook-csv
-    - quicklook-json
-    - slack
-    - stay
-    - the-unarchiver
-    - tinymediamanager
-    - vagrant
-    - vagrant-manager
-    # This requires accepting the installer in system preferences which is annoying turned off for now until i can fix it
-    - virtualbox
-    - viscosity
-    - wireshark
-    - witch
-    - xquartz
+  - 1password
+  - appcleaner
+  - atom
+  - bartender
+  - brave-browser
+  - clamxav
+  - firefox
+  - font-source-code-pro-for-powerline
+  - google-backup-and-sync
+  - google-chrome
+  - hazel
+  - iterm2
+  - keybase
+  - monolingual
+  - plexamp
+  - qlcolorcode
+  - qlmarkdown
+  - qlstephen
+  - qlvideo
+  - quicklook-csv
+  - quicklook-json
+  - slack
+  - stay
+  - the-unarchiver
+  - tinymediamanager
+  - vagrant
+  - vagrant-manager
+  # This requires accepting the installer in system preferences which is annoying turned off for now until i can fix it
+  - virtualbox
+  - viscosity
+  - wireshark
+  - xquartz
 
 homebrew_blacklisted_packages: []
