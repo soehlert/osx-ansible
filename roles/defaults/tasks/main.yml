@@ -190,6 +190,8 @@
   with_items:
     # Disable dashboard with true
     - { key: mcx-disabled, type: bool, value: "true" }
+    # Don't show dashboard as a space
+    - { key: dashboard-in-overlay, type: bool, value: "true"}
 
 - name: Dock tweaks
   osx_defaults:
