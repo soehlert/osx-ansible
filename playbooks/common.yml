@@ -7,7 +7,8 @@
   hosts: osx
   connection: local
   pre_tasks:
-    - include_vars: "{{ item }}"
+    - name: Find our variables
+      include_vars: "{{ item }}"
       with_first_found:
           - "{{ inventory_dir }}/local.yml"
           - "{{ inventory_dir }}/defaults.yml"
@@ -19,7 +20,7 @@
           - macos_install
           - github
           - hazel
-          - tweaks
+          - defaults
           - vim-plug
   roles:
     - { role: 'osx_base', tags: 'osx_base' }
@@ -29,5 +30,5 @@
     - { role: 'macos_install', tags: 'macos_install' }
     - { role: 'github', tags: 'github' }
     - { role: 'hazel', tags: 'hazel' }
-    - { role: 'tweaks', tags: 'tweaks' }
+    - { role: 'defaults', tags: 'defaults' }
     - { role: 'vim-plug', tags: 'vim-plug' }
