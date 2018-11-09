@@ -32,3 +32,4 @@
     - { role: 'hazel', tags: 'hazel', when: 'hazel' }
     - { role: 'defaults', tags: 'defaults', when: 'defaults' }
     - { role: 'vim-plug', tags: 'vim-plug', when: 'vim-plug' }
+    - { role: 'wallpaper', tags: 'wallpaper', when: 'wallpaper' }

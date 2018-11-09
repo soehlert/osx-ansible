@@ -23,6 +23,8 @@ defaults:
 	ansible-playbook playbooks/common.yml -t defaults -K
 vim-plug:
 	ansible-playbook playbooks/common.yml -t vim-plug
+wallpaper:
+	ansible-playbook playbooks/common.yml -t wallpaper
 update:
 	ansible-playbook playbooks/update.yml -K
 updates: update
@@ -31,4 +33,4 @@ update-reboot:
 updates-reboot: update-reboot
 install: 
 	ansible-playbook playbooks/common.yml -K
-all: osx_base dotfiles homebrew mas macos_install github hazel defaults vim-plug
+all: osx_base dotfiles homebrew mas macos_install github hazel defaults vim-plug wallpaper

@@ -1,0 +1,9 @@
+---
+# tasks file for roles/wallpaper
+- name: Make sure wallpaper program is installed
+  homebrew:
+    name: wallpaper
+    state: present
+
+- name: Set wallpaper
+  command: wallpaper set "{{ wallpaper_file }}"
