@@ -33,9 +33,10 @@ You'll want to do this, as some defaults variables have my info in them.
 9. hazel: [hazel](https://www.noodlesoft.com/) is a powerful auto organizing tool. this target sets up the directories I use hazel on
 10. defaults: MacOS defaults write commands
 11. vim-plug: sets up [vim-plug](https://github.com/junegunn/vim-plug)
-12. update: runs update playbook; updates mas, homebrew, hombrew cask, npm, pip packages and ruby gems
-13. complete: runs all of these (minus install) only asking for one sudo password
-14. all: runs all of these, but will ask for sudo password for each role that requires it
+12. wallpaper: sets your wallpaper to a file of your choosing
+13. update: runs update playbook; updates mas, homebrew, hombrew cask, npm, pip packages and ruby gems
+14. complete: runs all of these (minus install) only asking for one sudo password
+15. all: runs all of these, but will ask for sudo password for each role that requires it
 
 ## TODO
 - [x] bootstrap.sh

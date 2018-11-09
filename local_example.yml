@@ -67,14 +67,10 @@ macos_install: false
 dmg_path: "/tmp"
 dmgs:
   - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
-=======
-  - {id: 634148309, name: "Logic Pro X"}
-  - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
 
 # Defaults
 ##########
 defaults: true
-wallpaper: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
@@ -162,6 +158,11 @@ reboot: false
 ##########
 vim: true
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+
+# Wallpaper
+##########
+wallpaper: true
+wallpaper_file: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 
 # Homebrew
 ##########
