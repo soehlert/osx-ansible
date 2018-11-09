@@ -54,9 +54,12 @@
     owner: "{{ usernm }}"
     group: "{{ groupnm }}"
     mode: "{{ item.mode }}"
+    recurse: true
   with_items:
-    - { path: '{{ projects_dir }}', mode: '0755' }
+    - { path: '{{ projects_dir }}/personal', mode: '0755' }
+    - { path: '{{ projects_dir }}/work', mode: '0755' }
     - { path: '{{ ssh_dir }}', mode: '0700' }
+    - { path: '{{ python_env_dir }}', mode: '0700' }
     - { path: '{{ ansible_secrets }}', mode: '0700' }
 
 - name: Create projects dir subdirectories

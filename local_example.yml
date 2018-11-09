@@ -8,6 +8,7 @@ email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
+python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
@@ -33,7 +34,7 @@ dotfiles: true
 # I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
-dotfiles_repo: "git@github.com/{{ github_user }}/dotfiles.git"
+dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
@@ -47,13 +48,14 @@ hazel_dirs:
   - Pics
   - Text
   - Video
+  - Work
 
 # MAS
 ##########
 mas: true
 mas_email: "sam.oehlert@gmail.com"
-mas_signin_dialog: yes
-mas_upgrade_all_apps: yes
+mas_signin_dialog: true
+mas_upgrade_all_apps: true
 mas_installed_apps:
   - { id: 634148309, name: "Logic Pro X" }
   - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
@@ -65,6 +67,9 @@ macos_install: false
 dmg_path: "/tmp"
 dmgs:
   - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+=======
+  - {id: 634148309, name: "Logic Pro X"}
+  - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
 
 # Defaults
 ##########
@@ -136,7 +141,11 @@ login_items:
     path: /Applications/Brave Browser.app
     hidden: false
   - name: HazelHelper
+    # yamllint disable-line rule:line-length
     path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
+    hidden: false
+  - name: Plexamp
+    path: /Applications/Plexamp.app
     hidden: false
   - name: Stay
     path: /Applications/Stay.app
@@ -177,6 +186,7 @@ homebrew_installed_packages:
   - autoconf
   - bash
   - bash-completion
+  - curl
   - dnstwist
   - docker
   - docker-machine
@@ -184,7 +194,6 @@ homebrew_installed_packages:
   - e2fsprogs
   - fd
   - flake8
-  - freetype
   - fzf
   - gawk
   - geoip
@@ -193,13 +202,16 @@ homebrew_installed_packages:
   - git-extras
   - glances
   - gnu-tar
+  - go
   - hashcat
   - hping
   - htop
   - imagemagick
   - iperf3
   - jpeg
+  - jq
   - lame
+  - libyaml
   - lua
   - mackup
   - mas
@@ -218,6 +230,7 @@ homebrew_installed_packages:
   - perl
   - pgcli
   - pip-completion
+  - pip-gitlint
   - pkg-config
   - pyenv
   - pyenv-virtualenv
@@ -240,8 +253,17 @@ homebrew_installed_packages:
   - vim
   - wget
 
+
 homebrew_cask_apps:
   - 1password
+  - wireguard-go
+  - wireguard-tools
+  - yamllint
+  - youtube-dl
+
+homebrew_cask_apps:
+  - 1password
+  - 1password-cli
   - appcleaner
   - atom
   - bartender
@@ -258,6 +280,7 @@ homebrew_cask_apps:
   - keybase
   - knockknock
   - monolingual
+  - logitech-myharmony
   - plexamp
   - qlcolorcode
   - qlmarkdown
@@ -268,13 +291,41 @@ homebrew_cask_apps:
   - slack
   - stay
   - steam
+  - synthesia
   - the-unarchiver
   - tinymediamanager
   - vagrant
   - vagrant-manager
   - viscosity
+  - wireguard-go
+  - wireguard-tools
+  - yamllint
+  - youtube-dl
   - wireshark
   - xquartz
   - zoomus
 
 homebrew_blacklisted_packages: []
+
+pip_packages:
+  - black
+  - commitizen
+  - pip
+  - pip-review
+  - setuptools
+  - wheel
+
+pip3_packages:
+  - black
+  - pip
+  - pip-review
+  - setuptools
+  - wheel
+
+go_packages:
+  - pepper
+  - udict
+
+npm_packages: []
+
+ruby_packages: []

@@ -8,6 +8,7 @@ email: "sam.oehlert@gmail.com"
 hostname: "mac"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
+python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
 ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
@@ -28,10 +29,11 @@ github_password: ''
 
 # Dotfiles
 ##########
-# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
+# I have my dotfiles broken up by home/work/server this allows me to use
+# different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
-dotfiles_repo: "git@github.com/{{ github_user }}/dotfiles.git"
+dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
@@ -48,8 +50,8 @@ hazel_dirs:
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
-mas_signin_dialog: yes
-mas_upgrade_all: yes
+mas_signin_dialog: true
+mas_upgrade_all: true
 mas_installed_apps: []
 
 # Macos_install
