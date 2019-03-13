@@ -168,6 +168,7 @@ homebrew_installed_packages:
   - asciinema
   - bash
   - bash-completion
+  - bat
   - curl
   - dnstwist
   - docker
