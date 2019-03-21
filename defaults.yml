@@ -5,27 +5,26 @@ full_name: "Sam Oehlert"
 usernm: "soehlert"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
-hostname: "mac"
+hostname: "Macbook-Pro"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
-ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
 
 # OSX_Base
 ##########
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
-search_domains: "soehlert.com"
+search_domains: ""
 
 # Git
 ##########
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
-github_2fa: true
 github_password: ''
+github_2fa: false
 
 # Dotfiles
 ##########
@@ -38,76 +37,96 @@ dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 # Hazel
 ##########
 hazel_dirs:
-    - Compressed
-    - IMG
-    - Important
-    - Music
-    - PDF
-    - Pics
-    - Text
-    - Video
+  - Compressed
+  - IMG
+  - Important
+  - Music
+  - PDF
+  - Pics
+  - Text
+  - Video
+  - Work
 
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
-mas_upgrade_all: true
+mas_upgrade_all_apps: true
 mas_installed_apps: []
-
-# Macos_install
-###############
-# This installs from DMGs that only require you to copy a .app to /Applications
-dmg_path: "/tmp"
-dmgs: []
 
 # Tweaks
 ##########
-wallpaper: "/Library/Desktop Pictures/High Sierra.jpg"
+wallpaper: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
-vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 dockitems_remove_all: true
+
 dockutil_desired:
-    - name: 1password
-      path: "/Applications/1password 6.app"
-      pos: 2
-    - name: iTerm
-      path: "/Applications/iterm.app"
-      pos: 3
+  - name: System Preferences
+    path: "/Applications/System Preferences.app"
+    pos: 6
+
 dockutil_desired_right:
-    - name: Applications
-      path: '/Applications'
-      pos: 4
-      view: auto
-      display: stack
-      sort: name
-      section: others
-    - name: Downloads
-      path: 'Users/{{ usernm }}/Downloads'
-      pos: 5
-      view: grid
-      display: folder
-      sort: name
-      sections: other
+  - name: Applications
+    path: '/Applications'
+    pos: 7
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Utilities
+    path: '/Applications/Utilities'
+    pos: 9
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Home
+    path: '/Users/{{ usernm }}'
+    pos: 10
+    view: auto
+    display: folder
+    sort: name
+    section: others
+  - name: Downloads
+    path: '/Users/{{ usernm }}/Downloads'
+    pos: 11
+    view: grid
+    display: folder
+    sort: name
+    sections: other
+
 login_items:
-    - name: Bartender 3
-      path: /Applications/Bartender 3.app
-      hidden: false
-    - name: 1password 6
-      path: /Applications/1password 6.app
-      hidden: true
 
 # Update
 ##########
 reboot: false
+
+# Vim
+##########
+vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 
 # Homebrew
 ##########
 homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~"
-homebrew_taps: []
-homebrew_installed_packages: []
-homebrew_cask_apps: []
+
+homebrew_taps:
+
+homebrew_installed_packages:
+
+homebrew_cask_apps:
+
 homebrew_blacklisted_packages: []
+
+pip_packages:
+
+pip3_packages:
+
+go_packages:
+
+npm_packages: []
+
+ruby_packages: []

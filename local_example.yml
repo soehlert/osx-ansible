@@ -10,7 +10,6 @@ home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
-ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
 
 # OSX_Base
@@ -72,7 +71,7 @@ dockutil_desired:
   - name: iTerm
     path: "/Applications/iterm.app"
     pos: 3
-  - name: Google Chrome
+  - name: Brave
     path: "/Applications/Brave Browser.app"
     pos: 4
   - name: Slack
@@ -131,6 +130,9 @@ login_items:
     hidden: false
   - name: Plexamp
     path: /Applications/Plexamp.app
+    hidden: false
+  - name: Spectacle
+    path: /Applications/Spectacle.app
     hidden: false
   - name: Stay
     path: /Applications/Stay.app
@@ -248,6 +250,7 @@ homebrew_cask_apps:
   - quicklook-csv
   - quicklook-json
   - slack
+  - spectacle
   - stay
   - synthesia
   - the-unarchiver
