@@ -20,6 +20,7 @@ search_domains: "soehlert.com samoehlert.com internal.sjo"
 
 # Git
 ##########
+git: true
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
@@ -28,14 +29,15 @@ github_2fa: true
 
 # Dotfiles
 ##########
-# I have my dotfiles broken up by home/work/server this allows me to use
-# different dotfiles depending on the host I'm installing them on
+dotfiles: true
+# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
+hazel: true
 hazel_dirs:
   - Compressed
   - IMG
@@ -49,16 +51,25 @@ hazel_dirs:
 
 # MAS
 ##########
+mas: true
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-  - {id: 634148309, name: "Logic Pro X"}
-  - {id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)"}
+  - { id: 634148309, name: "Logic Pro X" }
+  - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
 
-# Tweaks
+# Macos_install
+###############
+macos_install: false
+# This installs from DMGs that only require you to copy a .app to /Applications
+dmg_path: "/tmp"
+dmgs:
+  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+
+# Defaults
 ##########
-wallpaper: "{{ dotfiles_dir }}/common/wallpaper.jpg"
+defaults: true
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
@@ -147,13 +158,20 @@ reboot: false
 
 # Vim
 ##########
+vim: true
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+
+# Wallpaper
+##########
+wallpaper: true
+wallpaper_file: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 
 # Homebrew
 ##########
+homebrew: true
 homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
-homebrew_brewfile_dir: "~"
+homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
   - "buo/cask-upgrade"
@@ -168,8 +186,10 @@ homebrew_installed_packages:
   - ansible
   - ansible-lint
   - asciinema
+  - autoconf
   - bash
   - bash-completion
+  - bat
   - curl
   - dnstwist
   - docker
@@ -179,44 +199,67 @@ homebrew_installed_packages:
   - fd
   - flake8
   - fzf
+  - gawk
+  - geoip
+  - gifsicle
   - git
   - git-extras
-  - git-secrets
   - glances
+  - gnu-tar
   - go
+  - hashcat
+  - hping
+  - htop
+  - imagemagick
   - iperf3
   - jpeg
   - jq
-  - libav
-  - libevent
-  - libgcrypt
+  - lame
   - libyaml
+  - lua
   - mackup
   - mas
+  - minicom
   - mtr
+  - ncurses
   - neofetch
   - netcat
   - nmap
+  - node
+  - openjpeg
+  - openssl
+  - openssl@1.1
   - p7zip
+  - pcre2
   - perl
+  - pgcli
   - pip-completion
   - pip-gitlint
+  - pkg-config
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
   - python
   - python@2
+  - readline
   - ripgrep
+  - ruby
   - screenresolution
   - shellcheck
-  - socat
+  - sqlite
   - ssh-copy-id
   - stow
+  - telnet
+  - tmate
   - tmux
   - tree
   - unrar
   - vim
   - wget
+
+
+homebrew_cask_apps:
+  - 1password
   - wireguard-go
   - wireguard-tools
   - yamllint
@@ -230,8 +273,8 @@ homebrew_cask_apps:
   - bartender
   - brave-browser
   - clamxav
+  - dash
   - firefox
-  - font-hack-nerd-font
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
   - google-chrome
@@ -239,9 +282,9 @@ homebrew_cask_apps:
   - hazel
   - iterm2
   - keybase
-  - logitech-myharmony
+  - knockknock
   - monolingual
-  - musicbrainz-picard
+  - logitech-myharmony
   - plexamp
   - qlcolorcode
   - qlmarkdown
@@ -252,13 +295,20 @@ homebrew_cask_apps:
   - slack
   - spectacle
   - stay
+  - steam
   - synthesia
   - the-unarchiver
+  - tinymediamanager
+  - vagrant
+  - vagrant-manager
   - viscosity
-  - vlc
+  - wireguard-go
+  - wireguard-tools
+  - yamllint
+  - youtube-dl
   - wireshark
-  - witch
   - xquartz
+  - zoomus
 
 homebrew_blacklisted_packages: []
 
