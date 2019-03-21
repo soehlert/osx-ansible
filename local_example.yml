@@ -30,7 +30,8 @@ github_2fa: true
 # Dotfiles
 ##########
 dotfiles: true
-# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
+# I have my dotfiles broken up by home/work/server this allows me to
+# use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
@@ -56,16 +57,7 @@ mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-  - { id: 634148309, name: "Logic Pro X" }
-  - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
-
-# Macos_install
-###############
-macos_install: false
-# This installs from DMGs that only require you to copy a .app to /Applications
-dmg_path: "/tmp"
-dmgs:
-  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+  - {id: 634148309, name: "Logic Pro X"}
 
 # Defaults
 ##########
@@ -256,14 +248,6 @@ homebrew_installed_packages:
   - unrar
   - vim
   - wget
-
-
-homebrew_cask_apps:
-  - 1password
-  - wireguard-go
-  - wireguard-tools
-  - yamllint
-  - youtube-dl
 
 homebrew_cask_apps:
   - 1password
