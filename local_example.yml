@@ -249,6 +249,7 @@ homebrew_installed_packages:
   - vim
   - wget
 
+
 homebrew_cask_apps:
   - 1password
   - 1password-cli
@@ -266,7 +267,6 @@ homebrew_cask_apps:
   - hazel
   - iterm2
   - keybase
-  - knockknock
   - monolingual
   - logitech-myharmony
   - plexamp
@@ -293,6 +293,7 @@ homebrew_cask_apps:
   - wireshark
   - xquartz
   - zoomus
+
 
 homebrew_blacklisted_packages: []
 
