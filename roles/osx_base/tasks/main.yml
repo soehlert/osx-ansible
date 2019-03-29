@@ -9,15 +9,22 @@
   register: current_hostname
   changed_when: false
 
+- name: Set hostname
+  hostname:
+    name: "{{ hostname }}"
+
 - name: Set computer name
   command: "scutil --set {{ item }} {{ hostname }}"
-  with_items:
+  loop:
     - ComputerName
-    - HostName
     - LocalHostName
   become: true
   become_user: root
   when: current_hostname.stdout != hostname
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
 
 - name: Defaults host name
   osx_defaults:
@@ -55,23 +62,11 @@
     group: "{{ groupnm }}"
     mode: "{{ item.mode }}"
     recurse: true
-  with_items:
+  loop:
     - { path: '{{ projects_dir }}/personal', mode: '0755' }
     - { path: '{{ projects_dir }}/work', mode: '0755' }
     - { path: '{{ ssh_dir }}', mode: '0700' }
     - { path: '{{ python_env_dir }}', mode: '0700' }
-    - { path: '{{ ansible_secrets }}', mode: '0700' }
-
-- name: Create projects dir subdirectories
-  file:
-    path: "{{ projects_dir }}/{{ item }}"
-    state: directory
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: '0755'
-  with_items:
-    - personal
-    - work
 
 - name: Check if key exists
   stat:

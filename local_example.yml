@@ -6,6 +6,7 @@ usernm: "soehlert"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
+timezone: " America/Chicago"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
@@ -31,10 +32,12 @@ github_2fa: true
 # Dotfiles
 ##########
 dotfiles: true
-# I have my dotfiles broken up by home/work/server this allows me to use different dotfiles depending on the host I'm installing them on
+# I have my dotfiles broken up by home/work/server this allows me to use
+# different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
-dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
+# yamllint disable-line rule:line-length
+dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
 
 # Hazel
 ##########
@@ -57,8 +60,7 @@ mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-  - { id: 634148309, name: "Logic Pro X" }
-  - { id: 715768417, name: "Microsoft Remote Desktop (8.0.27325)" }
+  - {id: 634148309, name: "Logic Pro X"}
 
 # Macos_install
 ###############
@@ -66,14 +68,14 @@ macos_install: false
 # This installs from DMGs that only require you to copy a .app to /Applications
 dmg_path: "/tmp"
 dmgs:
-  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: False, installed_name: "Plexamp"}
+  # yamllint disable-line rule:line-length
+  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: false, installed_name: "Plexamp"}
 
 # Defaults
 ##########
 defaults: true
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
-timezone: "America/Chicago"
 dockitems_remove_all: true
 
 dockutil_desired:
@@ -126,6 +128,9 @@ dockutil_desired_right:
 login_items:
   - name: 1password 7
     path: /Applications/1password 7.app
+    hidden: true
+  - name: Alfred 3
+    path: /Applications/Alfred 3.app
     hidden: true
   - name: Backup and Sync from Google
     path: /Applications/Backup and Sync.app
@@ -255,17 +260,10 @@ homebrew_installed_packages:
   - vim
   - wget
 
-
-homebrew_cask_apps:
-  - 1password
-  - wireguard-go
-  - wireguard-tools
-  - yamllint
-  - youtube-dl
-
 homebrew_cask_apps:
   - 1password
   - 1password-cli
+  - alfred
   - appcleaner
   - atom
   - bartender
@@ -275,7 +273,6 @@ homebrew_cask_apps:
   - firefox
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
-  - google-chrome
   - handbrake
   - hazel
   - iterm2
