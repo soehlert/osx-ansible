@@ -1,27 +1,33 @@
 ---
 #### Tweak a lot of OSX built ins
-# Not an exact list anywhere, but to see more defaults write options: http://www.defaults-write.com/
+# Not an exact list anywhere, but to see more
+# defaults write options: http://www.defaults-write.com/
 ####
 - name: See if we've set login items already
+  # yamllint disable-line rule:line-length
   command: osascript -e 'tell application "System Events" to get the name of every login item'
   register: startup_apps
   changed_when: false
 
 - name: Set up login items
+  # yamllint disable-line rule:line-length
   command: osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ item.path }}", hidden:"{{ item.hidden }}" }'
   when: startup_apps.stdout is search("item.name")
-  with_items: "{{ login_items }}"
+  loop: "{{ login_items }}"
 
 - name: Get current wallpaper
-  command: osascript -e 'tell app "finder" to get posix path of (get desktop picture as alias)'
+  # yamllint disable-line rule:line-length
+  command: osascript -e 'tell application "System Events" to tell first Desktop to get its picture'
   register: current_wallpaper
   changed_when: false
   failed_when: false
 
-- name: Set Wallpaper
-  command: sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value ='{{ wallpaper }}'"
-  when: current_wallpaper.stdout != wallpaper
-  notify: kill_dock
+# Setting wallpaper seems broken right now
+# - name: Set Wallpaper
+#   # yamllint disable-line rule:line-length
+#   command: sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value ='{{ wallpaper }}'"
+#   when: current_wallpaper.stdout != wallpaper
+#   notify: kill_dock
 
 - name: Finder tweaks
   osx_defaults:
@@ -30,26 +36,26 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
-    - { key: EmptyTrashSecurely, type: bool, value: "true" }
+  loop:
+    - {key: EmptyTrashSecurely, type: bool, value: "true"}
     # Choose Finder window view; Options clmv=column, list=list, icnv=icon, flwv=flow
-    - { key: FXPreferredViewStyle, type: string, value: "clmv" }
-    - { key: WarnOnEmptyTrash, type: bool, value: "true" }
+    - {key: FXPreferredViewStyle, type: string, value: "clmv"}
+    - {key: WarnOnEmptyTrash, type: bool, value: "true"}
     # Allow highlighting in quick look
-    - { key: QLEnableTextSelection, type: bool, value: "true" }
+    - {key: QLEnableTextSelection, type: bool, value: "true"}
     # Show POSIX path in titlebar of Finder windows
-    - { key: _FXShowPosixPathInTitle, type: bool, value: "true" }
-    - { key: AppleShowAllFiles, type: bool, value: "false" }
-    - { key: ShowHardDrivesOnDesktop, type: bool, value: "false" }
-    - { key: ShowMountedServersOnDesktop, type: bool, value: "false" }
-    - { key: ShowExternalDisksOnDesktop, type: bool, value: "false" }
-    - { key: ShowRemovableMediaOnDesktop, type: bool, value: "false" }
+    - {key: _FXShowPosixPathInTitle, type: bool, value: "true"}
+    - {key: AppleShowAllFiles, type: bool, value: "false"}
+    - {key: ShowHardDrivesOnDesktop, type: bool, value: "false"}
+    - {key: ShowMountedServersOnDesktop, type: bool, value: "false"}
+    - {key: ShowExternalDisksOnDesktop, type: bool, value: "false"}
+    - {key: ShowRemovableMediaOnDesktop, type: bool, value: "false"}
     # Next two change what new Finder window opens to
-    - { key: NewWindowTarget, type: string, value: "PfLo" }
-    - { key: NewWindowTargetPath, type: string, value: "{{ finder_new_window_path }}" }
-    - { key: DisableAllAnimations, type: bool, value: "true" }
+    - {key: NewWindowTarget, type: string, value: "PfLo"}
+    - {key: NewWindowTargetPath, type: string, value: "{{finder_new_window_path}}"}
+    - {key: DisableAllAnimations, type: bool, value: "true"}
     # Hide the "Are you sure?" when quitting
-    - { key: QuitMenuItem, type: bool, value: "false" }
+    - {key: QuitMenuItem, type: bool, value: "false"}
   notify: kill_finder
 
 - name: Global tweaks
@@ -59,39 +65,40 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
-    - { key: AppleShowAllExtensions, type: bool, value: "false" }
-    - { key: AppleEnableMenuBarTransparency, type: bool, value: "true" }
+  loop:
+    - {key: AppleShowAllExtensions, type: bool, value: "false"}
+    - {key: AppleEnableMenuBarTransparency, type: bool, value: "true"}
     # Enable Dark Mode
-    - { key: AppleInterfaceStyle, type: string, value: "Dark" }
+    - {key: AppleInterfaceStyle, type: string, value: "Dark"}
     # Spring loading for directories
-    - { key: com.apple.springing.enabled, type: bool, value: "true" }
+    - {key: com.apple.springing.enabled, type: bool, value: "true"}
     # Remove the spring loading delay for directories
-    - { key: com.apple.springing.delay, type: float, value: 0 }
+    - {key: com.apple.springing.delay, type: float, value: 0}
+    # yamllint disable-line rule:line-length
     # When to show scroll bars; Possible values= `WhenScrolling`, `Automatic` and `Always`
-    - { key: AppleShowScrollBars, type: string, value: "WhenScrolling" }
+    - {key: AppleShowScrollBars, type: string, value: "WhenScrolling"}
     # Smooth scrolling
-    - { key: NSScrollAnimationEnabled, type: bool, value: "true" }
+    - {key: NSScrollAnimationEnabled, type: bool, value: "true"}
     # Default to expand save panel by default (not sure why there's two names for this)
-    - { key: NSNavPanelExpandedStateForSaveMode, type: bool, value: "true" }
-    - { key: NSNavPanelExpandedStateForSaveMode2, type: bool, value: "true" }
+    - {key: NSNavPanelExpandedStateForSaveMode, type: bool, value: "true"}
+    - {key: NSNavPanelExpandedStateForSaveMode2, type: bool, value: "true"}
     # Default to expand print panel by default (not sure why there's two names for this)
-    - { key: PMPrintingExpandedStateForPrint, type: bool, value: "true" }
-    - { key: PMPrintingExpandedStateForPrint2, type: bool, value: "true" }
+    - {key: PMPrintingExpandedStateForPrint, type: bool, value: "true"}
+    - {key: PMPrintingExpandedStateForPrint2, type: bool, value: "true"}
     # OSX defaults to saving to icloud
-    - { key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: "false" }
+    - {key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: "false"}
     # Resume apps
-    - { key: NSQuitAlwaysKeepsWindows, type: bool, value: "false" }
+    - {key: NSQuitAlwaysKeepsWindows, type: bool, value: "false"}
     # Stupid smart quotes and dashes
-    - { key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: "false" }
-    - { key: NSAutomaticDashSubstitutionEnabled, type: bool, value: "false" }
-    - { key: AppleMetricUnits, type: bool, value: "false" }
+    - {key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: "false"}
+    - {key: NSAutomaticDashSubstitutionEnabled, type: bool, value: "false"}
+    - {key: AppleMetricUnits, type: bool, value: "false"}
     # Auto correct spelling
-    - { key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false" }
+    - {key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: "false"}
     # Tap to click trackpad
-    - { key: com.apple.mouse.tapBehavior, type: int, value: 1 }
+    - {key: com.apple.mouse.tapBehavior, type: int, value: 1}
     # Natural style scrolling
-    - { key: com.apple.swipescrolldirection, type: bool, value: "false" }
+    - {key: com.apple.swipescrolldirection, type: bool, value: "false"}
 
 - name: Launch Service tweaks
   osx_defaults:
@@ -100,9 +107,9 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # Are you sure you want to open this application
-    - { key: LSQuarantine, type: bool, value: "false" }
+    - {key: LSQuarantine, type: bool, value: "false"}
 
 - name: Desktop Services tweaks
   osx_defaults:
@@ -114,11 +121,11 @@
 
 - name: Battery tweaks
   osx_defaults:
-      domain: com.apple.menuextra.battery
-      key: ShowPercent
-      type: string
-      value: "YES"
-      state: present
+    domain: com.apple.menuextra.battery
+    key: ShowPercent
+    type: string
+    value: "YES"
+    state: present
   notify: kill_systemUIserver
 
 - name: Help Viewer tweaks
@@ -128,9 +135,9 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # Set help viewer window mode; false=floating
-    - { key: DevMode, type: bool, value: "true" }
+    {key: DevMode, type: bool, value: "true"}
 
 - name: Bluetooth tweaks
   osx_defaults:
@@ -139,9 +146,9 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # higher quality with bluetooth headphones
-    - { key: "Apple Bitpool Min (editable)", type: int, value: 40 }
+    {key: "Apple Bitpool Min (editable)", type: int, value: 40}
 
 - name: Universal Access tweaks
   osx_defaults:
@@ -150,9 +157,9 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # zoom to mouse
-    - { key: closeViewZoomFollowFocus, type: bool, value: "false" }
+    {key: closeViewZoomFollowFocus, type: bool, value: "false"}
 
 - name: Screensaver tweaks
   osx_defaults:
@@ -161,11 +168,11 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # Require password (value = 1) after sleep or screen saver begins
-    - { key: askForPassword, type: int, value: 1 }
+    - {key: askForPassword, type: int, value: 1}
     # How long to wait to require password (0 = immediately)
-    - { key: askForPasswordDelay, type: float, value: 0 }
+    - {key: askForPasswordDelay, type: float, value: 0}
 
 - name: Screenshots tweaks
   osx_defaults:
@@ -174,11 +181,11 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # choose where to save screenshots
-    - { key: location, type: string, value: "{{ screenshots_dir }}" }
+    - {key: location, type: string, value: "{{ screenshots_dir }}"}
     # Save screenshots to your defined location
-    - { key: type, type: string, value: "png" }
+    - {key: type, type: string, value: "png"}
 
 - name: Dashboard tweaks
   osx_defaults:
@@ -187,11 +194,11 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # Disable dashboard with true
-    - { key: mcx-disabled, type: bool, value: "true" }
+    - {key: mcx-disabled, type: bool, value: "true"}
     # Don't show dashboard as a space
-    - { key: dashboard-in-overlay, type: bool, value: "true"}
+    - {key: dashboard-in-overlay, type: bool, value: "true"}
 
 - name: Dock tweaks
   osx_defaults:
@@ -200,35 +207,37 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
+    # Hide the recent apps section
+    - {key: show-recents, type: bool, value: "false"}
     # Change minimize/maximize effect
-    - { key: mineffect, type: string, value: "scale" }
+    - {key: mineffect, type: string, value: "scale"}
     # Minimize windows into their application's icon
-    - { key: minimize-to-application, type: bool, value: "true" }
+    - {key: minimize-to-application, type: bool, value: "true"}
     # Enable spring loading for all Dock items
-    - { key: enable-spring-load-actions-on-all-items, type: bool, value: "true" }
+    - {key: enable-spring-load-actions-on-all-items, type: bool, value: "true"}
     # Show indicator lights for open applications in the Dock
-    - { key: show-process-indicators, type: bool, value: "true" }
+    - {key: show-process-indicators, type: bool, value: "true"}
     # Animate opening applications from the Dock
-    - { key: launchanim, type: bool, value: "false" }
+    - {key: launchanim, type: bool, value: "false"}
     # Don’t show Dashboard as a Space
-    - { key: dashboard-in-overlay, type: bool, value: "false" }
+    - {key: dashboard-in-overlay, type: bool, value: "false"}
     # Don’t automatically rearrange Spaces based on most recent use
-    - { key: mru-spaces, type: bool, value: "false" }
+    - {key: mru-spaces, type: bool, value: "false"}
     # Remove the animation when hiding/showing the Dock
-    - { key: autohide-time-modifier, type: float, value: 0 }
+    - {key: autohide-time-modifier, type: float, value: 0}
     # Automatically hide and show the Dock
-    - { key: autohide, type: bool, value: "true" }
+    - {key: autohide, type: bool, value: "true"}
     # Make Dock icons of hidden applications translucent
-    - { key: showhidden, type: bool, value: "true" }
+    - {key: showhidden, type: bool, value: "true"}
     # Make Dock more transparent
-    - { key: hide-mirror, type: bool, value: "true" }
+    - {key: hide-mirror, type: bool, value: "true"}
   notify: kill_dock
 
 - name: Make sure dockutil is installed
   homebrew:
-      name: dockutil
-      state: present
+    name: dockutil
+    state: present
 
 - name: Dockutil | Check to see if we've already added apps
   shell: 'dockutil --find iterm /Users/{{ usernm }}'
@@ -250,13 +259,14 @@
 
 - name: Dockutil | Add apps
   command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
-  with_items: "{{ dockutil_desired }}"
+  loop: "{{ dockutil_desired }}"
   when: '"not found" in dockutil_apps.stdout'
   notify: kill_dock
 
 - name: Dockutil | Add items
+  # yamllint disable-line rule:line-length
   command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}' --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
-  with_items: "{{ dockutil_desired_right }}"
+  loop: "{{ dockutil_desired_right }}"
   when: '"not found" in dockutil_apps.stdout'
   notify: kill_dock
 
@@ -267,9 +277,9 @@
     type: "{{ item.type }}"
     value: "{{ item.value }}"
     state: present
-  with_items:
+  loop:
     # Don't offer up each new external HD as a time machine destination
-    - { key: DoNotOfferNewDisksForBackup, type: bool, value: "true" }
+    {key: DoNotOfferNewDisksForBackup, type: bool, value: "true"}
 
 - name: Disable local Time Machine snapshots
   command: tmutil disable
@@ -286,6 +296,7 @@
       failed_when: false
 
     - name: Stop iTunes from responding to the keyboard media keys
+      # yamllint disable-line rule:line-length
       shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
       when: itunes_media_keys.rc == 0
 
@@ -318,11 +329,11 @@
 
     - name: SSD Tweaks
       command: "pmset -a {{ item.name }} {{ item.value }}"
-      with_items:
+      loop:
         # Disable sudden motion sensor if you have an SSD
-        - { name: sms, value: 0 }
+        - {name: sms, value: 0}
         # Disable hibernate mode; useful with SSD
-        - { name: hibernatemode, value: 0 }
+        - {name: hibernatemode, value: 0}
       changed_when: false
 
   become: true
@@ -336,4 +347,3 @@
 - name: Always show the Users' Library folder
   command: chflags nohidden {{ home_dir }}/Library/
   when: '"hidden" in library_hidden.stdout'
-
