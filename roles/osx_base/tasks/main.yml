@@ -13,15 +13,6 @@
   hostname:
     name: "{{ hostname }}"
 
-- name: Set computer name
-  command: "scutil --set {{ item }} {{ hostname }}"
-  loop:
-    - ComputerName
-    - LocalHostName
-  become: true
-  become_user: root
-  when: current_hostname.stdout != hostname
-
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
@@ -50,6 +41,11 @@
   become_user: root
   when: etc_shells.rc == 1
 
+- name: Refresh sudo cache so we don't get asked for a password again
+  command: "echo none"
+  become: yes
+  changed_when: False
+
 - name: Set my login shell
   command: "chpass -s {{ login_shell }}"
   when: etc_shells.rc == 1
@@ -63,10 +59,10 @@
     mode: "{{ item.mode }}"
     recurse: true
   loop:
-    - { path: '{{ projects_dir }}/personal', mode: '0755' }
-    - { path: '{{ projects_dir }}/work', mode: '0755' }
-    - { path: '{{ ssh_dir }}', mode: '0700' }
-    - { path: '{{ python_env_dir }}', mode: '0700' }
+    - {path: '{{ projects_dir }}/personal', mode: '0755'}
+    - {path: '{{ projects_dir }}/work', mode: '0755'}
+    - {path: '{{ ssh_dir }}', mode: '0700'}
+    - {path: '{{ python_env_dir }}', mode: '0700'}
 
 - name: Check if key exists
   stat:
@@ -81,8 +77,8 @@
   command: networksetup -getsearchdomains "{{ item }}"
   register: search_domains_set
   changed_when: false
-  with_items:
-      - "{{ search_domain_service }}"
+  loop:
+    - "{{ search_domain_service }}"
 
 - name: Set search domains
   command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
@@ -90,5 +86,5 @@
   become_user: root
   when: item.1.stdout != search_domains
   with_together:
-      - "{{ search_domain_service }}"
-      - "{{ search_domains_set.results }}"
+    - "{{ search_domain_service }}"
+    - "{{ search_domains_set.results }}"
