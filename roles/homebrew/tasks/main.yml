@@ -11,28 +11,25 @@
 
 - name: Install Homebrew packages
   homebrew:
-    name: "{{ item.name | default(item) }}"
+    name: "{{ homebrew_installed_packages }}"
     install_options: "{{ item.install_options | default(omit) }}"
     state: present
-  with_items: "{{ homebrew_installed_packages }}"
 
 - name: Remove any blacklisted packages
   homebrew:
-    name: "{{ item }}"
+    name: "{{ homebrew_blacklisted_packages }}"
     state: absent
-  with_items: "{{ homebrew_blacklisted_packages }}"
 
 - name: Refresh sudo cache so homebrew cask doesnt ask for a password
   command: "echo none"
-  become: yes
-  changed_when: False
+  become: true
+  changed_when: true
 
 - name: Install cask applications
   homebrew_cask:
-    name: "{{ item }}"
+    name: "{{ homebrew_cask_apps }}"
     state: present
-  ignore_errors: yes
-  with_items: "{{ homebrew_cask_apps }}"
+    ignore_errors: true
 
 - name: Check for brewfile
   stat:
