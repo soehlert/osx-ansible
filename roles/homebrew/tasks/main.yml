@@ -1,8 +1,10 @@
 ---
 # tasks file for roles/homebrew
-# Gatekeeper breaks us installing a couple of things.
-# We turn it off, install them, code sign them,
-# then turn gatekeeper back on
+- name: Refresh sudo cache so homebrew cask doesnt ask for a password
+  command: "echo none"
+  become: true
+  changed_when: true
+
 - name: Install brew taps
   homebrew_tap:
     tap: "{{ item }}"
@@ -19,11 +21,6 @@
   homebrew:
     name: "{{ homebrew_blacklisted_packages }}"
     state: absent
-
-- name: Refresh sudo cache so homebrew cask doesnt ask for a password
-  command: "echo none"
-  become: true
-  changed_when: true
 
 - name: Install cask applications
   homebrew_cask:
