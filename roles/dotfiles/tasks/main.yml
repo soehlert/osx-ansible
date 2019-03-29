@@ -8,9 +8,14 @@
   homebrew:
     name: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - stow
     - git
+
+- name: Check for {{ dotfiles_dir }}
+  stat:
+    path: "{{ dotfiles_dir }}"
+  register: dotfiles
 
 - name: Clone dotfiles repo
   git:
@@ -19,8 +24,14 @@
     update: true
     accept_hostkey: true
     clone: true
-    force: true
-  become: false
+  when: not dotfiles.stat.exists
+
+- name: Change the remote to ssh
+  git_config:
+    name: remote.origin.url
+    value: "git@github.com:{{ github_user }}/dotfiles.git"
+    scope: local
+    repo: "{{ dotfiles_dir }}"
 
 - name: Stow common files
   command: stow common
