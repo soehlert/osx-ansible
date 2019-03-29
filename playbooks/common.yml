@@ -7,29 +7,30 @@
   hosts: osx
   connection: local
   pre_tasks:
-    - include_vars: "{{ item }}"
+    - name: Find our variables
+      include_vars: "{{ item }}"
       with_first_found:
-          - "{{ inventory_dir }}/local.yml"
-          - "{{ inventory_dir }}/defaults.yml"
+        - "{{ inventory_dir }}/local.yml"
+        - "{{ inventory_dir }}/defaults.yml"
       tags:
-          - osx_base
-          - dotfiles
-          - homebrew
-          - mas
-          - macos_install
-          - github
-          - hazel
-          - defaults
-          - vim-plug
-          - wallpaper
+        - osx_base
+        - dotfiles
+        - homebrew
+        - mas
+        - macos_install
+        - github
+        - hazel
+        - defaults
+        - vim-plug
+        - wallpaper
   roles:
-    - { role: 'osx_base', tags: 'osx_base' }
-    - { role: 'dotfiles', tags: 'dotfiles', when: '{{ dotfiles }}' }
-    - { role: 'homebrew', tags: 'homebrew', when: '{{ homebrew }}' }
-    - { role: 'mas', tags: 'mas', when: '{{ mas }}' }
-    - { role: 'macos_install', tags: 'macos_install', when: '{{ macos_install }}' }
-    - { role: 'github', tags: 'github', when: '{{ github }}' }
-    - { role: 'hazel', tags: 'hazel', when: '{{ hazel }}' }
-    - { role: 'defaults', tags: 'defaults', when: '{{ defaults }}' }
-    - { role: 'vim-plug', tags: 'vim-plug', when: '{{ vim-plug }}' }
-    - { role: 'wallpaper', tags: 'wallpaper', when: wallpaper }
+    - {role: 'osx_base', tags: 'osx_base'}
+    - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles}
+    - {role: 'homebrew', tags: 'homebrew', when: homebrew}
+    - {role: 'mas', tags: 'mas', when: mas}
+    - {role: 'macos_install', tags: 'macos_install', when: macos_install}
+    - {role: 'github', tags: 'github', when: github}
+    - {role: 'hazel', tags: 'hazel', when: hazel}
+    - {role: 'defaults', tags: 'defaults', when: defaults}
+    - {role: 'vim-plug', tags: 'vim-plug', when: vim-plug}
+    - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper}
