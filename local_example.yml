@@ -11,7 +11,6 @@ home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
-ansible_secrets: "{{ projects_dir }}/secrets"
 login_shell: "/usr/local/bin/bash"
 
 # OSX_Base
@@ -32,8 +31,8 @@ github_2fa: true
 # Dotfiles
 ##########
 dotfiles: true
-# I have my dotfiles broken up by home/work/server this allows me to use
-# different dotfiles depending on the host I'm installing them on
+# I have my dotfiles broken up by home/work/server this allows me to
+# use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 # yamllint disable-line rule:line-length
@@ -62,15 +61,6 @@ mas_upgrade_all_apps: true
 mas_installed_apps:
   - {id: 634148309, name: "Logic Pro X"}
 
-# Macos_install
-###############
-macos_install: false
-# This installs from DMGs that only require you to copy a .app to /Applications
-dmg_path: "/tmp"
-dmgs:
-  # yamllint disable-line rule:line-length
-  - {name: "Plexamp", url: "https://plexamp.plex.tv/plexamp.plex.tv/Plexamp-1.0.5.dmg", force: false, installed_name: "Plexamp"}
-
 # Defaults
 ##########
 defaults: true
@@ -85,7 +75,7 @@ dockutil_desired:
   - name: iTerm
     path: "/Applications/iterm.app"
     pos: 3
-  - name: Google Chrome
+  - name: Brave
     path: "/Applications/Brave Browser.app"
     pos: 4
   - name: Slack
@@ -147,6 +137,9 @@ login_items:
     hidden: false
   - name: Plexamp
     path: /Applications/Plexamp.app
+    hidden: false
+  - name: Spectacle
+    path: /Applications/Spectacle.app
     hidden: false
   - name: Stay
     path: /Applications/Stay.app
@@ -276,7 +269,6 @@ homebrew_cask_apps:
   - hazel
   - iterm2
   - keybase
-  - knockknock
   - monolingual
   - logitech-myharmony
   - plexamp
@@ -287,6 +279,7 @@ homebrew_cask_apps:
   - quicklook-csv
   - quicklook-json
   - slack
+  - spectacle
   - stay
   - steam
   - synthesia
@@ -302,6 +295,7 @@ homebrew_cask_apps:
   - wireshark
   - xquartz
   - zoomus
+
 
 homebrew_blacklisted_packages: []
 
