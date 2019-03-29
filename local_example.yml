@@ -237,7 +237,6 @@ homebrew_installed_packages:
   - perl
   - pgcli
   - pip-completion
-  - pip-gitlint
   - pkg-config
   - pyenv
   - pyenv-virtualenv
@@ -316,6 +315,7 @@ pip_packages:
 
 pip3_packages:
   - black
+  - gitlint
   - pip
   - pip-review
   - setuptools
