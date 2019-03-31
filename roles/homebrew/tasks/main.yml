@@ -3,7 +3,7 @@
 - name: Refresh sudo cache so homebrew cask doesnt ask for a password
   command: "echo none"
   become: true
-  changed_when: true
+  changed_when: false
 
 - name: Install brew taps
   homebrew_tap:
@@ -27,7 +27,7 @@
   homebrew_cask:
     name: "{{ homebrew_cask_apps }}"
     state: present
-    ignore_errors: true
+  ignore_errors: true
 
 - name: Check for brewfile
   stat:
