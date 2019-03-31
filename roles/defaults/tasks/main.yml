@@ -137,14 +137,6 @@
     value: 40
     state: present
 
-- name: Universal Access tweaks
-  osx_defaults:
-    domain: com.apple.universalaccess
-    key: closeViewZoomFollowFocus
-    type: bool
-    value: false
-    state: present
-
 - name: Screensaver tweaks
   osx_defaults:
     domain: com.apple.screensaver
