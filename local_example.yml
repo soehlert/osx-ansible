@@ -209,6 +209,7 @@ homebrew_installed_packages:
   - iperf3
   - jpeg
   - jq
+  - jump
   - lame
   - libyaml
   - lua
