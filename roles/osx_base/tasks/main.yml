@@ -9,9 +9,14 @@
   register: current_hostname
   changed_when: false
 
-- name: Set hostname
-  hostname:
-    name: "{{ hostname }}"
+- name: Set computer name
+  command: "scutil --set {{ item }} {{ hostname }}"
+  loop:
+    - ComputerName
+    - LocalHostName
+  become: true
+  become_user: root
+  when: current_hostname.stdout != hostname
 
 - name: Set timezone
   timezone:
@@ -43,8 +48,8 @@
 
 - name: Refresh sudo cache so we don't get asked for a password again
   command: "echo none"
-  become: yes
-  changed_when: False
+  become: true
+  changed_when: false
 
 - name: Set my login shell
   command: "chpass -s {{ login_shell }}"
