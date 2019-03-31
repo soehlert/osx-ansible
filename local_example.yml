@@ -6,7 +6,7 @@ usernm: "soehlert"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
-timezone: " America/Chicago"
+timezone: "America/Chicago"
 home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
@@ -33,7 +33,7 @@ github_2fa: true
 dotfiles: true
 # I have my dotfiles broken up by home/work/server this allows me to
 # use different dotfiles depending on the host I'm installing them on
-dotfiles_env: "home"
+dotfiles_env: "work"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 # yamllint disable-line rule:line-length
 dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
@@ -154,7 +154,7 @@ reboot: false
 
 # Vim
 ##########
-vim: true
+vimplug: true
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 
 # Wallpaper
@@ -260,7 +260,6 @@ homebrew_cask_apps:
   - atom
   - bartender
   - brave-browser
-  - clamxav
   - dash
   - firefox
   - font-source-code-pro-for-powerline
@@ -296,12 +295,10 @@ homebrew_cask_apps:
   - xquartz
   - zoomus
 
-
 homebrew_blacklisted_packages: []
 
 pip_packages:
-  - black
-  - commitizen
+  - gitlint
   - pip
   - pip-review
   - setuptools
@@ -309,6 +306,7 @@ pip_packages:
 
 pip3_packages:
   - black
+  - commitizen
   - gitlint
   - pip
   - pip-review
@@ -316,9 +314,5 @@ pip3_packages:
   - wheel
 
 go_packages:
-  - pepper
-  - udict
-
-npm_packages: []
-
-ruby_packages: []
+  - github.com/genuinetools/pepper
+  - github.com/genuinetools/udict
