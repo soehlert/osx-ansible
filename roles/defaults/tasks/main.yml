@@ -22,13 +22,6 @@
   changed_when: false
   failed_when: false
 
-# Setting wallpaper seems broken right now
-# - name: Set Wallpaper
-#   # yamllint disable-line rule:line-length
-#   command: sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value ='{{ wallpaper }}'"
-#   when: current_wallpaper.stdout != wallpaper
-#   notify: kill_dock
-
 - name: Finder tweaks
   osx_defaults:
     domain: com.apple.finder
@@ -131,35 +124,26 @@
 - name: Help Viewer tweaks
   osx_defaults:
     domain: com.apple.helpviewer
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
+    key: DevMode
+    type: bool
+    value: true
     state: present
-  loop:
-    # Set help viewer window mode; false=floating
-    {key: DevMode, type: bool, value: "true"}
 
 - name: Bluetooth tweaks
   osx_defaults:
     domain: com.apple.BluetoothAudioAgent
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
+    key: "Apple Bitpool Min (editable)"
+    type: int
+    value: 40
     state: present
-  loop:
-    # higher quality with bluetooth headphones
-    {key: "Apple Bitpool Min (editable)", type: int, value: 40}
 
 - name: Universal Access tweaks
   osx_defaults:
     domain: com.apple.universalaccess
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
+    key: closeViewZoomFollowFocus
+    type: bool
+    value: false
     state: present
-  loop:
-    # zoom to mouse
-    {key: closeViewZoomFollowFocus, type: bool, value: "false"}
 
 - name: Screensaver tweaks
   osx_defaults:
@@ -273,13 +257,10 @@
 - name: Time Machine tweaks
   osx_defaults:
     domain: com.apple.TimeMachine
-    key: "{{ item.key }}"
-    type: "{{ item.type }}"
-    value: "{{ item.value }}"
+    key: "DoNotOfferNewDisksForBackup"
+    type: bool
+    value: true
     state: present
-  loop:
-    # Don't offer up each new external HD as a time machine destination
-    {key: DoNotOfferNewDisksForBackup, type: bool, value: "true"}
 
 - name: Disable local Time Machine snapshots
   command: tmutil disable
@@ -317,15 +298,6 @@
     - name: Never go into computer sleep mode
       command: systemsetup -setcomputersleep Never
       when: '"Never" not in sleep_mode.stdout'
-
-    - name: Check if timezone is set properly
-      command: systemsetup -gettimezone
-      register: current_timezone
-      changed_when: false
-
-    - name: Set timezone
-      command: systemsetup -settimezone "{{ timezone }}"
-      when: not current_timezone.stdout is search( timezone )
 
     - name: SSD Tweaks
       command: "pmset -a {{ item.name }} {{ item.value }}"
