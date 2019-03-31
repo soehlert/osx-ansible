@@ -17,7 +17,8 @@
         - dotfiles
         - homebrew
         - mas
-        - macos_install
+        - pip
+        - golang
         - github
         - hazel
         - defaults
@@ -28,9 +29,10 @@
     - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles}
     - {role: 'homebrew', tags: 'homebrew', when: homebrew}
     - {role: 'mas', tags: 'mas', when: mas}
-    - {role: 'macos_install', tags: 'macos_install', when: macos_install}
+    - {role: 'pip', tags: 'pip', when: pip_packages or pip3_packages}
+    - {role: 'golang', tags: 'golang', when: go_packages}
     - {role: 'github', tags: 'github', when: github}
     - {role: 'hazel', tags: 'hazel', when: hazel}
     - {role: 'defaults', tags: 'defaults', when: defaults}
-    - {role: 'vim-plug', tags: 'vim-plug', when: vim-plug}
+    - {role: 'vim-plug', tags: 'vim-plug', when: vimplug}
     - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper}
