@@ -9,13 +9,14 @@
   homebrew_tap:
     tap: "{{ item }}"
     state: present
-  with_items: "{{ homebrew_taps }}"
+  loop: "{{ homebrew_taps }}"
 
 - name: Install Homebrew packages
   homebrew:
-    name: "{{ homebrew_installed_packages }}"
+    name: "{{ item }}"
     install_options: "{{ item.install_options | default(omit) }}"
     state: present
+  loop: "{{ homebrew_installed_packages }}"
 
 - name: Remove any blacklisted packages
   homebrew:
