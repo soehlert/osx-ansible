@@ -18,10 +18,6 @@
   become_user: root
   when: current_hostname.stdout != hostname
 
-- name: Set timezone
-  timezone:
-    name: "{{ timezone }}"
-
 - name: Defaults host name
   osx_defaults:
     domain: com.apple.smb.server
