@@ -13,8 +13,10 @@ homebrew:
 	ansible-playbook playbooks/common.yml -t homebrew -K
 mas:
 	ansible-playbook playbooks/common.yml -t mas
-macos_install:
-	ansible-playbook playbooks/common.yml -t macos_install
+pip:
+	ansible-playbook playbooks/common.yml -t pip
+go:
+	ansible-playbook playbooks/common.yml -t golang -K
 github:
 	ansible-playbook playbooks/common.yml -t github
 hazel:
@@ -33,4 +35,4 @@ update-reboot:
 updates-reboot: update-reboot
 install: 
 	ansible-playbook playbooks/common.yml -K
-all: osx_base dotfiles homebrew mas macos_install github hazel defaults vim-plug wallpaper
+all: osx_base dotfiles homebrew mas pip go github hazel defaults vim-plug wallpaper
