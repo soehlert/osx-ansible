@@ -4,40 +4,41 @@
 ####
 - name: Make sure git is installed
   homebrew:
-      name: git
-      state: present
+    name: git
+    state: present
 
 - name: Read in ssh_key
   authorized_key:
-      user: "{{ usernm }}"
-      key: "{{ lookup ('file', ssh_key_name + '.pub') }}"
+    user: "{{ usernm }}"
+    key: "{{ lookup ('file', ssh_key_name + '.pub') }}"
   register: ssh_key
   changed_when: false
 
 - name: Upload my ssh key to Github when using 2FA
   uri:
-      url: https://api.github.com/user/keys
-      method: POST
-      user: "{{ github_user }}"
-      body_format: json
-      body: ' { "title": "{{ hostname }}", "key": "{{ ssh_key.key }}"}'
-      status_code: 201
-      headers:
-          Authorization: "token {{ github_password }}"
+    url: https://api.github.com/user/keys
+    method: POST
+    user: "{{ github_user }}"
+    body_format: json
+    body: ' { "title": "{{ hostname }}", "key": "{{ ssh_key.key }}"}'
+    status_code: 201
+    headers:
+      Authorization: "token {{ github_password }}"
   register: github_key
   failed_when: not '"key is already in use" in github_key.content'
   when: github_2fa
 
 - name: Get list of my repos
+  # yamllint disable-line rule:line-length
   shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
   args:
-      warn: false
+    warn: false
   register: github_repos
   changed_when: false
 
 - name: Git clone all my projects
   git:
-      repo: "{{ item }}"
-      dest: "{{ projects_dir }}/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
-      accept_hostkey: yes
-  with_items: "{{ github_repos.stdout_lines }}"
+    repo: "{{ item }}"
+    dest: "{{ projects_dir }}/personal/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
+    accept_hostkey: true
+  loop: "{{ github_repos.stdout_lines }}"
