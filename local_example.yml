@@ -202,6 +202,7 @@ homebrew_installed_packages:
   - glances
   - gnu-tar
   - go
+  - google-cloud-sdk
   - hashcat
   - hping
   - htop
@@ -261,6 +262,7 @@ homebrew_cask_apps:
   - bartender
   - brave-browser
   - dash
+  - docker
   - firefox
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
