@@ -113,19 +113,19 @@ homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~"
 
-homebrew_taps:
+homebrew_taps: []
 
-homebrew_installed_packages:
+homebrew_installed_packages: []
 
-homebrew_cask_apps:
+homebrew_cask_apps: []
 
 homebrew_blacklisted_packages: []
 
-pip_packages:
+pip_packages: []
 
-pip3_packages:
+pip3_packages: []
 
-go_packages:
+go_packages: []
 
 npm_packages: []
 

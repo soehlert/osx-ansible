@@ -314,6 +314,7 @@ pip3_packages:
   - pip
   - pip-review
   - setuptools
+  - tmuxp
   - wheel
 
 go_packages:
