@@ -251,6 +251,7 @@ homebrew_installed_packages:
   - unrar
   - vim
   - wget
+  - wireguard-go
 
 homebrew_cask_apps:
   - 1password
@@ -290,7 +291,6 @@ homebrew_cask_apps:
   - vagrant
   - vagrant-manager
   - viscosity
-  - wireguard-go
   - wireguard-tools
   - yamllint
   - youtube-dl
