@@ -202,7 +202,6 @@ homebrew_installed_packages:
   - glances
   - gnu-tar
   - go
-  - google-cloud-sdk
   - hashcat
   - hping
   - htop
@@ -267,6 +266,7 @@ homebrew_cask_apps:
   - firefox
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
+  - google-cloud-sdk
   - handbrake
   - hazel
   - iterm2
