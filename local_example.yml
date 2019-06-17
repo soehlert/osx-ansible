@@ -313,6 +313,7 @@ pip3_packages:
   - gitlint
   - pip
   - pip-review
+  - pydoro
   - setuptools
   - tmuxp
   - wheel
