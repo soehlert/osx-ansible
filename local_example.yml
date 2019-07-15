@@ -86,9 +86,12 @@ dockutil_desired:
   - name: VMware
     path: "/Applications/VMware Fusion.app"
     pos: 7
+  - name: Raindrop.io
+    path: "/Applications/Raindrop.io.app"
+    pos: 8
   - name: System Preferences
     path: "/Applications/System Preferences.app"
-    pos: 8
+    pos: 9
 
 dockutil_desired_right:
   - name: Applications
@@ -142,6 +145,9 @@ login_items:
     hidden: false
   - name: Plexamp
     path: /Applications/Plexamp.app
+    hidden: false
+  - name: Raindrop.io
+    path: /Applications/Raindrop.io.app
     hidden: false
   - name: Spectacle
     path: /Applications/Spectacle.app
