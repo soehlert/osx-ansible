@@ -80,9 +80,15 @@ dockutil_desired:
   - name: Slack
     path: "/Applications/Slack.app"
     pos: 5
+  - name: PyCharm
+    path: "/Applications/PyCharm CE.app"
+    pos: 6
+  - name: VMware
+    path: "/Applications/VMware Fusion.app"
+    pos: 7
   - name: System Preferences
     path: "/Applications/System Preferences.app"
-    pos: 6
+    pos: 8
 
 dockutil_desired_right:
   - name: Applications
@@ -275,12 +281,14 @@ homebrew_cask_apps:
   - monolingual
   - logitech-myharmony
   - plexamp
+  - pycharm-ce
   - qlcolorcode
   - qlmarkdown
   - qlstephen
   - qlvideo
   - quicklook-csv
   - quicklook-json
+  - raindropio
   - slack
   - spectacle
   - stay
@@ -291,6 +299,7 @@ homebrew_cask_apps:
   - vagrant
   - vagrant-manager
   - viscosity
+  - vmware-fusion
   - wireguard-tools
   - yamllint
   - youtube-dl
