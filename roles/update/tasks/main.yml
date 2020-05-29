@@ -120,7 +120,7 @@
   homebrew_cask:
     upgrade_all: true
   ignore_errors: true
-  when: cask_updates.stdout != ''
+  when: cask_updates.stdout | length > 0
 
 - name: Cleanup old brew files
   command: brew cleanup
@@ -155,11 +155,12 @@
 
 - name: Update npm packages
   command: npm update
-  when: npm_updates.stdout != ''
+  when: npm_updates
 
 - name: Update rubygem packages
   command: gem update -f
-  when: gem_updates.stdout != ''
+  become: true
+  when: gem_updates
 
 - name: Pull dotfiles
   git:
@@ -187,7 +188,7 @@
 
 - name: Update mas packages
   command: mas upgrade
-  when: mas_updates.stdout != ''
+  when: mas_updates.stdout | length > 0
 
 - name: Update OS when there's a reboot necessary AND we're ok with rebooting
   command: softwareupdate -i -a

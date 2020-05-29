@@ -59,6 +59,7 @@ mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
   - {id: 634148309, name: "Logic Pro X"}
+  - {id: 1513574319, name: "Glance"}
 
 # Defaults
 ##########
@@ -190,13 +191,15 @@ homebrew_taps:
   - "homebrew/services"
 
 homebrew_installed_packages:
-  - ansible
-  - ansible-lint
   - asciinema
   - autoconf
+  - autojump
+  - automake
   - bash
   - bash-completion
   - bat
+  - clamav
+  - cookiecutter
   - curl
   - dnstwist
   - docker
@@ -204,6 +207,8 @@ homebrew_installed_packages:
   - dockutil
   - e2fsprogs
   - fd
+  - ffmpeg
+  - flac
   - flake8
   - fzf
   - gawk
@@ -211,20 +216,32 @@ homebrew_installed_packages:
   - gifsicle
   - git
   - git-extras
+  - git-quick-stats
+  - git-secrets
+  - git-standup
   - glances
   - gnu-tar
   - go
   - hashcat
+  - heroku
   - hping
   - htop
+  - hub
+  - hugo
   - imagemagick
   - iperf3
   - jpeg
   - jq
   - jump
   - lame
+  - lazydocker
+  - lazygit
+  - libfido2
+  - libmagic
   - libyaml
+  - lsusb
   - lua
+  - lz4
   - mackup
   - mas
   - minicom
@@ -235,9 +252,11 @@ homebrew_installed_packages:
   - nmap
   - node
   - openjpeg
+  - openssh
   - openssl
   - openssl@1.1
   - p7zip
+  - packer
   - pcre2
   - perl
   - pgcli
@@ -246,24 +265,35 @@ homebrew_installed_packages:
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
-  - python
-  - python@2
+  - python3.8
+  - radare2
   - readline
   - ripgrep
   - ruby
+  - rust
   - screenresolution
   - shellcheck
   - sqlite
+  - sqlmap
   - ssh-copy-id
   - stow
   - telnet
   - tmate
   - tmux
   - tree
+  - twofa
   - unrar
   - vim
+  - wallpaper
   - wget
+  - whalebrew
   - wireguard-go
+  - wtfutil
+  - yamllint
+  - youtube-dl
+  - zsh
+  - zsh-completions
+  - zsh-syntax-highlighting
 
 homebrew_cask_apps:
   - 1password
@@ -274,8 +304,9 @@ homebrew_cask_apps:
   - background-music
   - bartender
   - brave-browser
-  - dash
   - docker
+  - elgato-thunderbolt-dock
+  - expressvpn
   - firefox
   - font-source-code-pro-for-powerline
   - google-backup-and-sync
@@ -283,32 +314,33 @@ homebrew_cask_apps:
   - handbrake
   - hazel
   - iterm2
+  - karabiner-elements
   - keybase
+  - lunar
   - monolingual
-  - logitech-myharmony
+  - multipass
+  - musaicfm
+  - music-manager
+  - musicbrainz-picard
+  - notion
+  - openzfs
   - plexamp
-  - pycharm-ce
-  - qlcolorcode
-  - qlmarkdown
-  - qlstephen
-  - qlvideo
-  - quicklook-csv
-  - quicklook-json
+  - pycharm
   - raindropio
+  - sabnzbd
+  - sketchup
   - slack
   - spectacle
   - stay
   - steam
   - synthesia
   - the-unarchiver
-  - tinymediamanager
   - vagrant
   - vagrant-manager
   - viscosity
+  - vlc
   - vmware-fusion
   - wireguard-tools
-  - yamllint
-  - youtube-dl
   - wireshark
   - xquartz
   - zoomus
@@ -326,11 +358,15 @@ pip3_packages:
   - black
   - commitizen
   - gitlint
+  - httpie
   - pip
   - pip-review
-  - pydoro
+  - pipenv
   - setuptools
+  - shallow-backup
   - tmuxp
+  - virtualenv
+  - virtualenvwrapper
   - wheel
 
 go_packages:
