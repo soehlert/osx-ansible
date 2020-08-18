@@ -9,4 +9,4 @@ install:
 script:
   - molecule --version
   - ansible --version
-  - molecule test
+  - cd roles/wallpaper && molecule test
