@@ -1,5 +1,5 @@
 ---
-language: python
+language: generic
 os: osx
 osx_image: xcode12u
 services:
