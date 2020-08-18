@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include wallpaper"
+      include_role:
+        name: "wallpaper"
