@@ -2,8 +2,6 @@
 language: python
 os: osx
 osx_image: xcode12u
-python:
-  - "3.7"
 services:
   - docker
 install:
