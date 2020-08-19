@@ -8,4 +8,4 @@ script:
   - ansible --version
   - ansible-lint roles/wallpaper
   - /bin/bash ./bootstrap.sh
-  - ansible-playbook playbooks/common.yml
+  - ansible-playbook playbooks/common.yml -e "ansible_password=travis"
