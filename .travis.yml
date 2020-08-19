@@ -4,12 +4,8 @@ os: osx
 osx_image: xcode12u
 services:
   - docker
-install:
-  - pip install molecule
 script:
-  - molecule --version
   - ansible --version
-  - cd roles/wallpaper && molecule lint && cd -
-  - make bootstrap
-  - make install
-
+  - ansible-lint roles/wallpaper
+  - /bin/bash ./bootstrap.sh
+  - ansible-playbook playbooks/common.yml
