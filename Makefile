@@ -13,7 +13,7 @@ dump_facts:
 
 .PHONY: osx_base
 osx_base:
-	ansible-playbook playbooks/common.yml -t osx_base -K
+	ansible-playbook playbooks/common.yml -t osx_base
 
 .PHONY: dotfiles
 dotfiles:
@@ -21,7 +21,7 @@ dotfiles:
 
 .PHONY: homebrew
 homebrew:
-	ansible-playbook playbooks/common.yml -t homebrew -K
+	ansible-playbook playbooks/common.yml -t homebrew
 
 .PHONY: mas
 mas:
@@ -33,7 +33,7 @@ pip:
 
 .PHONY: go
 go:
-	ansible-playbook playbooks/common.yml -t golang -K
+	ansible-playbook playbooks/common.yml -t golang
 
 .PHONY: github
 github:
@@ -45,7 +45,7 @@ hazel:
 
 .PHONY: defaults
 defaults:
-	ansible-playbook playbooks/common.yml -t defaults -K
+	ansible-playbook playbooks/common.yml -t defaults
 
 .PHONY: vim-plug
 vim-plug:
@@ -57,21 +57,21 @@ wallpaper:
 
 .PHONY: update
 update:
-	ansible-playbook playbooks/update.yml -K
+	ansible-playbook playbooks/update.yml 
 
 .PHONY: updates
 updates: update
 
 .PHONY: update-reboot
 update-reboot:
-	ansible-playbook playbooks/update.yml -K -e "reboot=true"
+	ansible-playbook playbooks/update.yml -e "reboot=true"
 
 .PHONY: updates-reboot
 updates-reboot: update-reboot
 
 .PHONY: install
 install: 
-	ansible-playbook playbooks/common.yml -K
+	ansible-playbook playbooks/common.yml
 
 .PHONY: all
 all: osx_base dotfiles homebrew mas pip go github hazel defaults vim-plug wallpaper
