@@ -7,5 +7,5 @@ if [ ! -d /Library/Developer ]; then
     xcode-select --install
 else
    /bin/bash ./roles/homebrew/files/install-homebrew.sh
-   /usr/local/bin/brew install ansible
+   type ansible >/dev/null 2>&1 || /usr/local/bin/brew install ansible
 fi
