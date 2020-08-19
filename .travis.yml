@@ -5,8 +5,11 @@ osx_image: xcode12u
 services:
   - docker
 install:
-  - pip install molecule docker
+  - pip install molecule
 script:
   - molecule --version
   - ansible --version
-  - cd roles/wallpaper && molecule test
+  - cd roles/wallpaper && molecule lint && cd -
+  - make bootstrap
+  - make install
+
