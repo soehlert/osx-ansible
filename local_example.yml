@@ -2,7 +2,7 @@
 # Main
 ##########
 full_name: "Sam Oehlert"
-usernm: "soehlert"
+usernm: "travis"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
@@ -20,7 +20,7 @@ search_domains: "soehlert.com samoehlert.com internal.sjo"
 
 # Git
 ##########
-github: true
+github: false
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
@@ -57,9 +57,7 @@ mas: true
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
-mas_installed_apps:
-  - {id: 634148309, name: "Logic Pro X"}
-  - {id: 1513574319, name: "Glance"}
+mas_installed_apps: []
 
 # Defaults
 ##########
