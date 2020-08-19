@@ -47,9 +47,9 @@
   become: true
   changed_when: false
 
-- name: Set my login shell
-  command: "chpass -s {{ login_shell }}"
-  when: etc_shells.rc == 1
+# - name: Set my login shell
+#   command: "chpass -s {{ login_shell }}"
+#   when: etc_shells.rc == 1
 
 - name: Create directories
   file:
