@@ -2,11 +2,11 @@
 # Main
 ##########
 full_name: "Sam Oehlert"
-usernm: "travis"
+usernm: "{{ ansible_env.USER }}"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
-home_dir: "/Users/{{ ansible_env.USER }}"
+home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
