@@ -4,6 +4,8 @@ os: osx
 osx_image: xcode12u
 services:
   - docker
+install:
+  - pip install ansible-lint
 script:
   - ansible --version
   - ansible-lint roles/wallpaper
