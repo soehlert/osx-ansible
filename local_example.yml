@@ -348,7 +348,6 @@ homebrew_blacklisted_packages: []
 pip_packages:
   - gitlint
   - pip
-  - pip-review
   - setuptools
   - wheel
 
@@ -358,8 +357,8 @@ pip3_packages:
   - gitlint
   - httpie
   - pip
-  - pip-review
   - pipenv
+  - pipupgrade
   - setuptools
   - shallow-backup
   - tmuxp
