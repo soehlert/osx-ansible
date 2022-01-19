@@ -59,6 +59,9 @@ mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
   - { id: 1475387142, name: "Tailscale"}
+  - { id: 1451685025, name: "Wireguard"}
+  - { id: 1475897096, name: "Jira"}
+  - { id: 634148309, name: "Logic Pro"}
 
 # Defaults
 ##########
@@ -86,9 +89,6 @@ dockutil_desired:
   - name: VMware
     path: "/Applications/VMware Fusion.app"
     pos: 7
-  - name: Raindrop.io
-    path: "/Applications/Raindrop.io.app"
-    pos: 8
   - name: System Preferences
     path: "/Applications/System Preferences.app"
     pos: 9
@@ -181,6 +181,7 @@ homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
+  - "aquasecurity/trivy"
   - "buo/cask-upgrade"
   - "caskroom/drivers"
   - "caskroom/fonts"
@@ -197,13 +198,18 @@ homebrew_installed_packages:
   - bash
   - bash-completion
   - bat
+  - bit-git
+  - caf
+  - cask
   - clamav
   - cookiecutter
+  - coreutils
   - curl
   - dnstwist
   - docker
-  - docker-machine
+  - docker-completion
   - dockutil
+  - duf
   - e2fsprogs
   - fd
   - ffmpeg
@@ -212,7 +218,7 @@ homebrew_installed_packages:
   - fzf
   - gawk
   - geoip
-  - gifsicle
+  - geckodriver
   - git
   - git-extras
   - git-quick-stats
@@ -229,6 +235,7 @@ homebrew_installed_packages:
   - hugo
   - imagemagick
   - iperf3
+  - iproute2mac
   - jpeg
   - jq
   - jump
@@ -253,7 +260,8 @@ homebrew_installed_packages:
   - openjpeg
   - openssh
   - openssl
-  - openssl@1.1
+  - opus
+  - p11-kit
   - p7zip
   - packer
   - pcre2
@@ -264,14 +272,15 @@ homebrew_installed_packages:
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
-  - python3.8
-  - radare2
+  - python3.10
+  - rbenv
   - readline
   - ripgrep
   - ruby
   - rust
-  - screenresolution
+  - shallowbackup
   - shellcheck
+  - socat
   - sqlite
   - sqlmap
   - ssh-copy-id
@@ -280,13 +289,14 @@ homebrew_installed_packages:
   - tmate
   - tmux
   - tree
-  - twofa
   - unrar
+  - vault
   - vim
   - wallpaper
   - wget
   - whalebrew
   - wireguard-go
+  - wireguard-tools
   - wtfutil
   - yamllint
   - youtube-dl
@@ -299,21 +309,18 @@ homebrew_cask_apps:
   - 1password-cli
   - alfred
   - appcleaner
+  - applepi-baker
   - atom
-  - background-music
   - bartender
   - brave-browser
   - docker
   - elgato-thunderbolt-dock
-  - expressvpn
   - firefox
   - font-source-code-pro-for-powerline
-  - google-backup-and-sync
   - google-cloud-sdk
   - handbrake
   - hazel
   - iterm2
-  - karabiner-elements
   - keybase
   - lunar
   - monolingual
@@ -322,14 +329,12 @@ homebrew_cask_apps:
   - music-manager
   - musicbrainz-picard
   - notion
+  - opensc
   - openzfs
   - plexamp
   - pycharm
-  - raindropio
   - sabnzbd
-  - sketchup
   - slack
-  - spectacle
   - stay
   - steam
   - synthesia
@@ -339,7 +344,6 @@ homebrew_cask_apps:
   - viscosity
   - vlc
   - vmware-fusion
-  - wireguard-tools
   - wireshark
   - xquartz
   - zoomus
