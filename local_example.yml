@@ -57,7 +57,8 @@ mas: true
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
-mas_installed_apps: []
+mas_installed_apps:
+  - { id: 1475387142, name: "Tailscale"}
 
 # Defaults
 ##########

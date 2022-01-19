@@ -57,14 +57,14 @@ wallpaper:
 
 .PHONY: update
 update:
-	ansible-playbook playbooks/update.yml 
+	ansible-playbook playbooks/update.yml -K
 
 .PHONY: updates
 updates: update
 
 .PHONY: update-reboot
 update-reboot:
-	ansible-playbook playbooks/update.yml -e "reboot=true"
+	ansible-playbook playbooks/update.yml -e "reboot=true" -K
 
 .PHONY: updates-reboot
 updates-reboot: update-reboot
