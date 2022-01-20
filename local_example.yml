@@ -58,10 +58,10 @@ mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
-  - { id: 1475387142, name: "Tailscale"}
-  - { id: 1451685025, name: "Wireguard"}
-  - { id: 1475897096, name: "Jira"}
-  - { id: 634148309, name: "Logic Pro"}
+  - {id: 1475387142, name: "Tailscale"}
+  - {id: 1451685025, name: "Wireguard"}
+  - {id: 1475897096, name: "Jira"}
+  - {id: 634148309, name: "Logic Pro"}
 
 # Defaults
 ##########
@@ -183,11 +183,11 @@ homebrew_brewfile_dir: "~/.config/"
 homebrew_taps:
   - "aquasecurity/trivy"
   - "buo/cask-upgrade"
-  - "caskroom/drivers"
-  - "caskroom/fonts"
-  - "caskroom/cask"
-  - "homebrew/core"
   - "homebrew/bundle"
+  - "homebrew/cask"
+  - "homebrew/cask-drivers"
+  - "homebrew/cask-fonts"
+  - "homebrew/core"
   - "homebrew/services"
 
 homebrew_installed_packages:
@@ -318,6 +318,7 @@ homebrew_cask_apps:
   - firefox
   - font-source-code-pro-for-powerline
   - google-cloud-sdk
+  - google-drive
   - handbrake
   - hazel
   - iterm2
