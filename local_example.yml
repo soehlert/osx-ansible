@@ -283,6 +283,7 @@ homebrew_installed_packages:
   - sqlmap
   - ssh-copy-id
   - stow
+  - svn
   - telnet
   - tmate
   - tmux
