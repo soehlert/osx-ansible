@@ -326,7 +326,6 @@ homebrew_cask_apps:
   - musaicfm
   - music-manager
   - musicbrainz-picard
-  - notion
   - opensc
   - openzfs
   - plexamp
@@ -335,15 +334,11 @@ homebrew_cask_apps:
   - slack
   - stay
   - steam
-  - synthesia
   - the-unarchiver
-  - vagrant
-  - vagrant-manager
   - viscosity
   - vlc
   - vmware-fusion
   - wireshark
-  - xquartz
   - zoomus
 
 homebrew_blacklisted_packages: []
