@@ -227,7 +227,6 @@ homebrew_installed_packages:
   - gnu-tar
   - go
   - hashcat
-  - heroku
   - hping
   - htop
   - hub
@@ -277,7 +276,7 @@ homebrew_installed_packages:
   - ripgrep
   - ruby
   - rust
-  - shallowbackup
+  - shallow-backup
   - shellcheck
   - socat
   - sqlite
@@ -288,7 +287,6 @@ homebrew_installed_packages:
   - tmate
   - tmux
   - tree
-  - unrar
   - vault
   - vim
   - wallpaper
