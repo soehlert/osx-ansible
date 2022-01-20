@@ -207,7 +207,6 @@ homebrew_installed_packages:
   - curl
   - dnstwist
   - docker
-  - docker-completion
   - dockutil
   - duf
   - e2fsprogs
