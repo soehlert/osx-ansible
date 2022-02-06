@@ -41,12 +41,6 @@
     register: plug_update
     changed_when: false
 
-  - name: Check for pip
-    stat:
-      path: /usr/local/bin/pip
-    register: pip
-    changed_when: false
-
   - name: Check for pip3
     stat:
       path: /usr/local/bin/pip3
