@@ -39,6 +39,7 @@
 - name: Git clone all my projects
   git:
     repo: "{{ item }}"
+    # yamllint disable-line rule:line-length
     dest: "{{ projects_dir }}/personal/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
     accept_hostkey: true
   loop: "{{ github_repos.stdout_lines }}"
