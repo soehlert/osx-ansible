@@ -21,7 +21,7 @@
 - block:
 
     - name: Signin to the App Store
-      command: open -a /Applications/App\ Store.app
+      command: open -a /System/Applications/App\ Store.app
 
     - name: Wait for 2 minutes to let you sign in
       pause:
