@@ -47,6 +47,10 @@ hazel:
 defaults:
 	ansible-playbook playbooks/common.yml -t defaults -K
 
+.PHONY: sudo_tid
+sudo_tid:
+	ansible-playbook playbooks/common.yml -t sudo_tid -K
+
 .PHONY: vim-plug
 vim-plug:
 	ansible-playbook playbooks/common.yml -t vim-plug
