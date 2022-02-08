@@ -47,10 +47,6 @@
   become: true
   changed_when: false
 
-# - name: Set my login shell
-#   command: "chpass -s {{ login_shell }}"
-#   when: etc_shells.rc == 1
-
 - name: Create directories
   file:
     path: "{{ item.path }}"
@@ -59,11 +55,7 @@
     group: "{{ groupnm }}"
     mode: "{{ item.mode }}"
     recurse: true
-  loop:
-    - {path: '{{ projects_dir }}/personal', mode: '0755'}
-    - {path: '{{ projects_dir }}/work', mode: '0755'}
-    - {path: '{{ ssh_dir }}', mode: '0700'}
-    - {path: '{{ python_env_dir }}', mode: '0700'}
+  loop: "{{ create_dirs}}"
 
 - name: Check if key exists
   stat:
