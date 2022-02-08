@@ -37,20 +37,6 @@ dotfiles_dir: "{{ home_dir }}/dotfiles"
 # yamllint disable-line rule:line-length
 dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
 
-# Hazel
-##########
-hazel: true
-hazel_dirs:
-  - Compressed
-  - IMG
-  - Important
-  - Music
-  - PDF
-  - Pics
-  - Text
-  - Video
-  - Work
-
 # MAS
 ##########
 mas: true
@@ -267,12 +253,15 @@ homebrew_installed_packages:
   - pgcli
   - pip-completion
   - pkg-config
+  - podman
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
   - python@3.10
   - rbenv
   - readline
+  - reattach-to-user-namespace
+  - rectangle
   - ripgrep
   - ruby
   - rust
@@ -287,17 +276,16 @@ homebrew_installed_packages:
   - telnet
   - tmate
   - tmux
+  - tmuxp
   - tree
   - vault
   - vim
   - wallpaper
   - wget
-  - whalebrew
-  - wireguard-go
-  - wireguard-tools
   - wtfutil
   - yamllint
   - youtube-dl
+  - zplug
   - zsh
   - zsh-completions
   - zsh-syntax-highlighting
@@ -311,14 +299,12 @@ homebrew_cask_apps:
   - atom
   - bartender
   - brave-browser
-  - docker
   - elgato-thunderbolt-dock
   - firefox
   - font-source-code-pro-for-powerline
   - google-cloud-sdk
   - google-drive
   - handbrake
-  - hazel
   - iterm2
   - lunar
   - monolingual
@@ -338,7 +324,7 @@ homebrew_cask_apps:
   - viscosity
   - vmware-fusion
   - wireshark
-  - zoomus
+  - zoom
 
 homebrew_blacklisted_packages: []
 
