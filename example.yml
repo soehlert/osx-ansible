@@ -359,6 +359,7 @@ pip3_packages:
   - commitizen
   - gitlint
   - httpie
+  - organize-tool
   - pip
   - pipenv
   - pipupgrade
