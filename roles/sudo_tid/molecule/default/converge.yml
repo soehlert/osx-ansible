@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include roles/sudo_tid"
+      include_role:
+        name: "roles/sudo_tid"

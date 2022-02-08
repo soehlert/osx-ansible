@@ -23,6 +23,7 @@
         - defaults
         - vim-plug
         - wallpaper
+        - sudo_tid
   roles:
     - {role: 'osx_base', tags: 'osx_base'}
     - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles}
@@ -34,3 +35,4 @@
     - {role: 'defaults', tags: 'defaults', when: defaults}
     - {role: 'vim-plug', tags: 'vim-plug', when: vimplug}
     - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper}
+    - {role: 'sudo_tid', tags: 'sudo_tid', when: sudo_tid}

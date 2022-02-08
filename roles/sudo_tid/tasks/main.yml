@@ -1,0 +1,9 @@
+---
+# tasks file for roles/sudo_tid
+- name: Turn on touchID for sudo
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sudo
+    line: 'auth       sufficient     pam_tid.so'
+    insertbefore: 'auth       sufficient     pam_smartcard.so'
+    create: true
+  become: true

@@ -34,19 +34,6 @@ dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 
-# Hazel
-##########
-hazel_dirs:
-  - Compressed
-  - IMG
-  - Important
-  - Music
-  - PDF
-  - Pics
-  - Text
-  - Video
-  - Work
-
 # MAS
 ##########
 mas_email: "sam.oehlert@gmail.com"
@@ -106,6 +93,10 @@ reboot: false
 # Vim
 ##########
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+
+# Sudo TouchID
+##########
+sudo_tid: true
 
 # Homebrew
 ##########
