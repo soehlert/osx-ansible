@@ -260,6 +260,7 @@ homebrew_installed_packages:
   - openssh
   - openssl
   - opus
+  - organize-tool
   - p11-kit
   - p7zip
   - packer
