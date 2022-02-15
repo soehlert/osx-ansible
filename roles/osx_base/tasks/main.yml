@@ -47,15 +47,15 @@
   become: true
   changed_when: false
 
-- name: Create directories
-  file:
-    path: "{{ item.path }}"
-    state: directory
-    owner: "{{ usernm }}"
-    group: "{{ groupnm }}"
-    mode: "{{ item.mode }}"
-    recurse: true
-  loop: "{{ create_dirs}}"
+# - name: Create directories
+#   file:
+#     path: "{{ item.path }}"
+#     state: directory
+#     owner: "{{ usernm }}"
+#     group: "{{ groupnm }}"
+#     mode: "{{ item.mode }}"
+#     recurse: true
+#   loop: "{{ create_dirs}}"
 
 - name: Check if key exists
   stat:

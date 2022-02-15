@@ -36,3 +36,9 @@
     - {role: 'vim-plug', tags: 'vim-plug', when: vimplug}
     - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper}
     - {role: 'sudo_tid', tags: 'sudo_tid', when: sudo_tid}
+  tasks:
+    - name: Create dirs
+      debug:
+        var: "{{ create_dirs }}"
+      tags:
+        - osx_base
