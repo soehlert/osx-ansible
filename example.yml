@@ -225,6 +225,7 @@ homebrew_installed_packages:
   # pipx is REQUIRED to install pip packages globally here
   - pipx
   - pip-completion
+  - pre-commit
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
