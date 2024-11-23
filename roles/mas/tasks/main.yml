@@ -11,13 +11,6 @@
   failed_when: mas_account_result.rc > 1
   changed_when: false
 
-# Mas signin is currently broken on High Sierra
-# See https://github.com/mas-cli/mas/issues/164
-#
-# - name: Sign in to MAS when email is provided.
-#  shell: 'mas signin --dialog "{{ mas_email }}"'
-#  register: mas_signin_result
-#  when: mas_signin_dialog and mas_account_result.rc == 1 and mas_email != ''
 - block:
 
     - name: Signin to the App Store
@@ -26,15 +19,6 @@
     - name: Wait for 2 minutes to let you sign in
       pause:
         minutes: 2
-
-    - name: Convert commerce plist to xml
-      # yamllint disable-line rule:line-length
-      command: plutil -convert xml1 ~/Library/Preferences/com.apple.appstore.commerce.plist
-
-    - name: Wait for Primary Account string to know I've signed in
-      wait_for:
-        path: ~/Library/Preferences/com.apple.appstore.commerce.plist
-        search_regex: PrimaryAccount
 
   when: not mas_account_result.stdout is search( mas_email )
 
