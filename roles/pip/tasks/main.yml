@@ -1,14 +1,7 @@
 ---
 # tasks file for roles/pip
-- name: Install pip pacakges
-  pip:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ pip_packages }}"
-
 - name: Install pip3 packages
-  pip:
+  community.general.pipx:
     name: "{{ item }}"
     state: present
-    executable: pip3
   loop: "{{ pip3_packages }}"
