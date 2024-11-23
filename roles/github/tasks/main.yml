@@ -31,8 +31,6 @@
 - name: Get list of my repos
   # yamllint disable-line rule:line-length
   shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
-  args:
-    warn: false
   register: github_repos
   changed_when: false
 
