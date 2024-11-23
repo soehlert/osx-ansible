@@ -35,7 +35,8 @@ create_dirs:
 
 # Git
 ##########
-github: false
+# Clone all repos from a given user
+github: true
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
@@ -44,28 +45,30 @@ github_2fa: true
 
 # Dotfiles
 ##########
-dotfiles: true
+# This clones dotfiles from the repo listed below and stows them (assumes the use of gnu stow and a specific layout of dotfiles repo)
+dotfiles: false
 # I have my dotfiles broken up by home/work/server this allows me to
 # use different dotfiles depending on the host I'm installing them on
-dotfiles_env: "work"
+dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 # yamllint disable-line rule:line-length
 dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
 
 # MAS
 ##########
+# Install apps from the mac app store
 mas: true
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps:
   - {id: 1475387142, name: "Tailscale"}
-  - {id: 1451685025, name: "Wireguard"}
-  - {id: 1475897096, name: "Jira"}
   - {id: 634148309, name: "Logic Pro"}
+  - {id: 1474276998, name: "HP Smart for Desktop"}
 
 # Defaults
 ##########
+# Make a lot of tweaks to the the base OS. Also organizes the dock.
 defaults: true
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
@@ -73,7 +76,7 @@ dockitems_remove_all: true
 
 dockutil_desired:
   - name: 1password
-    path: "/Applications/1password 7.app"
+    path: "/Applications/1password.app"
     pos: 2
   - name: iTerm
     path: "/Applications/iterm.app"
@@ -85,11 +88,8 @@ dockutil_desired:
     path: "/Applications/Slack.app"
     pos: 5
   - name: PyCharm
-    path: "/Applications/PyCharm CE.app"
+    path: "/Applications/PyCharm.app"
     pos: 6
-  - name: VMware
-    path: "/Applications/VMware Fusion.app"
-    pos: 7
   - name: System Preferences
     path: "/Applications/System Preferences.app"
     pos: 9
@@ -125,185 +125,129 @@ dockutil_desired_right:
     sections: other
 
 login_items:
-  - name: 1password 7
-    path: /Applications/1password 7.app
+  - name: 1password
+    path: /Applications/1password.app
     hidden: true
   - name: Alfred 3
-    path: /Applications/Alfred 3.app
+    path: /Applications/Alfred 5.app
     hidden: true
-  - name: Backup and Sync from Google
-    path: /Applications/Backup and Sync.app
-    hidden: false
   - name: Bartender 3
-    path: /Applications/Bartender 3.app
+    path: /Applications/Bartender 5.app
     hidden: false
   - name: Brave Browser
     path: /Applications/Brave Browser.app
     hidden: false
-  - name: HazelHelper
-    # yamllint disable-line rule:line-length
-    path: '{{ home_dir }}/Library/PreferencePanes/Hazel.prefPane/Contents/MacOS/HazelHelper.app'
-    hidden: false
   - name: Plexamp
     path: /Applications/Plexamp.app
     hidden: false
-  - name: Raindrop.io
-    path: /Applications/Raindrop.io.app
-    hidden: false
-  - name: Spectacle
-    path: /Applications/Spectacle.app
-    hidden: false
-  - name: Stay
-    path: /Applications/Stay.app
-    hidden: false
-  - name: Viscosity
-    path: /Applications/Viscosity.app
+  - name: Rectangle
+    path: /Applications/Rectangle.app
     hidden: false
 
 # Update
 ##########
-reboot: false
+reboot: true
 
 # Vim
 ##########
-vimplug: true
+# Install my vim plugins
+vimplug: false
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 
 # Wallpaper
 ##########
-wallpaper: true
+# Install my desktop background
+wallpaper: false
 wallpaper_file: "{{ dotfiles_dir }}/common/wallpaper.jpg"
 
 # Sudo TouchID
 ##########
+# Use touchID for sudo
 sudo_tid: true
 
 # Homebrew
 ##########
+# Install applications from homebrew
 homebrew: true
-homebrew_brew_bin_path: "/usr/local/Cellar"
+homebrew_brew_bin_path: "/opt/homebrew/Cellar"
 homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
-  - "aquasecurity/trivy"
   - "buo/cask-upgrade"
   - "homebrew/bundle"
-  - "homebrew/cask"
-  - "homebrew/cask-drivers"
-  - "homebrew/cask-fonts"
-  - "homebrew/core"
   - "homebrew/services"
 
 homebrew_installed_packages:
   - asciinema
-  - autoconf
-  - autojump
-  - automake
-  - bash
-  - bash-completion
   - bat
-  - bit-git
-  - caf
   - cask
-  - clamav
+  - colima
   - cookiecutter
   - coreutils
+  - cruft
   - curl
-  - dnstwist
-  - docker
   - dockutil
   - duf
-  - e2fsprogs
   - fd
   - ffmpeg
   - flac
   - flake8
   - fzf
   - gawk
-  - geoip
-  - geckodriver
   - git
   - git-extras
-  - git-quick-stats
   - git-secrets
-  - git-standup
   - glances
   - gnu-tar
   - go
-  - hashcat
-  - hping
   - htop
-  - hub
-  - hugo
-  - imagemagick
   - iperf3
   - iproute2mac
-  - jpeg
   - jq
   - jump
   - lame
   - lazydocker
   - lazygit
-  - libfido2
-  - libmagic
-  - libyaml
-  - lsusb
-  - lua
-  - lz4
   - mackup
   - mas
-  - minicom
   - mtr
   - ncurses
   - neofetch
   - netcat
   - nmap
-  - node
-  - openjpeg
   - openssh
   - openssl
   - opus
   - organize-tool
-  - p11-kit
   - p7zip
-  - packer
-  - pcre2
-  - perl
   - pgcli
+  # pipx is REQUIRED to install pip packages globally here
+  - pipx
   - pip-completion
-  - pkg-config
-  - podman
   - pyenv
   - pyenv-virtualenv
   - pyenv-virtualenvwrapper
-  - python@3.10
-  - rbenv
+  - python@3.12
   - readline
   - reattach-to-user-namespace
   - rectangle
   - ripgrep
   - ruby
   - rust
-  - shallow-backup
-  - shellcheck
   - socat
   - sqlite
   - sqlmap
   - ssh-copy-id
   - stow
-  - svn
   - telnet
-  - tmate
   - tmux
   - tmuxp
   - tree
-  - vault
   - vim
   - wallpaper
   - wget
   - wtfutil
-  - yamllint
   - youtube-dl
   - zplug
   - zsh
@@ -314,15 +258,13 @@ homebrew_cask_apps:
   - 1password
   - 1password-cli
   - alfred
+  - anki
   - appcleaner
   - applepi-baker
-  - atom
   - bartender
   - brave-browser
-  - elgato-thunderbolt-dock
   - firefox
   - font-source-code-pro-for-powerline
-  - google-cloud-sdk
   - google-drive
   - handbrake
   - iterm2
@@ -330,29 +272,18 @@ homebrew_cask_apps:
   - monolingual
   - multipass
   - musaicfm
-  - music-manager
   - musicbrainz-picard
-  - opensc
+  - notion
   - openzfs
   - plexamp
   - pycharm
-  - sabnzbd
+  - rectangle
   - slack
   - stay
   - steam
   - the-unarchiver
-  - viscosity
-  - vmware-fusion
-  - wireshark
-  - zoom
 
 homebrew_blacklisted_packages: []
-
-pip_packages:
-  - gitlint
-  - pip
-  - setuptools
-  - wheel
 
 pip3_packages:
   - black
@@ -360,7 +291,6 @@ pip3_packages:
   - gitlint
   - httpie
   - organize-tool
-  - pip
   - pipenv
   - pipupgrade
   - setuptools
@@ -369,7 +299,3 @@ pip3_packages:
   - virtualenv
   - virtualenvwrapper
   - wheel
-
-go_packages:
-  - github.com/genuinetools/pepper
-  - github.com/genuinetools/udict
