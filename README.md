@@ -13,6 +13,11 @@ You'll want to do this, as some defaults variables have my info in them.
 
 ## Installation
 
+    sudo /bin/zsh # not sure why, but we need to sudo once before the install-homebrew script works
+    exit
+    ./roles/homebrew/files/install-homebrew.sh # homebrew will not install if its run as root
+    eval "$(/opt/homebrew/bin/brew shellenv)" # by default after installing homebrew it will not be part of your path
+
 #### Makefile:
     make bootstrap
     make install
