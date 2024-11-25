@@ -10,16 +10,18 @@ home_dir: "/Users/{{ usernm }}"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
-login_shell: "/usr/local/bin/bash"
+login_shell: "/bin/zsh"
 
 # OSX_Base
 ##########
+search_domain_use: false
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
 search_domains: ""
 
 # Git
 ##########
+github: false
 github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
@@ -28,6 +30,7 @@ github_2fa: false
 
 # Dotfiles
 ##########
+dotfiles: false
 # I have my dotfiles broken up by home/work/server this allows me to use
 # different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
@@ -36,6 +39,7 @@ dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
 
 # MAS
 ##########
+mas: false
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
@@ -43,7 +47,9 @@ mas_installed_apps: []
 
 # Tweaks
 ##########
-wallpaper: "{{ dotfiles_dir }}/common/wallpaper.jpg"
+defaults: false
+wallpaper: false
+wallpaper_file: ""
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
@@ -84,7 +90,7 @@ dockutil_desired_right:
     sort: name
     sections: other
 
-login_items:
+login_items: []
 
 # Update
 ##########
@@ -92,7 +98,9 @@ reboot: false
 
 # Vim
 ##########
+vimplug: false
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+vimplug_install: false
 
 # Sudo TouchID
 ##########
@@ -100,6 +108,7 @@ sudo_tid: true
 
 # Homebrew
 ##########
+homebrew: false
 homebrew_brew_bin_path: "/usr/local/Cellar"
 homebrew_use_brewfile: true
 homebrew_brewfile_dir: "~"
@@ -112,12 +121,4 @@ homebrew_cask_apps: []
 
 homebrew_blacklisted_packages: []
 
-pip_packages: []
-
 pip3_packages: []
-
-go_packages: []
-
-npm_packages: []
-
-ruby_packages: []
