@@ -26,18 +26,12 @@
         - sudo_tid
   roles:
     - {role: 'osx_base', tags: 'osx_base'}
-    - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles}
-    - {role: 'homebrew', tags: 'homebrew', when: homebrew}
-    - {role: 'mas', tags: 'mas', when: mas}
-    - {role: 'github', tags: 'github', when: github}
-    - {role: 'pip', tags: 'pip', when: pip}
-    - {role: 'defaults', tags: 'defaults', when: defaults}
-    - {role: 'vim-plug', tags: 'vim-plug', when: vimplug}
-    - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper}
-    - {role: 'sudo_tid', tags: 'sudo_tid', when: sudo_tid}
-  tasks:
-    - name: Create dirs
-      debug:
-        var: "{{ create_dirs }}"
-      tags:
-        - osx_base
+    - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles == true}
+    - {role: 'homebrew', tags: 'homebrew', when: homebrew == true}
+    - {role: 'mas', tags: 'mas', when: mas == true}
+    - {role: 'github', tags: 'github', when: github == true}
+    - {role: 'pip', tags: 'pip', when: pip == true}
+    - {role: 'defaults', tags: 'defaults', when: defaults == true}
+    - {role: 'vim-plug', tags: 'vim-plug', when: vimplug == true}
+    - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper == true}
+    - {role: 'sudo_tid', tags: 'sudo_tid', when: sudo_tid == true}
