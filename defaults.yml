@@ -14,7 +14,7 @@ login_shell: "/bin/zsh"
 
 # OSX_Base
 ##########
-search_domain_use: false
+search_domains_use: false
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
 search_domains: ""
@@ -45,11 +45,9 @@ mas_signin_dialog: true
 mas_upgrade_all_apps: true
 mas_installed_apps: []
 
-# Tweaks
+# defaults
 ##########
 defaults: false
-wallpaper: false
-wallpaper_file: ""
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
 timezone: "America/Chicago"
@@ -101,6 +99,11 @@ reboot: false
 vimplug: false
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
 vimplug_install: false
+
+# Wallpaper
+###########
+wallpaper: false
+wallpaper_file: ""
 
 # Sudo TouchID
 ##########

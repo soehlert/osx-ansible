@@ -11,10 +11,11 @@ downloads_dir: "{{home_dir}}/Downloads"
 projects_dir: "{{ home_dir }}/projects"
 python_env_dir: "{{ home_dir }}/.envs"
 ssh_dir: "{{ home_dir }}/.ssh"
-login_shell: "/usr/local/bin/bash"
+login_shell: "/bin/zsh"
 
 # OSX_Base
 ##########
+search_domains_use: true
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
 search_domains: "soehlert.com samoehlert.com internal.sjo"
@@ -46,7 +47,7 @@ github_2fa: true
 # Dotfiles
 ##########
 # This clones dotfiles from the repo listed below and stows them (assumes the use of gnu stow and a specific layout of dotfiles repo)
-dotfiles: false
+dotfiles: true
 # I have my dotfiles broken up by home/work/server this allows me to
 # use different dotfiles depending on the host I'm installing them on
 dotfiles_env: "home"
@@ -72,6 +73,7 @@ mas_installed_apps:
 defaults: true
 finder_new_window_path: "file://{{ home_dir }}"
 screenshots_dir: "{{ home_dir }}/Downloads/Pics"
+timezone: "America/Chicago"
 dockitems_remove_all: true
 
 dockutil_desired:
@@ -151,8 +153,9 @@ reboot: true
 # Vim
 ##########
 # Install my vim plugins
-vimplug: false
+vimplug: true
 vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+vimplug_install: true
 
 # Wallpaper
 ##########
