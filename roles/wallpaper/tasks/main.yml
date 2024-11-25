@@ -7,3 +7,4 @@
 
 - name: Set wallpaper
   command: wallpaper set "{{ wallpaper_file }}"
+  when: wallpaper_file | default('') != ''
