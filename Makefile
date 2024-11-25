@@ -20,7 +20,7 @@ bootstrap:
 dump_facts:
 	ansible all -m setup --tree /tmp/facts --connection=local -i ansible_hosts
 
-## base: sets up things like hostname, directories, ssh keys, searchdomains
+## osx_base: sets up things like hostname, directories, ssh keys, searchdomains
 .PHONY: osx_base
 osx_base:
 	ansible-playbook playbooks/common.yml -t osx_base -K
