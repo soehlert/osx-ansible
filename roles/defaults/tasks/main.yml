@@ -254,10 +254,13 @@
     value: true
     state: present
 
+# This will fail but the error message lets you know what to do if you want to turn it off
+# You need to allow terminal to have Full Disk Access to pull this off
 - name: Disable local Time Machine snapshots
   command: tmutil disable
   become: true
   become_user: root
+  failed_when: false
   changed_when: false
 
 ### Misc tweaks
