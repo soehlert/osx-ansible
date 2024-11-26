@@ -46,7 +46,8 @@ github_2fa: true
 
 # Dotfiles
 ##########
-# This clones dotfiles from the repo listed below and stows them (assumes the use of gnu stow and a specific layout of dotfiles repo)
+# This clones dotfiles from the repo listed below and stows them
+# (assumes the use of gnu stow and a specific layout of dotfiles repo)
 dotfiles: true
 # I have my dotfiles broken up by home/work/server this allows me to
 # use different dotfiles depending on the host I'm installing them on

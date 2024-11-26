@@ -66,6 +66,7 @@
         - "{{ search_domain_service }}"
 
     - name: Set search domains
+      # yamllint disable-line rule:line-length
       command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
       become: true
       become_user: root
