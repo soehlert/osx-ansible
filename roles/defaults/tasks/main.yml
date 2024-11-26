@@ -47,7 +47,7 @@
     # Next two change what new Finder window opens to
     - {key: NewWindowTarget, type: string, value: "PfLo"}
     # yamllint disable-line rule:line-length
-    - {key: NewWindowTargetPath, type: string, value: "{{finder_new_window_path}}"}
+    - {key: NewWindowTargetPath, type: string, value: "{{ finder_new_window_path }}"}
     - {key: DisableAllAnimations, type: bool, value: "true"}
     # Hide the "Are you sure?" when quitting
     - {key: QuitMenuItem, type: bool, value: "false"}

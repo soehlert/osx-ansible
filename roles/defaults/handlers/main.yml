@@ -1,12 +1,15 @@
 ---
-- name: kill_finder
-  command: killall Finder
+- name: 'kill_finder'
+  command:
+    cmd: "killall Finder"
   ignore_errors: true
 
-- name: kill_dock
-  command: killall Dock
+- name: 'kill_dock'
+  command:
+    cmd: "killall Dock"
   ignore_errors: true
 
-- name: kill_systemUIserver
-  command: killall SystemUIServer
+- name: 'kill_systemUIserver'
+  command:
+    cmd: "killall SystemUIServer"
   ignore_errors: true
