@@ -29,9 +29,9 @@
   when: github_2fa
 
 - name: Get list of my repos
-  # yamllint disable-line rule:line-length
   # noqa command-instead-of-module
   # noqa risky-shell-pipe
+  # yamllint disable-line rule:line-length
   ansible.builtin.shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
   register: github_repos
   changed_when: false
