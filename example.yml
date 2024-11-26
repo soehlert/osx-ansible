@@ -20,19 +20,19 @@ ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
 search_domains: "soehlert.com samoehlert.com internal.sjo"
 create_dirs:
-  - {path: "{{projects_dir}}/personal", mode: 0755}
-  - {path: "{{projects_dir}}/work", mode: 0755}
-  - {path: "{{ssh_dir}}", mode: 0700}
-  - {path: "{{python_env_dir}}", mode: 0700}
-  - {path: "{{downloads_dir}}/Compressed", mode: 0755}
-  - {path: "{{downloads_dir}}/IMG", mode: 0755}
-  - {path: "{{downloads_dir}}/Important", mode: 0755}
-  - {path: "{{downloads_dir}}/Music", mode: 0755}
-  - {path: "{{downloads_dir}}/PDF", mode: 0755}
-  - {path: "{{downloads_dir}}/Pics", mode: 0755}
-  - {path: "{{downloads_dir}}/Text", mode: 0755}
-  - {path: "{{downloads_dir}}/Video", mode: 0755}
-  - {path: "{{downloads_dir}}/Work", mode: 0755}
+  - {path: "{{projects_dir}}/personal", mode: "0755"}
+  - {path: "{{projects_dir}}/work", mode: "0755"}
+  - {path: "{{ssh_dir}}", mode: "0700"}
+  - {path: "{{python_env_dir}}", mode: "0700"}
+  - {path: "{{downloads_dir}}/Compressed", mode: "0755"}
+  - {path: "{{downloads_dir}}/IMG", mode: "0755"}
+  - {path: "{{downloads_dir}}/Important", mode: "0755"}
+  - {path: "{{downloads_dir}}/Music", mode: "0755"}
+  - {path: "{{downloads_dir}}/PDF", mode: "0755"}
+  - {path: "{{downloads_dir}}/Pics", mode: "0755"}
+  - {path: "{{downloads_dir}}/Text", mode: "0755"}
+  - {path: "{{downloads_dir}}/Video", mode: "0755"}
+  - {path: "{{downloads_dir}}/Work", mode: "0755"}
 
 # Git
 ##########
