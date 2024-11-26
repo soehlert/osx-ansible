@@ -55,6 +55,7 @@ dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 # yamllint disable-line rule:line-length
 dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
+dotfiles_version: 98ecc1a
 
 # MAS
 ##########

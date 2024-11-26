@@ -36,6 +36,7 @@ dotfiles: false
 dotfiles_env: "home"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dotfiles_repo: "git@github.com:{{ github_user }}/dotfiles.git"
+dotfiles_version: 98ecc1a
 
 # MAS
 ##########

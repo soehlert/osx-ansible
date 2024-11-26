@@ -5,7 +5,7 @@
 ####
 
 - name: Install gnu stow and git for dotfiles
-  homebrew:
+  community.general.homebrew:
     name: "{{ item }}"
     state: present
   loop:
@@ -13,34 +13,35 @@
     - git
 
 - name: Check for {{ dotfiles_dir }}
-  stat:
+  ansible.builtin.stat:
     path: "{{ dotfiles_dir }}"
   register: dotfiles
 
 - name: Clone dotfiles repo
-  git:
+  ansible.builtin.git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_dir }}"
     update: true
     accept_hostkey: true
     clone: true
+    version: "{{ dotfiles_version }}"
   when: not dotfiles.stat.exists
 
 - name: Change the remote to ssh
-  git_config:
+  community.general.git_config:
     name: remote.origin.url
     value: "git@github.com:{{ github_user }}/dotfiles.git"
     scope: local
     repo: "{{ dotfiles_dir }}"
 
 - name: Stow common files
-  command: stow common
+  ansible.builtin.command: stow common
   args:
     chdir: "{{ dotfiles_dir }}"
     creates: ~/.vimrc
 
-- name: Stow {{ dotfiles_env }} files
-  command: stow "{{ dotfiles_env }}"
+- name: Stow {{ dotfiles_env }}
+  ansible.builtin.command: stow "{{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
     creates: ~/Brewfile
