@@ -55,6 +55,7 @@
     - name: Install pipupgrade
       pip:
         name: pipupgrade
+      # yamllint disable-line rule:line-length
       when: (pip.stat.exists or pip3.stat.exists) and (not pipupgrade.stat.exists)
 
     - name: Check for pip updates
@@ -121,15 +122,18 @@
 - name: Update pip
   command: python -m pip install --upgrade pip
   register: pip_upgrade
+  # yamllint disable-line rule:line-length
   changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
 
 - name: Update pip3
   command: python3 -m pip install --upgrade pip
   register: pip_upgrade
+  # yamllint disable-line rule:line-length
   changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
 
 - name: Update python3 pip packages
   command: pipupgrade
+  # yamllint disable-line rule:line-length
   when: not pipupgrade_updates.stdout | join('') is search("Everything up-to-date")
 
 - name: Update npm packages
@@ -181,4 +185,5 @@
 - name: Alert us that a reboot is necessary to get all updates
   debug:
     msg: "Note: There is an update available that requires a reboot"
+  # yamllint disable-line rule:line-length
   when: ( available_updates.stdout | join('') is search("restart") ) and not reboot

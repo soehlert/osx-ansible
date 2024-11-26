@@ -31,7 +31,8 @@
     state: present
   loop:
     - {key: EmptyTrashSecurely, type: bool, value: "true"}
-    # Choose Finder window view; Options clmv=column, list=list, icnv=icon, flwv=flow
+    # Choose Finder window view;
+    # Options clmv=column, list=list, icnv=icon, flwv=flow
     - {key: FXPreferredViewStyle, type: string, value: "clmv"}
     - {key: WarnOnEmptyTrash, type: bool, value: "true"}
     # Allow highlighting in quick look
@@ -45,6 +46,7 @@
     - {key: ShowRemovableMediaOnDesktop, type: bool, value: "false"}
     # Next two change what new Finder window opens to
     - {key: NewWindowTarget, type: string, value: "PfLo"}
+    # yamllint disable-line rule:line-length
     - {key: NewWindowTargetPath, type: string, value: "{{finder_new_window_path}}"}
     - {key: DisableAllAnimations, type: bool, value: "true"}
     # Hide the "Are you sure?" when quitting
@@ -72,10 +74,12 @@
     - {key: AppleShowScrollBars, type: string, value: "WhenScrolling"}
     # Smooth scrolling
     - {key: NSScrollAnimationEnabled, type: bool, value: "true"}
-    # Default to expand save panel by default (not sure why there's two names for this)
+    # Default to expand save panel by default
+    # (not sure why there's two names for this)
     - {key: NSNavPanelExpandedStateForSaveMode, type: bool, value: "true"}
     - {key: NSNavPanelExpandedStateForSaveMode2, type: bool, value: "true"}
-    # Default to expand print panel by default (not sure why there's two names for this)
+    # Default to expand print panel by default
+    # (not sure why there's two names for this)
     - {key: PMPrintingExpandedStateForPrint, type: bool, value: "true"}
     - {key: PMPrintingExpandedStateForPrint2, type: bool, value: "true"}
     # OSX defaults to saving to icloud
@@ -234,6 +238,7 @@
   notify: kill_dock
 
 - name: Dockutil | Add apps
+  # yamllint disable-line rule:line-length
   command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
   loop: "{{ dockutil_desired }}"
   when: '"not found" in dockutil_apps.stdout'
