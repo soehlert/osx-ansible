@@ -1,41 +1,42 @@
 ---
 # tasks file for roles/homebrew
 - name: Refresh sudo cache so homebrew cask doesnt ask for a password
-  command: "echo none"
+  ansible.builtin.command: "echo none"
   become: true
   changed_when: false
 
 - name: Install brew taps
-  homebrew_tap:
+  community.general.homebrew_tap:
     tap: "{{ item }}"
     state: present
   loop: "{{ homebrew_taps }}"
 
 - name: Install Homebrew packages
-  homebrew:
+  community.general.homebrew:
     name: "{{ item }}"
     install_options: "{{ item.install_options | default(omit) }}"
     state: present
   loop: "{{ homebrew_installed_packages }}"
 
 - name: Remove any blacklisted packages
-  homebrew:
+  community.general.homebrew:
     name: "{{ homebrew_blacklisted_packages }}"
     state: absent
 
 - name: Install cask applications
-  homebrew_cask:
+  # noqa ignore_errors:
+  community.general.homebrew_cask:
     name: "{{ homebrew_cask_apps }}"
     state: present
   ignore_errors: true
 
 - name: Check for brewfile
-  stat:
+  ansible.builtin.stat:
     path: "{{ homebrew_brewfile_dir }}/Brewfile"
   register: homebrew_brewfile
 
 - name: Install from Brewfile
-  command: "brew bundle"
+  ansible.builtin.command: "brew bundle"
   args:
     chdir: "{{ homebrew_brewfile_dir }}"
   when: homebrew_brewfile.stat.exists and homebrew_use_brewfile

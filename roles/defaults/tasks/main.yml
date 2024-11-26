@@ -5,25 +5,25 @@
 ####
 - name: See if we've set login items already
   # yamllint disable-line rule:line-length
-  command: osascript -e 'tell application "System Events" to get the name of every login item'
+  ansible.builtin.command: osascript -e 'tell application "System Events" to get the name of every login item'
   register: startup_apps
   changed_when: false
 
 - name: Set up login items
   # yamllint disable-line rule:line-length
-  command: osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ item.path }}", hidden:"{{ item.hidden }}" }'
+  ansible.builtin.command: osascript -e 'tell application "System Events" to make login item at end with properties {path:"{{ item.path }}", hidden:"{{ item.hidden }}" }'
   when: startup_apps.stdout is search("item.name")
   loop: "{{ login_items }}"
 
 - name: Get current wallpaper
   # yamllint disable-line rule:line-length
-  command: osascript -e 'tell application "System Events" to tell first Desktop to get its picture'
+  ansible.builtin.command: osascript -e 'tell application "System Events" to tell first Desktop to get its picture'
   register: current_wallpaper
   changed_when: false
   failed_when: false
 
 - name: Finder tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.finder
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -54,7 +54,7 @@
   notify: kill_finder
 
 - name: Global tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: NSGlobalDomain
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -98,7 +98,7 @@
     - {key: com.apple.swipescrolldirection, type: bool, value: "false"}
 
 - name: Launch Service tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.LaunchServices
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -109,7 +109,7 @@
     - {key: LSQuarantine, type: bool, value: "false"}
 
 - name: Desktop Services tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.desktopServices
     key: DSDontWriteNetworkStores
     type: string
@@ -117,7 +117,7 @@
     state: present
 
 - name: Battery tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.menuextra.battery
     key: ShowPercent
     type: string
@@ -126,7 +126,7 @@
   notify: kill_systemUIserver
 
 - name: Help Viewer tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.helpviewer
     key: DevMode
     type: bool
@@ -134,7 +134,7 @@
     state: present
 
 - name: Bluetooth tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.BluetoothAudioAgent
     key: "Apple Bitpool Min (editable)"
     type: int
@@ -142,7 +142,7 @@
     state: present
 
 - name: Screensaver tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.screensaver
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -155,7 +155,7 @@
     - {key: askForPasswordDelay, type: float, value: 0}
 
 - name: Screenshots tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.screencapture
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -168,7 +168,7 @@
     - {key: type, type: string, value: "png"}
 
 - name: Dashboard tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.dashboard
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -181,7 +181,7 @@
     - {key: dashboard-in-overlay, type: bool, value: "true"}
 
 - name: Dock tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.dock
     key: "{{ item.key }}"
     type: "{{ item.type }}"
@@ -215,44 +215,44 @@
   notify: kill_dock
 
 - name: Make sure dockutil is installed
-  homebrew:
+  community.general.homebrew:
     name: dockutil
     state: present
 
 - name: Dockutil | Check to see if we've already added apps
-  shell: 'dockutil --find iterm /Users/{{ usernm }}'
+  ansible.builtin.shell: 'dockutil --find iterm /Users/{{ usernm }}'
   register: dockutil_apps
   changed_when: false
   failed_when: false
 
 - name: Dockutil | Clear apps from the dock
-  command: dockutil --remove all --no-restart
+  ansible.builtin.command: dockutil --remove all --no-restart
   when: '"not found" in dockutil_apps.stdout'
   changed_when: false
   notify: kill_dock
 
 - name: Dockutil | Clear spacers from the dock
-  command: dockutil --remove spacer-tiles
+  ansible.builtin.command: dockutil --remove spacer-tiles
   when: '"not found" in dockutil_apps.stdout'
   changed_when: false
   notify: kill_dock
 
 - name: Dockutil | Add apps
   # yamllint disable-line rule:line-length
-  command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
+  ansible.builtin.command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
   loop: "{{ dockutil_desired }}"
   when: '"not found" in dockutil_apps.stdout'
   notify: kill_dock
 
 - name: Dockutil | Add items
   # yamllint disable-line rule:line-length
-  command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}' --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
+  ansible.builtin.command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}' --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
   loop: "{{ dockutil_desired_right }}"
   when: '"not found" in dockutil_apps.stdout'
   notify: kill_dock
 
 - name: Time Machine tweaks
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.TimeMachine
     key: "DoNotOfferNewDisksForBackup"
     type: bool
@@ -263,7 +263,7 @@
 # if you want to turn it off
 # You need to allow terminal to have Full Disk Access to pull this off
 - name: Disable local Time Machine snapshots
-  command: tmutil disable
+  ansible.builtin.command: tmutil disable
   become: true
   become_user: root
   failed_when: false
@@ -272,36 +272,36 @@
 ### Misc tweaks
 - block:
     - name: Check if we turned off keyboard media keys to itunes
-      shell: launchctl list | grep -i com.apple.rcd
+      ansible.builtin.shell: launchctl list | grep -i com.apple.rcd
       register: itunes_media_keys
       changed_when: false
       failed_when: false
 
     - name: Stop iTunes from responding to the keyboard media keys
       # yamllint disable-line rule:line-length
-      shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+      ansible.builtin.shell: launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
       when: itunes_media_keys.rc == 0
 
     - name: Check if set to automatically reboot on freezes
-      command: systemsetup -getrestartfreeze
+      ansible.builtin.command: systemsetup -getrestartfreeze
       register: restart_freeze
       changed_when: false
 
     - name: Restart automatically if the computer freezes
-      command: systemsetup -setrestartfreeze on
+      ansible.builtin.command: systemsetup -setrestartfreeze on
       when: '"On" not in restart_freeze.stdout'
 
     - name: Check if sleep mode is set to off
-      command: systemsetup -getcomputersleep
+      ansible.builtin.command: systemsetup -getcomputersleep
       register: sleep_mode
       changed_when: false
 
     - name: Never go into computer sleep mode
-      command: systemsetup -setcomputersleep Never
+      ansible.builtin.command: systemsetup -setcomputersleep Never
       when: '"Never" not in sleep_mode.stdout'
 
     - name: SSD Tweaks
-      command: "pmset -a {{ item.name }} {{ item.value }}"
+      ansible.builtin.command: "pmset -a {{ item.name }} {{ item.value }}"
       loop:
         # Disable sudden motion sensor if you have an SSD
         - {name: sms, value: 0}
@@ -313,10 +313,10 @@
   become_user: root
 
 - name: Check to see if Users' Library folder is hidden
-  shell: "ls -Old {{ home_dir }}/Library | awk '{ print $5 }'"
+  ansible.builtin.shell: "ls -Old {{ home_dir }}/Library | awk '{ print $5 }'"
   register: library_hidden
   changed_when: false
 
 - name: Always show the Users' Library folder
-  command: chflags nohidden {{ home_dir }}/Library/
+  ansible.builtin.command: chflags nohidden {{ home_dir }}/Library/
   when: '"hidden" in library_hidden.stdout'

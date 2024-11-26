@@ -1,39 +1,40 @@
 ---
 # tasks file for roles/mas
 - name: Make sure mas is installed
-  homebrew:
+  community.general.homebrew:
     name: mas
     state: present
 
 - name: Get mas account status
-  shell: 'mas account'
+  ansible.builtin.command: 'mas account'
   register: mas_account_result
   failed_when: mas_account_result.rc > 1
   changed_when: false
 
+  when: not mas_account_result.stdout is search( mas_email )
 - block:
 
     - name: Signin to the App Store
-      command: open -a /System/Applications/App\ Store.app
+      ansible.builtin.command: open -a /System/Applications/App\ Store.app
+      changed_when: false
 
     - name: Wait for 2 minutes to let you sign in
-      pause:
+      ansible.builtin.pause:
         minutes: 2
 
-  when: not mas_account_result.stdout is search( mas_email )
-
 - name: List installed MAS apps.
-  command: mas list
+  ansible.builtin.command: mas list
   register: mas_list
   check_mode: false
   changed_when: false
 
 - name: Ensure configured MAS apps are installed.
-  command: mas install "{{ item.id|default(item) }}"
+  ansible.builtin.command: mas install "{{ item.id | default(item) }}"
   loop: "{{ mas_installed_apps }}"
   when: mas_list.stdout.find(item.id|string) == "-1"
+  changed_when: false
 
 - name: Upgrade all apps (if configured).
-  command: mas upgrade
+  ansible.builtin.command: mas upgrade
   when: mas_upgrade_all_apps
   changed_when: false

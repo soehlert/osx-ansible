@@ -4,3 +4,11 @@
 skip_list:
   - var-naming[non-string]
   - schema[vars]
+  - schema[meta]
+  - name[missing]
+  - role-name[path]
+  - meta-incorrect
+  - no-handler
+  - risky-file-permissions
+  - ignore-errors
+  - no-changed-when

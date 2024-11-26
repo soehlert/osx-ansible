@@ -1,6 +1,6 @@
 ---
-- name: Test update role
+- name: Test Vim plug role
   hosts: localhost
   remote_user: root
   roles:
-    - roles/update
+    - roles/vim_plug

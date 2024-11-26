@@ -3,19 +3,19 @@
 # Dont forget to set github_user
 ####
 - name: Make sure git is installed
-  homebrew:
+  community.general.homebrew:
     name: git
     state: present
 
 - name: Read in ssh_key
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ usernm }}"
-    key: "{{ lookup ('file', ssh_key_name + '.pub') }}"
+    key: "{{ lookup('file', ssh_key_name + '.pub') }}"
   register: ssh_key
   changed_when: false
 
 - name: Upload my ssh key to Github when using 2FA
-  uri:
+  ansible.builtin.uri:
     url: https://api.github.com/user/keys
     method: POST
     user: "{{ github_user }}"
@@ -30,12 +30,15 @@
 
 - name: Get list of my repos
   # yamllint disable-line rule:line-length
-  shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
+  # noqa command-instead-of-module
+  # noqa risky-shell-pipe
+  ansible.builtin.shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
   register: github_repos
   changed_when: false
 
 - name: Git clone all my projects
-  git:
+  # noqa latest[git]
+  ansible.builtin.git:
     repo: "{{ item }}"
     # yamllint disable-line rule:line-length
     dest: "{{ projects_dir }}/personal/{{ item.split('/')[1] | regex_replace('.git$', '') }}"

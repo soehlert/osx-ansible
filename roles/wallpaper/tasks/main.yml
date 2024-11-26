@@ -1,10 +1,10 @@
 ---
 # tasks file for roles/wallpaper
 - name: Make sure wallpaper program is installed
-  homebrew:
+  community.general.homebrew:
     name: wallpaper
     state: present
 
 - name: Set wallpaper
-  command: wallpaper set "{{ wallpaper_file }}"
+  ansible.builtin.command: wallpaper set "{{ wallpaper_file }}"
   when: wallpaper_file | default('') != ''

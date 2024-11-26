@@ -1,10 +1,11 @@
 ---
-- hosts: all
+- name: Update playbook
+  hosts: all
   gather_facts: false
   connection: local
   pre_tasks:
     - name: Include variables
-      include_vars: "{{ item }}"
+      ansible.builtin.include_vars: "{{ item }}"
       with_first_found:
         - "{{ inventory_dir }}/local.yml"
         - "{{ inventory_dir }}/defaults.yml"

@@ -1,189 +1,183 @@
 ---
 # tasks file for roles/update
-- block:
+- ignore_errors: true
+  block:
 
     - name: Update sudo cache so brew cask upgrade doesnt ask for password
-      command: "echo none"
+      ansible.builtin.command: "echo none"
       become: true
       changed_when: false
 
     - name: Check for mas
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/mas
       register: mas
       changed_when: false
 
     - name: Check for mas updates
-      command: mas outdated
+      ansible.builtin.command: mas outdated
       register: mas_updates
       when: mas.stat.exists
       changed_when: false
 
     - name: Check for software updates and figure out if reboot is needed
-      command: softwareupdate -l
+      ansible.builtin.command: softwareupdate -l
       register: available_updates
       changed_when: false
 
     - name: Check for homebrew
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/brew
       register: homebrew
       changed_when: false
 
     - name: Check for brew updates
-      command: brew outdated
+      ansible.builtin.command: brew outdated
       register: brew_updates
       when: homebrew.stat.exists
       changed_when: false
 
     - name: Check for vim-plug plugin updates
-      command: vim +PlugDiff +qall
+      ansible.builtin.command: vim +PlugDiff +qall
       register: plug_update
       changed_when: false
 
     - name: Check for pip3
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/pip3
       register: pip3
       changed_when: false
 
     - name: Check for pipupgrade
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/pipupgrade
       register: pipupgrade
 
     - name: Install pipupgrade
-      pip:
+      ansible.builtin.pip:
         name: pipupgrade
       # yamllint disable-line rule:line-length
       when: (pip.stat.exists or pip3.stat.exists) and (not pipupgrade.stat.exists)
 
     - name: Check for pip updates
-      command: pipupgrade --check
+      ansible.builtin.command: pipupgrade --check
       register: pipupgrade_updates
       changed_when: false
 
     - name: Check for npm
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/npm
       register: npm
       changed_when: false
 
     - name: Check for npm updates
-      command: npm outdated
+      ansible.builtin.command: npm outdated
       register: npm_updates
       when: npm.stat.exists
       changed_when: false
 
     - name: Check for ruby gems
-      stat:
+      ansible.builtin.stat:
         path: /usr/local/bin/gem
       register: rubygems
       changed_when: false
 
     - name: Check for gem updates
-      command: gem outdated
+      ansible.builtin.command: gem outdated
       register: gem_updates
       when: rubygems.stat.exists
       changed_when: false
 
     - name: Check for tpm
-      stat:
+      ansible.builtin.stat:
         path: ~/.tmux/plugins/tpm/bin/update_plugins
       register: tpm
       changed_when: false
 
-  ignore_errors: true
-
 - name: Update homebrew packages
-  homebrew:
+  community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
   failed_when: false
   when: brew_updates.stdout != ''
 
 - name: Update brew casks
-  command: brew cu -a -y -q
+  ansible.builtin.command: brew cu -a -y -q
   ignore_errors: true
 
 - name: Cleanup old brew files
-  command: brew cleanup
+  ansible.builtin.command: brew cleanup
   changed_when: false
 
 - name: Update vim-plug
-  command: vim +PlugUpgrade +qall
+  ansible.builtin.command: vim +PlugUpgrade +qall
   register: plug_upgrade
   changed_when: "'vim-plug has been upgraded' in plug_upgrade.stdout"
 
 - name: Update vim-plug plugins
-  command: vim +PlugUpdate +qall
+  ansible.builtin.command: vim +PlugUpdate +qall
   when: "'pending updates' in plug_update.stdout"
 
-- name: Update pip
-  command: python -m pip install --upgrade pip
-  register: pip_upgrade
-  # yamllint disable-line rule:line-length
-  changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
-
 - name: Update pip3
-  command: python3 -m pip install --upgrade pip
+  ansible.builtin.command: python3 -m pip install --upgrade pip
   register: pip_upgrade
   # yamllint disable-line rule:line-length
   changed_when: "not pip_upgrade.stdout is search('Requirement already up-to-date')"
 
 - name: Update python3 pip packages
-  command: pipupgrade
+  ansible.builtin.command: pipupgrade
   # yamllint disable-line rule:line-length
   when: not pipupgrade_updates.stdout | join('') is search("Everything up-to-date")
 
 - name: Update npm packages
-  command: npm update
+  ansible.builtin.command: npm update
   when: npm_updates
 
 - name: Update rubygem packages
-  command: gem update -f
+  ansible.builtin.command: gem update -f
   become: true
   when: gem_updates
 
 - name: Pull dotfiles
-  git:
+  ansible.builtin.git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_dir }}"
     update: true
     accept_hostkey: true
+    version: "{{ dotfiles_version }}"
 
 - name: Stow common files
-  command: stow common
+  ansible.builtin.command: stow common
   args:
     chdir: "{{ dotfiles_dir }}"
   changed_when: false
 
-- name: Stow {{ dotfiles_env }} files
-  command: "stow {{ dotfiles_env }}"
+- name: Stow {{ dotfiles_env }}
+  ansible.builtin.command: "stow {{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
   changed_when: false
 
 - name: Update tpm plugins
-  command: ~/.tmux/plugins/tpm/bin/update_plugins all
+  ansible.builtin.command: ~/.tmux/plugins/tpm/bin/update_plugins all
   register: tpm_update
   changed_when: not tpm_update.stdout|length > 1
 
 - name: Update mas packages
-  command: mas upgrade
+  ansible.builtin.command: mas upgrade
   when: mas_updates.stdout | length > 0
 
 - name: Update OS when there's a reboot necessary AND we're ok with rebooting
-  command: softwareupdate -i -a
+  ansible.builtin.command: softwareupdate -i -a
   when: ( available_updates.stdout | join('') is search("restart") ) and reboot
   notify: Reboot
 
 - name: Update OS when no reboot is necessary
-  command: softwareupdate -i -a
+  ansible.builtin.command: softwareupdate -i -a
   when: ( not available_updates.stdout | join('') is search("restart") )
 
 - name: Alert us that a reboot is necessary to get all updates
-  debug:
+  ansible.builtin.debug:
     msg: "Note: There is an update available that requires a reboot"
   # yamllint disable-line rule:line-length
   when: ( available_updates.stdout | join('') is search("restart") ) and not reboot

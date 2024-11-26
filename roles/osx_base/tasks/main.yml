@@ -5,21 +5,22 @@
 #
 ####
 - name: Check hostname
-  command: hostname
+  ansible.builtin.command: hostname
   register: current_hostname
   changed_when: false
 
 - name: Set computer name
-  command: "scutil --set {{ item }} {{ hostname }}"
+  ansible.builtin.command: "scutil --set {{ item }} {{ hostname }}"
   loop:
     - ComputerName
     - LocalHostName
   become: true
   become_user: root
+  changed_when: false
   when: current_hostname.stdout != hostname
 
 - name: Defaults host name
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.smb.server
     key: NetBIOSName
     type: string
@@ -28,13 +29,13 @@
   become_user: root
 
 - name: Check for login shell
-  shell: "grep {{ login_shell }} /etc/shells"
+  ansible.builtin.command: "grep {{ login_shell }} /etc/shells"
   register: etc_shells
   changed_when: false
   failed_when: false
 
 - name: Make sure login shell is available
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/shells
     insertafter: EOF
     line: "{{ login_shell }}"
@@ -43,23 +44,25 @@
   when: etc_shells.rc == 1
 
 - name: Refresh sudo cache so we don't get asked for a password again
-  command: "echo none"
+  ansible.builtin.command: "echo none"
   become: true
   changed_when: false
 
 - name: Check if key exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ ssh_key_name }}"
   register: ssh_key
 
 - name: Create ssh key(s)
-  command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
-  when: (ssh_key.stat.exists == false)
+  ansible.builtin.command: ssh-keygen -t rsa -N '' -q -f "{{ ssh_key_name }}"
+  changed_when: false
+  when: not ssh_key.stat.exists
 
-- block:
+- when: search_domains_use
+  block:
 
     - name: Check if we've set the search domains yet
-      command: networksetup -getsearchdomains "{{ item }}"
+      ansible.builtin.command: networksetup -getsearchdomains "{{ item }}"
       register: search_domains_set
       changed_when: false
       loop:
@@ -67,12 +70,11 @@
 
     - name: Set search domains
       # yamllint disable-line rule:line-length
-      command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
+      ansible.builtin.command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
       become: true
       become_user: root
       when: item.1.stdout != search_domains
+      changed_when: false
       with_together:
         - "{{ search_domain_service }}"
         - "{{ search_domains_set.results }}"
-
-  when: search_domains_use == true
