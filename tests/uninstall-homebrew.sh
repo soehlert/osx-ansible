@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Uninstalls Homebrew using the official uninstall script.
 
