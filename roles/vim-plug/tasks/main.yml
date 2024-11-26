@@ -20,26 +20,27 @@
 
 - block:
 
-  - name: Check if plugs are installed
-    command: vim +PlugStatus +qall
-    register: plug_status
-    changed_when: false
-    when: ( vimrc_link.stat.exists and vimrc_link.stat.islnk ) and plug_dir.stat.exists
+      - name: Check if plugs are installed
+        command: vim +PlugStatus +qall
+        register: plug_status
+        changed_when: false
+        # yamllint disable-line rule:line-length
+        when: ( vimrc_link.stat.exists and vimrc_link.stat.islnk ) and plug_dir.stat.exists
 
-  - name: Install Vim plugs
-    command: vim +PlugInstall +qall
-    register: plug_installed
-    when: "'Not found' in plug_status.stdout"
+      - name: Install Vim plugs
+        command: vim +PlugInstall +qall
+        register: plug_installed
+        when: "'Not found' in plug_status.stdout"
 
-  - name: Check if there are any empty directories in {{ vim_plug_dir }}
-    command: find "{{ vim_plug_dir }}" -maxdepth 1 -type d -empty
-    register: plug_empty
-    changed_when: false
+      - name: Check if there are any empty directories in {{ vim_plug_dir }}
+        command: find "{{ vim_plug_dir }}" -maxdepth 1 -type d -empty
+        register: plug_empty
+        changed_when: false
 
-  - name: Clean Vim plug
-    command: vim +PlugClean! +qall
-    register: plug_clean
-    changed_when: "not 'Already clean.' in plug_clean.stdout"
-    when: plug_empty.stdout != ''
+      - name: Clean Vim plug
+        command: vim +PlugClean! +qall
+        register: plug_clean
+        changed_when: "not 'Already clean.' in plug_clean.stdout"
+        when: plug_empty.stdout != ''
 
   when: vimplug_install

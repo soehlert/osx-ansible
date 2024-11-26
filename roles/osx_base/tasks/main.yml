@@ -58,20 +58,20 @@
 
 - block:
 
-  - name: Check if we've set the search domains yet
-    command: networksetup -getsearchdomains "{{ item }}"
-    register: search_domains_set
-    changed_when: false
-    loop:
-      - "{{ search_domain_service }}"
+    - name: Check if we've set the search domains yet
+      command: networksetup -getsearchdomains "{{ item }}"
+      register: search_domains_set
+      changed_when: false
+      loop:
+        - "{{ search_domain_service }}"
 
-  - name: Set search domains
-    command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
-    become: true
-    become_user: root
-    when: item.1.stdout != search_domains
-    with_together:
-      - "{{ search_domain_service }}"
-      - "{{ search_domains_set.results }}"
+    - name: Set search domains
+      command: networksetup -setsearchdomains "{{ item.0 }}" "{{ search_domains }}"
+      become: true
+      become_user: root
+      when: item.1.stdout != search_domains
+      with_together:
+        - "{{ search_domain_service }}"
+        - "{{ search_domains_set.results }}"
 
   when: search_domains_use == true

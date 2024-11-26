@@ -2,95 +2,95 @@
 # tasks file for roles/update
 - block:
 
-  - name: Update sudo cache so brew cask upgrade doesnt ask for password
-    command: "echo none"
-    become: true
-    changed_when: false
+    - name: Update sudo cache so brew cask upgrade doesnt ask for password
+      command: "echo none"
+      become: true
+      changed_when: false
 
-  - name: Check for mas
-    stat:
-      path: /usr/local/bin/mas
-    register: mas
-    changed_when: false
+    - name: Check for mas
+      stat:
+        path: /usr/local/bin/mas
+      register: mas
+      changed_when: false
 
-  - name: Check for mas updates
-    command: mas outdated
-    register: mas_updates
-    when: mas.stat.exists
-    changed_when: false
+    - name: Check for mas updates
+      command: mas outdated
+      register: mas_updates
+      when: mas.stat.exists
+      changed_when: false
 
-  - name: Check for software updates and figure out if reboot is needed
-    command: softwareupdate -l
-    register: available_updates
-    changed_when: false
+    - name: Check for software updates and figure out if reboot is needed
+      command: softwareupdate -l
+      register: available_updates
+      changed_when: false
 
-  - name: Check for homebrew
-    stat:
-      path: /usr/local/bin/brew
-    register: homebrew
-    changed_when: false
+    - name: Check for homebrew
+      stat:
+        path: /usr/local/bin/brew
+      register: homebrew
+      changed_when: false
 
-  - name: Check for brew updates
-    command: brew outdated
-    register: brew_updates
-    when: homebrew.stat.exists
-    changed_when: false
+    - name: Check for brew updates
+      command: brew outdated
+      register: brew_updates
+      when: homebrew.stat.exists
+      changed_when: false
 
-  - name: Check for vim-plug plugin updates
-    command: vim +PlugDiff +qall
-    register: plug_update
-    changed_when: false
+    - name: Check for vim-plug plugin updates
+      command: vim +PlugDiff +qall
+      register: plug_update
+      changed_when: false
 
-  - name: Check for pip3
-    stat:
-      path: /usr/local/bin/pip3
-    register: pip3
-    changed_when: false
+    - name: Check for pip3
+      stat:
+        path: /usr/local/bin/pip3
+      register: pip3
+      changed_when: false
 
-  - name: Check for pipupgrade
-    stat:
-      path: /usr/local/bin/pipupgrade
-    register: pipupgrade
+    - name: Check for pipupgrade
+      stat:
+        path: /usr/local/bin/pipupgrade
+      register: pipupgrade
 
-  - name: Install pipupgrade
-    pip:
-      name: pipupgrade
-    when: (pip.stat.exists or pip3.stat.exists) and (not pipupgrade.stat.exists)
+    - name: Install pipupgrade
+      pip:
+        name: pipupgrade
+      when: (pip.stat.exists or pip3.stat.exists) and (not pipupgrade.stat.exists)
 
-  - name: Check for pip updates
-    command: pipupgrade --check
-    register: pipupgrade_updates
-    changed_when: false
+    - name: Check for pip updates
+      command: pipupgrade --check
+      register: pipupgrade_updates
+      changed_when: false
 
-  - name: Check for npm
-    stat:
-      path: /usr/local/bin/npm
-    register: npm
-    changed_when: false
+    - name: Check for npm
+      stat:
+        path: /usr/local/bin/npm
+      register: npm
+      changed_when: false
 
-  - name: Check for npm updates
-    command: npm outdated
-    register: npm_updates
-    when: npm.stat.exists
-    changed_when: false
+    - name: Check for npm updates
+      command: npm outdated
+      register: npm_updates
+      when: npm.stat.exists
+      changed_when: false
 
-  - name: Check for ruby gems
-    stat:
-      path: /usr/local/bin/gem
-    register: rubygems
-    changed_when: false
+    - name: Check for ruby gems
+      stat:
+        path: /usr/local/bin/gem
+      register: rubygems
+      changed_when: false
 
-  - name: Check for gem updates
-    command: gem outdated
-    register: gem_updates
-    when: rubygems.stat.exists
-    changed_when: false
+    - name: Check for gem updates
+      command: gem outdated
+      register: gem_updates
+      when: rubygems.stat.exists
+      changed_when: false
 
-  - name: Check for tpm
-    stat:
-      path: ~/.tmux/plugins/tpm/bin/update_plugins
-    register: tpm
-    changed_when: false
+    - name: Check for tpm
+      stat:
+        path: ~/.tmux/plugins/tpm/bin/update_plugins
+      register: tpm
+      changed_when: false
 
   ignore_errors: true
 

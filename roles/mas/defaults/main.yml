@@ -1,7 +1,7 @@
 ---
 # defaults file for roles/mas
-mas_signin_dialog: no
-mas_upgrade_all: yes
+mas_signin_dialog: false
+mas_upgrade_all: true
 mas_installed_aps:
-    - { id: 715768417, name: "Microsoft Remote Desktop"}
-    - { id: 497799835, name: "Xcode" }
+    - {id: 715768417, name: "Microsoft Remote Desktop"}
+    - {id: 497799835, name: "Xcode"}

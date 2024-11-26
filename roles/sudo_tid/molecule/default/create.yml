@@ -17,12 +17,13 @@
               'address': "{{ }}",
               'user': "{{ }}",
               'port': "{{ }}",
-              'identity_file': "{{ }}", }
+              'identity_file': "{{ }}"}
           with_items: "{{ server.results }}"
           register: instance_config_dict
 
         - name: Convert instance config dict to a list
           set_fact:
+            # yamllint disable-line rule:line-length
             instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
 
         - name: Dump instance config

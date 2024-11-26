@@ -31,7 +31,7 @@ galaxy_info:
   # github_branch:
 
   #
-  # platforms is a list of platforms, and each platform has a name and a list of versions.
+  # platforms is a list, and each platform has a name and a list of versions.
   #
   # platforms:
   # - name: Fedora
