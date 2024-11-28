@@ -43,6 +43,9 @@ jobs:
         os:
           - macos-15
           - macos-14
+        vars_file:
+          - defaults.yml
+          - test.yml
 
     steps:
       - name: Check out the codebase.
@@ -69,7 +72,7 @@ jobs:
         run: |
           cp tests/ansible.cfg ./ansible.cfg
           cp tests/inventory ./inventory
-          cp defaults.yml ./config.yml
+          cp ${{ matrix.vars_file }} ./config.yml
           ansible-galaxy install -r requirements.yml
 
       - name: Test the playbook's syntax.

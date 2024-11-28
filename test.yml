@@ -1,0 +1,167 @@
+---
+# Main
+##########
+full_name: "Sam Oehlert"
+usernm: "{{ ansible_env.USER }}"
+groupnm: "staff"
+email: "sam.oehlert@gmail.com"
+hostname: "Macbook-Pro"
+home_dir: "/Users/{{ usernm }}"
+downloads_dir: "{{home_dir}}/Downloads"
+projects_dir: "{{ home_dir }}/projects"
+python_env_dir: "{{ home_dir }}/.envs"
+ssh_dir: "{{ home_dir }}/.ssh"
+login_shell: "/bin/zsh"
+
+# OSX_Base
+##########
+search_domains_use: true
+ssh_key_name: "{{ ssh_dir }}/id_rsa"
+search_domain_service: "Wi-Fi"
+search_domains: "soehlert.com samoehlert.com internal.sjo"
+create_dirs:
+  - {path: "{{projects_dir}}/personal", mode: "0755"}
+  - {path: "{{projects_dir}}/work", mode: "0755"}
+  - {path: "{{ssh_dir}}", mode: "0700"}
+  - {path: "{{python_env_dir}}", mode: "0700"}
+  - {path: "{{downloads_dir}}/Compressed", mode: "0755"}
+  - {path: "{{downloads_dir}}/IMG", mode: "0755"}
+  - {path: "{{downloads_dir}}/Important", mode: "0755"}
+  - {path: "{{downloads_dir}}/Music", mode: "0755"}
+  - {path: "{{downloads_dir}}/PDF", mode: "0755"}
+  - {path: "{{downloads_dir}}/Pics", mode: "0755"}
+  - {path: "{{downloads_dir}}/Text", mode: "0755"}
+  - {path: "{{downloads_dir}}/Video", mode: "0755"}
+  - {path: "{{downloads_dir}}/Work", mode: "0755"}
+
+# Git
+##########
+# Clone all repos from a given user
+github: true
+github_user: "soehlert"
+# If you use 2FA, create a personal access token allowing admin:public_key
+# https://github.com/settings/tokens -> Personal access tokens
+github_password: ''
+github_2fa: true
+
+# Dotfiles
+##########
+# This clones dotfiles from the repo listed below and stows them
+# (assumes the use of gnu stow and a specific layout of dotfiles repo)
+dotfiles: true
+# I have my dotfiles broken up by home/work/server this allows me to
+# use different dotfiles depending on the host I'm installing them on
+dotfiles_env: "home"
+dotfiles_dir: "{{ home_dir }}/dotfiles"
+# yamllint disable-line rule:line-length
+dotfiles_repo: "https://{{ github_user | urlencode }}:{{ github_password }}@github.com/{{ github_user }}/dotfiles.git"
+dotfiles_version: "98ecc1a"
+
+# MAS
+##########
+# Install apps from the mac app store
+mas: true
+mas_email: "sam.oehlert@gmail.com"
+mas_signin_dialog: true
+mas_upgrade_all_apps: true
+mas_installed_apps:
+  - {id: 1475387142, name: "Tailscale"}
+
+
+# Defaults
+##########
+# Make a lot of tweaks to the the base OS. Also organizes the dock.
+defaults: true
+finder_new_window_path: "file://{{ home_dir }}"
+screenshots_dir: "{{ home_dir }}/Downloads/Pics"
+timezone: "America/Chicago"
+dockitems_remove_all: true
+
+dockutil_desired:
+  - name: System Preferences
+    path: "/Applications/System Preferences.app"
+    pos: 1
+
+dockutil_desired_right:
+  - name: Applications
+    path: '/Applications'
+    pos: 7
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Utilities
+    path: '/Applications/Utilities'
+    pos: 9
+    view: auto
+    display: stack
+    sort: name
+    section: others
+  - name: Home
+    path: '/Users/{{ usernm }}'
+    pos: 10
+    view: auto
+    display: folder
+    sort: name
+    section: others
+  - name: Downloads
+    path: '/Users/{{ usernm }}/Downloads'
+    pos: 11
+    view: grid
+    display: folder
+    sort: name
+    sections: other
+
+login_items: []
+
+# Update
+##########
+reboot: true
+
+# Vim
+##########
+# Install my vim plugins
+vimplug: true
+vim_plug_dir: "{{ home_dir }}/.vim/plugged"
+vimplug_install: true
+
+# Wallpaper
+##########
+# Install my desktop background
+wallpaper: true
+wallpaper_file: "{{ dotfiles_dir }}/common/wallpaper.jpg"
+
+# Sudo TouchID
+##########
+# Use touchID for sudo
+sudo_tid: true
+
+# Homebrew
+##########
+# Install applications from homebrew
+homebrew: true
+homebrew_brew_bin_path: "/opt/homebrew/Cellar"
+homebrew_use_brewfile: true
+homebrew_brewfile_dir: "~/.config/"
+
+homebrew_taps:
+  - "buo/cask-upgrade"
+  - "homebrew/bundle"
+  - "homebrew/services"
+
+homebrew_installed_packages:
+  - cask
+  - coreutils
+  - curl
+  - dockutil
+
+
+homebrew_cask_apps:
+  - font-source-code-pro-for-powerline
+  - iterm2
+
+homebrew_blacklisted_packages: []
+
+pip3_packages:
+  - black
+  - commitizen
