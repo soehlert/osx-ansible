@@ -60,7 +60,7 @@ dotfiles_version: "98ecc1a"
 # MAS
 ##########
 # Install apps from the mac app store
-mas: true
+mas: false
 mas_email: "sam.oehlert@gmail.com"
 mas_signin_dialog: true
 mas_upgrade_all_apps: true
@@ -116,7 +116,7 @@ login_items: []
 
 # Update
 ##########
-reboot: true
+reboot: false
 
 # Vim
 ##########
