@@ -18,18 +18,23 @@
         - homebrew
         - mas
         - pip
-        - golang
         - github
         - defaults
         - vim-plug
         - wallpaper
         - sudo_tid
 
-    - name: Debug variables for roles
+    - name: Debug role-related variables
       ansible.builtin.debug:
-          msg: "{{ item.key }} role: {{ item.key }} = {{ item.value | default('not set') }}"
-          loop: "{{ ansible_local_vars | dict2items }}"
-          when: "'role' in item.key"  # Adjust this filter to debug only relevant variables
+        msg: "{{ item }} = {{ vars[item] | default('not set') }}"
+      loop:
+        - dotfiles
+        - homebrew
+        - github
+        - defaults
+        - vimplug
+        - wallpaper
+        - sudo_tid
 
   roles:
     - {role: 'osx_base', tags: 'osx_base'}
