@@ -72,7 +72,7 @@ jobs:
         run: |
           cp tests/ansible.cfg ./ansible.cfg
           cp tests/inventory ./inventory
-          cp ${{ matrix.vars_file }} ./config.yml
+          cp ${{ matrix.vars_file }} ./local.yml
           ansible-galaxy install -r requirements.yml
 
       - name: Test the playbook's syntax.
