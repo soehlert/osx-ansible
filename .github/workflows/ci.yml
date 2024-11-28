@@ -45,7 +45,7 @@ jobs:
           - macos-14
         vars_file:
           - defaults.yml
-          - test-vars.yml
+          - tests/test-vars.yml
 
     steps:
       - name: Check out the codebase.
