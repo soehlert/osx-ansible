@@ -24,6 +24,13 @@
         - vim-plug
         - wallpaper
         - sudo_tid
+
+    - name: Debug variables for roles
+      ansible.builtin.debug:
+          msg: "{{ item.key }} role: {{ item.key }} = {{ item.value | default('not set') }}"
+          loop: "{{ ansible_local_vars | dict2items }}"
+          when: "'role' in item.key"  # Adjust this filter to debug only relevant variables
+
   roles:
     - {role: 'osx_base', tags: 'osx_base'}
     - {role: 'dotfiles', tags: 'dotfiles', when: dotfiles == true}
