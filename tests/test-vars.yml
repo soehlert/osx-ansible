@@ -15,7 +15,7 @@ login_shell: "/bin/zsh"
 
 # OSX_Base
 ##########
-search_domains_use: true
+search_domains_use: false
 ssh_key_name: "{{ ssh_dir }}/id_rsa"
 search_domain_service: "Wi-Fi"
 search_domains: "soehlert.com samoehlert.com internal.sjo"
