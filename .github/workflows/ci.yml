@@ -52,6 +52,8 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
 
+
+
       - name: Ensure uninstall-homebrew.sh is executable
         run: chmod +x tests/uninstall-homebrew.sh
 
@@ -64,23 +66,27 @@ jobs:
           sudo rm -rf /Applications/Google\ Chrome.app
           sudo rm -rf /usr/local/bin/firefox
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Install Homebrew
+        run: |
+          chmod +x roles/homebrew/files/install-homebrew.sh
+          roles/homebrew/files/install-homebrew.sh
+          echo "/opt/homebrew/bin" >> $GITHUB_PATH
 
-      - name: Install test dependencies.
-        run: uv sync
+      - name: Run bootstrap to install Ansible
+        run: |
+          chmod +x bootstrap.sh
+          ./bootstrap.sh
 
       - name: Set up the test environment.
         run: |
           cp tests/ansible.cfg ./ansible.cfg
           cp tests/inventory ./inventory
           cp ${{ matrix.vars_file }} ./local.yml
-          uv run ansible-galaxy install -r requirements.yml
 
       - name: Test the playbook's syntax.
-        run: uv run ansible-playbook playbooks/common.yml --syntax-check
+        run: ansible-playbook playbooks/common.yml --syntax-check
 
       - name: Test the playbook.
-        run: uv run ansible-playbook playbooks/common.yml
+        run: ansible-playbook playbooks/common.yml
         env:
           ANSIBLE_FORCE_COLOR: '1'
