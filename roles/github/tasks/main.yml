@@ -2,9 +2,11 @@
 #### Install all public repos from any git user
 # Dont forget to set github_user
 ####
-- name: Make sure git is installed
+- name: Make sure git and gh are installed
   community.general.homebrew:
-    name: git
+    name:
+      - git
+      - gh
     state: present
 
 - name: Read in ssh_key
@@ -29,18 +31,17 @@
   when: github_2fa
 
 - name: Get list of my repos
-  # noqa command-instead-of-module
-  # noqa risky-shell-pipe
-  # yamllint disable-line rule:line-length
-  ansible.builtin.shell: curl -s "https://api.github.com/users/{{ github_user }}/repos" | grep ssh_url | awk '{print $2}' | sed -e 's/\"//g' | sed -e 's/,$//g'
+  ansible.builtin.command: gh repo list {{ github_user }} --limit 1000 --json sshUrl -q '.[].sshUrl'
   register: github_repos
   changed_when: false
+  environment:
+    GH_TOKEN: "{{ github_password }}"
 
 - name: Git clone all my projects
   # noqa latest[git]
   ansible.builtin.git:
     repo: "{{ item }}"
-    # yamllint disable-line rule:line-length
     dest: "{{ projects_dir }}/personal/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
     accept_hostkey: true
+    version: HEAD
   loop: "{{ github_repos.stdout_lines }}"

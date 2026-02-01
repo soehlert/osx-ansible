@@ -12,11 +12,6 @@
     - stow
     - git
 
-- name: Check for {{ dotfiles_dir }}
-  ansible.builtin.stat:
-    path: "{{ dotfiles_dir }}"
-  register: dotfiles
-
 - name: Clone dotfiles repo
   ansible.builtin.git:
     repo: "{{ dotfiles_repo }}"
@@ -25,7 +20,6 @@
     accept_hostkey: true
     clone: true
     version: "{{ dotfiles_version }}"
-  when: not dotfiles.stat.exists
 
 - name: Change the remote to ssh
   community.general.git_config:
@@ -35,13 +29,15 @@
     repo: "{{ dotfiles_dir }}"
 
 - name: Stow common files
-  ansible.builtin.command: stow common
+  ansible.builtin.command: stow -v -R common
   args:
     chdir: "{{ dotfiles_dir }}"
-    creates: ~/.vimrc
+  register: stow_common
+  changed_when: "'LINK' in stow_common.stderr"
 
 - name: Stow {{ dotfiles_env }}
-  ansible.builtin.command: stow "{{ dotfiles_env }}"
+  ansible.builtin.command: stow -v -R "{{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
-    creates: ~/Brewfile
+  register: stow_env
+  changed_when: "'LINK' in stow_env.stderr"

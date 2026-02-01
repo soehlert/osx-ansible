@@ -219,36 +219,36 @@
     name: dockutil
     state: present
 
-- name: Dockutil | Check to see if we've already added apps
-  ansible.builtin.shell: 'dockutil --find iterm /Users/{{ usernm }}'
-  register: dockutil_apps
-  changed_when: false
-  failed_when: false
-
 - name: Dockutil | Clear apps from the dock
   ansible.builtin.command: dockutil --remove all --no-restart
-  when: '"not found" in dockutil_apps.stdout'
-  changed_when: false
+  changed_when: true
+  failed_when: false
   notify: kill_dock
+  when: dockitems_remove_all | bool
 
 - name: Dockutil | Clear spacers from the dock
   ansible.builtin.command: dockutil --remove spacer-tiles
-  when: '"not found" in dockutil_apps.stdout'
-  changed_when: false
+  changed_when: true
+  failed_when: false
   notify: kill_dock
+  when: dockitems_remove_all | bool
 
 - name: Dockutil | Add apps
-  # yamllint disable-line rule:line-length
   ansible.builtin.command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --no-restart
   loop: "{{ dockutil_desired }}"
-  when: '"not found" in dockutil_apps.stdout'
+  register: dock_add
+  changed_when: "'item already in dock' not in dock_add.stderr"
+  failed_when: false
   notify: kill_dock
 
 - name: Dockutil | Add items
-  # yamllint disable-line rule:line-length
-  ansible.builtin.command: dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}' --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
+  ansible.builtin.command: >-
+    dockutil --add '{{ item.path }}' --position '{{ item.pos }}' --view '{{ item.view }}'
+    --display '{{ item.display }}' --sort '{{ item.sort }}' --no-restart
   loop: "{{ dockutil_desired_right }}"
-  when: '"not found" in dockutil_apps.stdout'
+  register: dock_item_add
+  changed_when: "'item already in dock' not in dock_item_add.stderr"
+  failed_when: false
   notify: kill_dock
 
 - name: Time Machine tweaks

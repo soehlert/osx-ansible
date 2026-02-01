@@ -28,20 +28,20 @@
   become: true
   become_user: root
 
-- name: Check for login shell
-  ansible.builtin.command: "grep {{ login_shell }} /etc/shells"
-  register: etc_shells
-  changed_when: false
-  failed_when: false
-
-- name: Make sure login shell is available
+- name: Make sure login shell is available in /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
-    insertafter: EOF
     line: "{{ login_shell }}"
+    state: present
   become: true
   become_user: root
-  when: etc_shells.rc == 1
+
+- name: Set user login shell
+  ansible.builtin.user:
+    name: "{{ usernm }}"
+    shell: "{{ login_shell }}"
+  become: true
+  become_user: root
 
 - name: Refresh sudo cache so we don't get asked for a password again
   ansible.builtin.command: "echo none"

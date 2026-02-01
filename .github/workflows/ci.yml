@@ -20,20 +20,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible ansible-lint
+        run: uv sync
 
       - name: Lint code.
         run: |
-          yamllint .
-          ansible-lint
+          uv run yamllint .
+          uv run ansible-lint
 
   integration:
     name: Integration
@@ -41,8 +44,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-15
-          - macos-14
+          - macos-latest
         vars_file:
           - defaults.yml
           - tests/test-vars.yml
@@ -63,22 +65,23 @@ jobs:
           sudo rm -rf /Applications/Google\ Chrome.app
           sudo rm -rf /usr/local/bin/firefox
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install test dependencies.
-        run: |
-          sudo pip3 install --upgrade pip
-          sudo pip3 install ansible
+        run: uv sync
 
       - name: Set up the test environment.
         run: |
           cp tests/ansible.cfg ./ansible.cfg
           cp tests/inventory ./inventory
           cp ${{ matrix.vars_file }} ./local.yml
-          ansible-galaxy install -r requirements.yml
+          uv run ansible-galaxy install -r requirements.yml
 
       - name: Test the playbook's syntax.
-        run: ansible-playbook playbooks/common.yml --syntax-check
+        run: uv run ansible-playbook playbooks/common.yml --syntax-check
 
       - name: Test the playbook.
-        run: ansible-playbook playbooks/common.yml
+        run: uv run ansible-playbook playbooks/common.yml
         env:
           ANSIBLE_FORCE_COLOR: '1'

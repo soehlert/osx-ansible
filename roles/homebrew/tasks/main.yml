@@ -7,14 +7,13 @@
 
 - name: Install brew taps
   community.general.homebrew_tap:
-    tap: "{{ item }}"
+    tap: "{{ homebrew_taps }}"
     state: present
-  loop: "{{ homebrew_taps }}"
 
 - name: Install Homebrew packages
   community.general.homebrew:
-    name: "{{ item }}"
-    install_options: "{{ item.install_options | default(omit) }}"
+    name: "{{ item if item is string else item.name }}"
+    install_options: "{{ item.install_options | default(omit) if item is mapping else omit }}"
     state: present
   loop: "{{ homebrew_installed_packages }}"
 
@@ -24,11 +23,10 @@
     state: absent
 
 - name: Install cask applications
-  # noqa ignore_errors:
   community.general.homebrew_cask:
     name: "{{ homebrew_cask_apps }}"
     state: present
-  ignore_errors: true
+    accept_external_apps: true
 
 - name: Check for brewfile
   ansible.builtin.stat:
