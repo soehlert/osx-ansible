@@ -1,6 +1,0 @@
----
-- name: Test Vim plug role
-  hosts: localhost
-  remote_user: root
-  roles:
-    - roles/vim_plug

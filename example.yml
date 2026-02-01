@@ -152,13 +152,6 @@ login_items:
 ##########
 reboot: true
 
-# Vim
-##########
-# Install my vim plugins
-vimplug: true
-vim_plug_dir: "{{ home_dir }}/.vim/plugged"
-vimplug_install: true
-
 # Wallpaper
 ##########
 # Install my desktop background

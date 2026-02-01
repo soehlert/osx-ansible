@@ -95,12 +95,6 @@ login_items: []
 ##########
 reboot: false
 
-# Vim
-##########
-vimplug: false
-vim_plug_dir: "{{ home_dir }}/.vim/plugged"
-vimplug_install: false
-
 # Wallpaper
 ###########
 wallpaper: false

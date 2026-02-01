@@ -117,13 +117,6 @@ login_items: []
 ##########
 reboot: false
 
-# Vim
-##########
-# Install my vim plugins
-vimplug: true
-vim_plug_dir: "{{ home_dir }}/.vim/plugged"
-vimplug_install: true
-
 # Wallpaper
 ##########
 # Install my desktop background
@@ -189,14 +182,10 @@ homebrew_installed_packages:
   - opus
   - organize-tool
   - p7zip
-  # pipx is REQUIRED to install pip packages globally here
   - pipx
   - pip-completion
   - pre-commit
-  - pyenv
-  - pyenv-virtualenv
-  - pyenv-virtualenvwrapper
-  - python@3.12
+  - python@3.14
   - readline
   - reattach-to-user-namespace
   - rectangle
@@ -216,7 +205,6 @@ homebrew_installed_packages:
   - wallpaper
   - wget
   - wtfutil
-  - youtube-dl
   - zplug
   - zsh
   - zsh-completions
