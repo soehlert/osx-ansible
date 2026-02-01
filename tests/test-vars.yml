@@ -67,7 +67,6 @@ mas_upgrade_all_apps: true
 mas_installed_apps:
   - {id: 1475387142, name: "Tailscale"}
 
-
 # Defaults
 ##########
 # Make a lot of tweaks to the the base OS. Also organizes the dock.
@@ -150,11 +149,80 @@ homebrew_taps:
   - "homebrew/services"
 
 homebrew_installed_packages:
+  - asciinema
+  - bat
   - cask
+  - colima
+  - cookiecutter
   - coreutils
+  - cruft
   - curl
   - dockutil
-
+  - duf
+  - fd
+  - ffmpeg
+  - flac
+  - flake8
+  - fzf
+  - gawk
+  - git
+  - git-extras
+  - git-secrets
+  - glances
+  - gnu-tar
+  - go
+  - htop
+  - iperf3
+  - iproute2mac
+  - jq
+  - jump
+  - lame
+  - lazydocker
+  - lazygit
+  - mackup
+  - mas
+  - mtr
+  - ncurses
+  - neofetch
+  - netcat
+  - nmap
+  - openssh
+  - openssl
+  - opus
+  - organize-tool
+  - p7zip
+  # pipx is REQUIRED to install pip packages globally here
+  - pipx
+  - pip-completion
+  - pre-commit
+  - pyenv
+  - pyenv-virtualenv
+  - pyenv-virtualenvwrapper
+  - python@3.12
+  - readline
+  - reattach-to-user-namespace
+  - rectangle
+  - ripgrep
+  - ruby
+  - rust
+  - socat
+  - sqlite
+  - sqlmap
+  - ssh-copy-id
+  - stow
+  - telnet
+  - tmux
+  - tmuxp
+  - tree
+  - vim
+  - wallpaper
+  - wget
+  - wtfutil
+  - youtube-dl
+  - zplug
+  - zsh
+  - zsh-completions
+  - zsh-syntax-highlighting
 
 homebrew_cask_apps:
   - font-source-code-pro-for-powerline
@@ -165,3 +233,14 @@ homebrew_blacklisted_packages: []
 pip3_packages:
   - black
   - commitizen
+  - gitlint
+  - httpie
+  - organize-tool
+  - pipenv
+  - pipupgrade
+  - setuptools
+  - shallow-backup
+  - tmuxp
+  - virtualenv
+  - virtualenvwrapper
+  - wheel
