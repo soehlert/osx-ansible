@@ -28,6 +28,12 @@
     scope: local
     repo: "{{ dotfiles_dir }}"
 
+- name: Ensure .config directory exists
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.config"
+    state: directory
+    mode: '0755'
+
 - name: Stow common files
   ansible.builtin.command: stow -v -R common
   args:
