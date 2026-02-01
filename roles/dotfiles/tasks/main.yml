@@ -35,31 +35,15 @@
     mode: '0755'
 
 - name: Stow common files
-  ansible.builtin.command: stow -v -R common
+  ansible.builtin.command: stow -v --adopt -R common
   args:
     chdir: "{{ dotfiles_dir }}"
   register: stow_common
-  changed_when: "'LINK' in stow_common.stderr"
-  failed_when: 
-    - stow_common.rc != 0
-    - "'existing target is' not in stow_common.stderr"
-
-- name: Debug stow common output
-  ansible.builtin.debug:
-    msg: "{{ stow_common }}"
-  when: stow_common.rc != 0
+  changed_when: "'LINK' in stow_common.stderr or 'UNLINK' in stow_common.stderr"
 
 - name: Stow {{ dotfiles_env }}
-  ansible.builtin.command: stow -v -R "{{ dotfiles_env }}"
+  ansible.builtin.command: stow -v --adopt -R "{{ dotfiles_env }}"
   args:
     chdir: "{{ dotfiles_dir }}"
   register: stow_env
-  changed_when: "'LINK' in stow_env.stderr"
-  failed_when:
-    - stow_env.rc != 0
-    - "'existing target is' not in stow_env.stderr"
-
-- name: Debug stow env output
-  ansible.builtin.debug:
-    msg: "{{ stow_env }}"
-  when: stow_env.rc != 0
+  changed_when: "'LINK' in stow_env.stderr or 'UNLINK' in stow_env.stderr"
