@@ -145,8 +145,6 @@ homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
   - "buo/cask-upgrade"
-  - "homebrew/bundle"
-  - "homebrew/services"
 
 homebrew_installed_packages:
   - asciinema
