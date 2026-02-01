@@ -2,7 +2,7 @@
 # Main
 ##########
 full_name: "Sam Oehlert"
-usernm: "{{ ansible_env.USER }}"
+usernm: "{{ ansible_facts.env.USER }}"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"
@@ -42,7 +42,7 @@ github_user: "soehlert"
 # If you use 2FA, create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
 github_password: ''
-github_2fa: true
+github_2fa: false
 
 # Dotfiles
 ##########

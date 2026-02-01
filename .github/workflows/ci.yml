@@ -46,7 +46,6 @@ jobs:
         os:
           - macos-latest
         vars_file:
-          - defaults.yml
           - tests/test-vars.yml
 
     steps:

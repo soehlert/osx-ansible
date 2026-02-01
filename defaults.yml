@@ -2,7 +2,7 @@
 # Main
 ##########
 full_name: "Sam Oehlert"
-usernm: "{{ ansible_env.USER }}"
+usernm: "{{ ansible_facts.env.USER }}"
 groupnm: "staff"
 email: "sam.oehlert@gmail.com"
 hostname: "Macbook-Pro"

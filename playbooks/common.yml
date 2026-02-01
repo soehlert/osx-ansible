@@ -26,7 +26,7 @@
 
     - name: Debug role-related variables
       ansible.builtin.debug:
-        msg: "{{ item }} = {{ vars[item] | default('not set') }}"
+        msg: "{{ item }} = {{ lookup('vars', item, default='not set') }}"
       loop:
         - dotfiles
         - homebrew
