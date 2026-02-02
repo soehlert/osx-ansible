@@ -16,7 +16,7 @@
   register: ssh_key
   changed_when: false
 
-- name: Upload my ssh key to Github when using 2FA
+- name: Upload my ssh key to Github
   ansible.builtin.uri:
     url: https://api.github.com/user/keys
     method: POST
@@ -28,7 +28,6 @@
       Authorization: "token {{ github_password }}"
   register: github_key
   failed_when: not '"key is already in use" in github_key.content'
-  when: github_2fa
 
 - name: Get list of my repos
   ansible.builtin.command: gh repo list {{ github_user }} --limit 1000 --json sshUrl -q '.[].sshUrl'

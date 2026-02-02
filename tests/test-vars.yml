@@ -37,12 +37,11 @@ create_dirs:
 # Git
 ##########
 # Clone all repos from a given user
-github: true
+github: false
 github_user: "soehlert"
-# If you use 2FA, create a personal access token allowing admin:public_key
+# Create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
 github_password: ''
-github_2fa: false
 
 # Dotfiles
 ##########
