@@ -1,7 +1,7 @@
 ---
 #### Install all public repos from any git user
 # Dont forget to set github_user
-# Set github_public_only: true for CI or when you only want public repos without auth
+# Set github_public_only: true for CI or when you only want public repos
 ####
 - name: Make sure git and gh are installed
   community.general.homebrew:
@@ -41,9 +41,18 @@
   when: not github_public_only | default(false)
 
 - name: Get list of my public repos (no auth)
-  ansible.builtin.command: gh repo list {{ github_user }} --limit 1000 --json url -q '.[].url'
-  register: github_repos_public
+  ansible.builtin.uri:
+    url: "https://api.github.com/users/{{ github_user }}/repos?per_page=100&type=public"
+    method: GET
+    return_content: true
+  register: github_repos_api
   changed_when: false
+  when: github_public_only | default(false)
+
+- name: Extract public repo URLs
+  ansible.builtin.set_fact:
+    github_repos_public:
+      stdout_lines: "{{ github_repos_api.json | map(attribute='clone_url') | list }}"
   when: github_public_only | default(false)
 
 - name: Set repo list variable
