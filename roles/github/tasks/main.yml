@@ -1,6 +1,7 @@
 ---
 #### Install all public repos from any git user
 # Dont forget to set github_user
+# Set github_public_only: true for CI or when you only want public repos without auth
 ####
 - name: Make sure git and gh are installed
   community.general.homebrew:
@@ -15,6 +16,7 @@
     key: "{{ lookup('file', ssh_key_name + '.pub') }}"
   register: ssh_key
   changed_when: false
+  when: not github_public_only | default(false)
 
 - name: Upload my ssh key to Github
   ansible.builtin.uri:
@@ -28,13 +30,25 @@
       Authorization: "token {{ github_password }}"
   register: github_key
   failed_when: not '"key is already in use" in github_key.content'
+  when: not github_public_only | default(false)
 
-- name: Get list of my repos
+- name: Get list of my repos (authenticated)
   ansible.builtin.command: gh repo list {{ github_user }} --limit 1000 --json sshUrl -q '.[].sshUrl'
-  register: github_repos
+  register: github_repos_auth
   changed_when: false
   environment:
     GH_TOKEN: "{{ github_password }}"
+  when: not github_public_only | default(false)
+
+- name: Get list of my public repos (no auth)
+  ansible.builtin.command: gh repo list {{ github_user }} --limit 1000 --json url -q '.[].url'
+  register: github_repos_public
+  changed_when: false
+  when: github_public_only | default(false)
+
+- name: Set repo list variable
+  ansible.builtin.set_fact:
+    github_repos: "{{ github_repos_auth if not github_public_only | default(false) else github_repos_public }}"
 
 - name: Git clone all my projects
   # noqa latest[git]
