@@ -63,7 +63,7 @@
   # noqa latest[git]
   ansible.builtin.git:
     repo: "{{ item }}"
-    dest: "{{ projects_dir }}/personal/{{ item.split('/')[1] | regex_replace('.git$', '') }}"
+    dest: "{{ projects_dir }}/personal/{{ item.split('/')[-1] | regex_replace('.git$', '') }}"
     accept_hostkey: true
     version: HEAD
   loop: "{{ github_repos.stdout_lines }}"
