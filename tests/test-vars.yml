@@ -183,6 +183,8 @@ homebrew_installed_packages:
   - opus
   - organize-tool
   - p7zip
+  - pgcli
+  # pipx is REQUIRED to install pip packages globally here
   - pipx
   - pip-completion
   - pre-commit
@@ -203,17 +205,44 @@ homebrew_installed_packages:
   - tmuxp
   - tree
   - vim
+  - uv
   - wallpaper
   - wget
   - wtfutil
+  - yt-dlp
   - zplug
   - zsh
   - zsh-completions
   - zsh-syntax-highlighting
 
 homebrew_cask_apps:
+  - 1password
+  - 1password-cli
+  - alfred
+  - anki
+  - appcleaner
+  - applepi-baker
+  - bartender
+  - brave-browser
+  - firefox
   - font-source-code-pro-for-powerline
+  - google-drive
+  - handbrake
   - iterm2
+  - lunar
+  - monolingual
+  - multipass
+  - musaicfm
+  - musicbrainz-picard
+  - notion
+  - openzfs
+  - plexamp
+  - pycharm
+  - rectangle
+  - slack
+  - stay
+  - steam
+  - the-unarchiver
 
 homebrew_blacklisted_packages: []
 
@@ -221,15 +250,7 @@ homebrew_blacklisted_packages: []
 ##########
 pip: true
 pip3_packages:
-  - black
   - commitizen
-  - gitlint
   - httpie
-  - organize-tool
-  - pipenv
   - pipupgrade
-  - setuptools
   - shallow-backup
-  - virtualenv
-  - virtualenvwrapper
-  - wheel

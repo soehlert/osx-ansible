@@ -174,8 +174,6 @@ homebrew_brewfile_dir: "~/.config/"
 
 homebrew_taps:
   - "buo/cask-upgrade"
-  - "homebrew/bundle"
-  - "homebrew/services"
 
 homebrew_installed_packages:
   - asciinema
@@ -225,10 +223,7 @@ homebrew_installed_packages:
   - pipx
   - pip-completion
   - pre-commit
-  - pyenv
-  - pyenv-virtualenv
-  - pyenv-virtualenvwrapper
-  - python@3.12
+  - python@3.14
   - readline
   - reattach-to-user-namespace
   - rectangle
@@ -245,10 +240,11 @@ homebrew_installed_packages:
   - tmuxp
   - tree
   - vim
+  - uv
   - wallpaper
   - wget
   - wtfutil
-  - youtube-dl
+  - yt-dlp
   - zplug
   - zsh
   - zsh-completions
@@ -289,15 +285,7 @@ homebrew_blacklisted_packages: []
 ##########
 pip: true
 pip3_packages:
-  - black
   - commitizen
-  - gitlint
   - httpie
-  - organize-tool
-  - pipenv
   - pipupgrade
-  - setuptools
   - shallow-backup
-  - virtualenv
-  - virtualenvwrapper
-  - wheel
