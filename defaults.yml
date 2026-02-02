@@ -26,7 +26,7 @@ github_user: "soehlert"
 # Create a personal access token allowing admin:public_key
 # https://github.com/settings/tokens -> Personal access tokens
 github_password: ''
-# Set to true to only clone public repos without authentication (useful for CI)
+# Set to true to only clone public repos without authentication
 github_public_only: false
 
 # Dotfiles
@@ -120,4 +120,7 @@ homebrew_cask_apps: []
 
 homebrew_blacklisted_packages: []
 
+# Pip
+##########
+pip: false
 pip3_packages: []
