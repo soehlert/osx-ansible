@@ -76,5 +76,5 @@
       when: item.1.stdout != search_domains
       changed_when: false
       with_together:
-        - "{{ search_domain_service }}"
+        - ["{{ search_domain_service }}"]
         - "{{ search_domains_set.results }}"
