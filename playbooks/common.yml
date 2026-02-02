@@ -32,7 +32,6 @@
         - homebrew
         - github
         - defaults
-        - vimplug
         - wallpaper
         - sudo_tid
 
@@ -44,6 +43,5 @@
     - {role: 'github', tags: 'github', when: github | bool}
     - {role: 'pip', tags: 'pip', when: pip | bool}
     - {role: 'defaults', tags: 'defaults', when: defaults | bool}
-    - {role: 'vim_plug', tags: 'vim_plug', when: vimplug | bool}
     - {role: 'wallpaper', tags: 'wallpaper', when: wallpaper | bool}
     - {role: 'sudo_tid', tags: 'sudo_tid', when: sudo_tid | bool}
