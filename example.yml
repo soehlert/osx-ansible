@@ -298,7 +298,6 @@ pip3_packages:
   - pipupgrade
   - setuptools
   - shallow-backup
-  - tmuxp
   - virtualenv
   - virtualenvwrapper
   - wheel

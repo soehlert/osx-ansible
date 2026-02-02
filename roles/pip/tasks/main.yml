@@ -4,4 +4,5 @@
   community.general.pipx:
     name: "{{ item }}"
     state: present
+    executable: /opt/homebrew/bin/pipx
   loop: "{{ pip3_packages }}"
