@@ -20,18 +20,6 @@
         - pip
         - github
         - defaults
-        - vim-plug
-        - wallpaper
-        - sudo_tid
-
-    - name: Debug role-related variables
-      ansible.builtin.debug:
-        msg: "{{ item }} = {{ lookup('vars', item, default='not set') }}"
-      loop:
-        - dotfiles
-        - homebrew
-        - github
-        - defaults
         - wallpaper
         - sudo_tid
 

@@ -190,6 +190,7 @@ homebrew_installed_packages:
   - ffmpeg
   - flac
   - flake8
+  - forgit
   - fzf
   - gawk
   - git
@@ -223,7 +224,10 @@ homebrew_installed_packages:
   - pipx
   - pip-completion
   - pre-commit
-  - python@3.14
+  - pyenv
+  - pyenv-virtualenv
+  - pyenv-virtualenvwrapper
+  - python@3.12
   - readline
   - reattach-to-user-namespace
   - rectangle
@@ -240,14 +244,16 @@ homebrew_installed_packages:
   - tmuxp
   - tree
   - vim
-  - uv
   - wallpaper
   - wget
   - wtfutil
-  - yt-dlp
+  - youtube-dl
+  - zoxide
   - zplug
   - zsh
+  - zsh-autosuggestions
   - zsh-completions
+  - zsh-autosuggestions
   - zsh-syntax-highlighting
 
 homebrew_cask_apps:
@@ -287,5 +293,6 @@ pip: true
 pip3_packages:
   - commitizen
   - httpie
+  - organize-tool
   - pipupgrade
   - shallow-backup
